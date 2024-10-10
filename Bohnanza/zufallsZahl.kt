@@ -1,0 +1,1 @@
+val zufallsZahl = Random.nextInt(8) + 1
