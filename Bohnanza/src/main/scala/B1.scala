@@ -1,6 +1,6 @@
 import scala.util.Random
 
-object BohnanzaWS {
+object B1 {
   @main def run: Unit = {
     println("Welcome to Bohnanza")
     initGame()
