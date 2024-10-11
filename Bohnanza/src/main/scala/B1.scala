@@ -25,7 +25,7 @@ object BohnanzaWS {
            |_____|_____|
         """
     println(growingFieldText)
-    println(randomizeHand().mkString(", "))
+    println(weightedRandom().mkString(", "))
   }
   def setPlayername(): String = {
     println("Bitte geben Sie die Namen der Spieler ein:")
@@ -44,14 +44,20 @@ object BohnanzaWS {
       initPlayer(playernames(i-1))
     }
   }
-  def randomizeHand(): Array[String] = {
-    val hand = Array("Blaue","Feuer","Sau","Brech","Soja","Augen","Rote","Garten")
-    val handCards : Array[String] = new Array[String](5)
-    for (i <- 1 to 5) {
-      val zufallsZahl = Random.nextInt(8) + 1
-      handCards(i-1) = hand(zufallsZahl-1)
-    }
-    return handCards
+
+
+
+  def weightedRandom(): String = {
+    val hand = Array("Blaue", "Feuer", "Sau", "Brech", "Soja", "Augen", "Rote", "Garten")
+    //
+    val weights = Array(20, 18, 16, 14, 12, 10, 8, 6)
+    val cumulativeWeights = weights.scanLeft(0)(_ + _).tail
+    val totalWeight = cumulativeWeights.last
+
+    val rand = Random.nextInt(totalWeight)
+
+    val index = cumulativeWeights.indexWhere(_ > rand)
+    hand(index)
   }
 
 
