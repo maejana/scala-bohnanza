@@ -1,9 +1,9 @@
 import scala.util.Random
 
-object BohnanzaWS {
+object B1 {
   @main def run: Unit = {
     println("Welcome to Bohnanza")
-    initGame()
+    initGame
 
 
     // Anbaufeld ist (2x7)x10 groß
@@ -13,39 +13,7 @@ object BohnanzaWS {
 
   }
 
-  //val playerName = "Miesepetriger Mustafa Van Meckerich"
-  def initPlayer(name: String): Unit = {
-    val playerName = name
-    val growingFieldText =
-      s"""
-        $playerName:
-            ___________
-           |     |     |
-           |     |     |
-           |_____|_____|
-        """
-    println(growingFieldText)
-    println(weightedRandom().mkString(", "))
-  }
-  def setPlayername(): String = {
-    println("Bitte geben Sie die Namen der Spieler ein:")
-
-    scala.io.StdIn.readLine()
-  }
-  def initGame(): Unit = {
-    println("Wie viele Spieler spielen?")
-    val playerCount = scala.io.StdIn.readInt()
-    val playernames : Array[String] = new Array[String](playerCount)
-    println("Bitte geben Sie die Namen der Spieler ein:")
-    for (i <- 1 to playerCount) {
-      playernames(i-1) = scala.io.StdIn.readLine()
-    }
-    for (i <- 1 to playerCount) {
-      initPlayer(playernames(i-1))
-    }
-  }
-
-
+  import scala.util.Random
 
   def weightedRandom(): String = {
     val hand = Array("Blaue", "Feuer", "Sau", "Brech", "Soja", "Augen", "Rote", "Garten")
@@ -60,6 +28,41 @@ object BohnanzaWS {
     hand(index)
   }
 
+  //val playerName = "Miesepetriger Mustafa Van Meckerich"
+  def initPlayer(name: String): String = {
+    val playerName = name
+    var growingFieldText: String =
+      s"""
+          $playerName:
+              ___________
+             |     |     |
+             |     |     |
+             |_____|_____|
+          """
+
+    for (i <- 1 to 4) {
+      growingFieldText += weightedRandom() + ", "
+    }
+    growingFieldText += weightedRandom()
+    growingFieldText
+  }
+
+  def initGame: String = {
+    var str = "Wie viele Spieler spielen?"
+    val playerCount = 2
+    val playernames: Array[String] = new Array[String](playerCount)
+
+    for (i <- 1 to playerCount) {
+
+      playernames(i - 1) = "Spieler " + i
+    }
+    for (i <- 1 to playerCount) {
+      str += initPlayer(playernames(i - 1))
+    }
+    str
+  }
+
+  initGame
 
 
 }
