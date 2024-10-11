@@ -13,7 +13,6 @@ object B1 {
 
   }
 
-  import scala.util.Random
 
   def weightedRandom(): String = {
     val hand = Array("Blaue", "Feuer", "Sau", "Brech", "Soja", "Augen", "Rote", "Garten")
@@ -49,7 +48,7 @@ object B1 {
 
   def initGame: String = {
     var str = "Wie viele Spieler spielen?"
-    val playerCount = 2
+    val playerCount = scala.io.StdIn.readInt()
     val playernames: Array[String] = new Array[String](playerCount)
 
     for (i <- 1 to playerCount) {
@@ -61,8 +60,6 @@ object B1 {
     }
     str
   }
-
-  initGame
 
 
 }
