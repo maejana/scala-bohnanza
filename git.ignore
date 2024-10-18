@@ -14,6 +14,7 @@
 .idea/libraries/
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
+.idea
 
 # Caches and logs
 .idea/.idea_modules/
