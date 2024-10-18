@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5318f339-aea5-4881-b525-17a8c622e3b4" name="Changes" comment="test">
+      <change beforePath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/bohnanza_3-0.1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/bohnanza_3-0.1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/classes/B1.class" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/classes/B1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/classes/B1.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/classes/B1.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/classes/run.class" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/classes/run.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/classes/run.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/classes/run.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/zinc/inc_compile_3.zip" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/zinc/inc_compile_3.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/compile/packageBin/_global/streams/inputs" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/compile/packageBin/_global/streams/inputs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/compile/packageBin/_global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/compile/packageBin/_global/streams/out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/git.ignore" beforeDir="false" afterPath="$PROJECT_DIR$/git.ignore" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Jana" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2nbUdJ6rX4PrNy4QcJ5mK0FkVau" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Samuel",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="ScalaProjectSettings">
+    <option name="scala3DisclaimerShown" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5318f339-aea5-4881-b525-17a8c622e3b4" name="Changes" comment="" />
+      <created>1729241354331</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1729241354331</updated>
+      <workItem from="1729241355404" duration="2362000" />
+      <workItem from="1729245782600" duration="13000" />
+      <workItem from="1729245804496" duration="914000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WorksheetDefaultProjectSettings">
+    <option name="interactive" value="true" />
+    <option name="moduleName" value="scala-bohnanza" />
+  </component>
+</project>

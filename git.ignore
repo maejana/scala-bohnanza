@@ -39,6 +39,7 @@ target/
 *.tmp
 *.swp
 *~
+*.jar
 
 # Dependency directories
 node_modules/
