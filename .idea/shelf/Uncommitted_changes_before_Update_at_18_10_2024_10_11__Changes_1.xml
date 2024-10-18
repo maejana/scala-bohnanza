@@ -1,0 +1,24 @@
+<changelist name="Uncommitted_changes_before_Update_at_18_10_2024_10_11_[Changes]1" date="1729239079629" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_10_2024_10_11_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 18.10.2024 10:11 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="Bohnanza/target/scala-3.3.4/bohnanza_3-0.1.0-SNAPSHOT.jar" />
+    <option name="AFTER_PATH" value="Bohnanza/target/scala-3.3.4/bohnanza_3-0.1.0-SNAPSHOT.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_10_2024_10_11_[Changes]1/bohnanza_3-0.1.0-SNAPSHOT.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Bohnanza/target/scala-3.3.4/classes/run.tasty" />
+    <option name="AFTER_PATH" value="Bohnanza/target/scala-3.3.4/classes/run.tasty" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_10_2024_10_11_[Changes]1/run.tasty" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Bohnanza/target/scala-3.3.4/zinc/inc_compile_3.zip" />
+    <option name="AFTER_PATH" value="Bohnanza/target/scala-3.3.4/zinc/inc_compile_3.zip" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_10_2024_10_11_[Changes]1/inc_compile_3.zip" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="Bohnanza/target/scala-3.3.4/classes/run.class" />
+    <option name="AFTER_PATH" value="Bohnanza/target/scala-3.3.4/classes/run.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_10_2024_10_11_[Changes]1/run.class" />
+  </binary>
+</changelist>
