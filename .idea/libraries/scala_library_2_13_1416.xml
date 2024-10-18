@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="scala-library-2.13.1416">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/Bohnanza/target/bg-jobs/sbt_2452ed9c/target/e1674f44/d1ccc946/scala-library-2.13.14.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
