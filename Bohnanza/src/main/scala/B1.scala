@@ -52,13 +52,11 @@ object B1 {
     println("Namen eingeben:")
     for (i <- 1 to playerCount) {
 
-      playernames(i - 1) = scala.io.StdIn.readLine()
+      playernames(i - 1) = scala.io.StdIn.readLine().strip()
     }
     for (i <- 1 to playerCount) {
       str += initPlayer(playernames(i - 1))
     }
     str
   }
-
-
 }
