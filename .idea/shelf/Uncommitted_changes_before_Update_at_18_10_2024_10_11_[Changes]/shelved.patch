@@ -1,0 +1,132 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"317a5a84-08e3-4627-a596-4028c8251a91\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/Bohnanza/build.sbt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Bohnanza/build.sbt\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Bohnanza/src/main/scala/B1.scala\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Bohnanza/src/main/scala/B1.scala\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Bohnanza/zufallsZahl.kt\" beforeDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectCodeStyleSettingsMigration\">\r\n    <option name=\"version\" value=\"2\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 3\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2nHqxAPxTArPAfIhipSFcpjjx0n\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"git-widget-placeholder\": \"Samuel\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/hoppe/Documents/GitHub/scala-bohnanza\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"project.structure.last.edited\": \"Project\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.0\",\r\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"ScalaProjectSettings\">\r\n    <option name=\"scala3DisclaimerShown\" value=\"true\" />\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"317a5a84-08e3-4627-a596-4028c8251a91\" name=\"Changes\" comment=\"\" />\r\n      <created>1728640592693</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1728640592693</updated>\r\n      <workItem from=\"1728640593760\" duration=\"103000\" />\r\n      <workItem from=\"1728640706263\" duration=\"177000\" />\r\n      <workItem from=\"1728640893061\" duration=\"74000\" />\r\n      <workItem from=\"1728640976979\" duration=\"598000\" />\r\n      <workItem from=\"1728641588434\" duration=\"152000\" />\r\n      <workItem from=\"1728641758912\" duration=\"1523000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -5,9 +5,49 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="317a5a84-08e3-4627-a596-4028c8251a91" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/Bohnanza/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/build.sbt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/scala-2.12/sbt-1.0/update/update_cache_2.12/inputs" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/scala-2.12/sbt-1.0/update/update_cache_2.12/inputs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/scala-2.12/sbt-1.0/update/update_cache_2.12/output" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/scala-2.12/sbt-1.0/update/update_cache_2.12/output" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/_global/update/_global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/_global/update/_global/streams/out" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/_global/_global/compileOutputs/previous" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/_global/_global/compileOutputs/previous" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/compileIncremental/_global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/compileIncremental/_global/streams/out" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/copyResources/_global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/copyResources/_global/streams/out" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/dependencyClasspath/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/dependencyClasspath/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/exportedProducts/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/exportedProducts/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/externalDependencyClasspath/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/externalDependencyClasspath/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/incOptions/_global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/incOptions/_global/streams/out" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/managedClasspath/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/compile/managedClasspath/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/runtime/dependencyClasspath/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/runtime/dependencyClasspath/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/runtime/exportedProducts/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/runtime/exportedProducts/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/runtime/externalDependencyClasspath/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/runtime/externalDependencyClasspath/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/runtime/fullClasspath/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/runtime/fullClasspath/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/runtime/internalDependencyClasspath/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/runtime/internalDependencyClasspath/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/project/target/streams/runtime/managedClasspath/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/project/target/streams/runtime/managedClasspath/_global/streams/export" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/Bohnanza/src/main/scala/B1.scala" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/src/main/scala/B1.scala" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Bohnanza/zufallsZahl.kt" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/bohnanza_3-0.1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/bohnanza_3-0.1.0-SNAPSHOT.jar" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/classes/run.class" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/classes/run.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/classes/run.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/classes/run.tasty" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/update/update_cache_3/inputs" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/update/update_cache_3/inputs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/update/update_cache_3/output" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/update/update_cache_3/output" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/zinc/inc_compile_3.zip" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/zinc/inc_compile_3.zip" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/_global/update/_global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/_global/update/_global/streams/out" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/compile/_global/_global/compileOutputs/previous" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/compile/_global/_global/compileOutputs/previous" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/compile/compileIncremental/_global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/compile/compileIncremental/_global/streams/out" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/compile/dependencyClasspath/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/compile/dependencyClasspath/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/compile/exportedProductJars/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/compile/exportedProductJars/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/compile/exportedProducts/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/compile/exportedProducts/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/compile/externalDependencyClasspath/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/compile/externalDependencyClasspath/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/compile/incOptions/_global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/compile/incOptions/_global/streams/out" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/compile/managedClasspath/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/compile/managedClasspath/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/compile/packageBin/_global/streams/inputs" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/compile/packageBin/_global/streams/inputs" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/compile/packageBin/_global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/compile/packageBin/_global/streams/out" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/compile/packageBin/_global/streams/output" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/compile/packageBin/_global/streams/output" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/runtime/dependencyClasspathAsJars/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/runtime/dependencyClasspathAsJars/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/runtime/exportedProductJars/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/runtime/exportedProductJars/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/runtime/externalDependencyClasspath/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/runtime/externalDependencyClasspath/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/runtime/fullClasspathAsJars/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/runtime/fullClasspathAsJars/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/runtime/internalDependencyAsJars/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/runtime/internalDependencyAsJars/_global/streams/export" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Bohnanza/target/streams/runtime/managedClasspath/_global/streams/export" beforeDir="false" afterPath="$PROJECT_DIR$/Bohnanza/target/streams/runtime/managedClasspath/_global/streams/export" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -21,6 +61,9 @@
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="MarkdownSettingsMigration">
++    <option name="stateVersion" value="1" />
+   </component>
+   <component name="ProjectCodeStyleSettingsMigration">
+     <option name="version" value="2" />
+@@ -33,25 +76,25 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "git-widget-placeholder": "Samuel",
+-    "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "C:/Users/hoppe/Documents/GitHub/scala-bohnanza",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Project",
+-    "project.structure.proportion": "0.15",
+-    "project.structure.side.proportion": "0.0",
+-    "settings.editor.selected.configurable": "preferences.pluginManager",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;Jana&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/hoppe/Documents/GitHub/scala-bohnanza&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Scala&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="ScalaProjectSettings">
+     <option name="scala3DisclaimerShown" value="true" />
+   </component>
+@@ -69,10 +112,16 @@
+       <workItem from="1728640976979" duration="598000" />
+       <workItem from="1728641588434" duration="152000" />
+       <workItem from="1728641758912" duration="1523000" />
++      <workItem from="1729238522828" duration="245000" />
++      <workItem from="1729238778159" duration="262000" />
+     </task>
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
+   </component>
++  <component name="XSLT-Support.FileAssociations.UIState">
++    <expand />
++    <select />
++  </component>
+ </project>
+\ No newline at end of file
