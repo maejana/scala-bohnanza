@@ -1,23 +1,2 @@
-[0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = C:\Users\euule\Documents\Studium\03 Semester\SE\Bohnanza\target\scala-3.3.4\classes.bak[0m
-[0m[[0m[0mdebug[0m] [0m[0mAbout to delete class files:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	run.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	BohnanzaWS.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	BohnanzaWS$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	run.tasty[0m
-[0m[[0m[0mdebug[0m] [0m[0m	BohnanzaWS.tasty[0m
-[0m[[0m[0mdebug[0m] [0m[0m	BohnanzaWS$.tasty[0m
-[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	run.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	BohnanzaWS.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	BohnanzaWS$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	run.tasty[0m
-[0m[[0m[0mdebug[0m] [0m[0m	BohnanzaWS.tasty[0m
-[0m[[0m[0mdebug[0m] [0m[0m	BohnanzaWS$.tasty[0m
-[0m[[0m[0mdebug[0m] [0m[0mRegistering generated classes:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	BohnanzaWS.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	run.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	BohnanzaWS$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	BohnanzaWS.tasty[0m
-[0m[[0m[0mdebug[0m] [0m[0m	run.tasty[0m
-[0m[[0m[0mdebug[0m] [0m[0m	BohnanzaWS$.tasty[0m
-[0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: C:\Users\euule\Documents\Studium\03 Semester\SE\Bohnanza\target\scala-3.3.4\classes.bak[0m
+[0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = C:\Users\hoppe\Documents\GitHub\scala-bohnanza\Bohnanza\target\scala-3.3.4\classes.bak[0m
+[0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: C:\Users\hoppe\Documents\GitHub\scala-bohnanza\Bohnanza\target\scala-3.3.4\classes.bak[0m

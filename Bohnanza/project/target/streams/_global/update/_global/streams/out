@@ -1,3 +1,3 @@
-[debug] not up to date. inChanged = true, force = false
-[debug] Updating ProjectRef(uri("file:/C:/Users/euule/Documents/Studium/03%20Semester/SE/Bohnanza/project/"), "bohnanza-build")...
-[debug] Done updating ProjectRef(uri("file:/C:/Users/euule/Documents/Studium/03%20Semester/SE/Bohnanza/project/"), "bohnanza-build")
+[0m[[0m[0mdebug[0m] [0m[0mnot up to date. inChanged = true, force = false[0m
+[0m[[0m[0mdebug[0m] [0m[0mUpdating ProjectRef(uri("file:/C:/Users/hoppe/Documents/GitHub/scala-bohnanza/Bohnanza/project/"), "bohnanza-build")...[0m
+[0m[[0m[0mdebug[0m] [0m[0mDone updating ProjectRef(uri("file:/C:/Users/hoppe/Documents/GitHub/scala-bohnanza/Bohnanza/project/"), "bohnanza-build")[0m
