@@ -21,6 +21,7 @@
 .idea/caches/
 .idea/logs/
 .idea/modules.xml
+**/.idea/
 
 # File-based project format
 *.iml
