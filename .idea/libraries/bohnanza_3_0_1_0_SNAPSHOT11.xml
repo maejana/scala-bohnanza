@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="bohnanza_3-0.1.0-SNAPSHOT11">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Bohnanza/target/scala-3.3.4/bohnanza_3-0.1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
