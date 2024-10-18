@@ -3,6 +3,7 @@ import scala.util.Random
 object B1 {
   @main def run: Unit = {
     println("Welcome to Bohnanza")
+    println("Wie viele Spieler spielen?")
     println(initGame)
 
 
@@ -45,13 +46,13 @@ object B1 {
   }
 
   def initGame: String = {
-    var str = "Wie viele Spieler spielen?"
+    var str = ""
     val playerCount = scala.io.StdIn.readInt()
     val playernames: Array[String] = new Array[String](playerCount)
-
+    println("Namen eingeben:")
     for (i <- 1 to playerCount) {
 
-      playernames(i - 1) = "Spieler " + i
+      playernames(i - 1) = scala.io.StdIn.readLine()
     }
     for (i <- 1 to playerCount) {
       str += initPlayer(playernames(i - 1))
