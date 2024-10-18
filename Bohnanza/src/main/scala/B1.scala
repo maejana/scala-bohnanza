@@ -3,14 +3,12 @@ import scala.util.Random
 object B1 {
   @main def run: Unit = {
     println("Welcome to Bohnanza")
-    initGame
+    println(initGame)
 
 
     // Anbaufeld ist (2x7)x10 groß
     // Spiekarte 6x9
     // Jeder Spieler braucht 2 Felder (evtl 3.) Handkarten
-
-
   }
 
 
