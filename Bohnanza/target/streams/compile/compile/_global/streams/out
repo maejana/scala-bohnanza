@@ -1,0 +1,5 @@
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E008] Not Found Error: C:\Users\hoppe\Documents\GitHub\scala-bohnanza\Bohnanza\src\main\scala\B1.scala:55:42 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m55 |[0m      playernames(i - [31m1[0m) = scala.io.StdIn.read()[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m                           ^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0mvalue read is not a member of object scala.io.StdIn - did you mean StdIn.readf?[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
