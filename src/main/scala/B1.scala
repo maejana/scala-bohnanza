@@ -5,7 +5,6 @@ import scala.util.Random
 object B1 {
   @main def run: Unit = {
     println("Welcome to Bohnanza")
-
     println("Wie viele Spieler spielen?")
     println(initGame)
 
@@ -14,7 +13,6 @@ object B1 {
     // Spiekarte 6x9
     // Jeder Spieler braucht 2 Felder (evtl 3.) Handkarten
   }
-
 
   def weightedRandom(): String = {
     val hand = Array("Blaue", "Feuer", "Sau", "Brech", "Soja", "Augen", "Rote", "Garten")
