@@ -20,6 +20,7 @@ class ScalaTest extends AnyWordSpec with Matchers {
         result should include("Player1")
         result should include("Player2")
       }
+
     }
     "weightedRandom" in {
       val result = B1.weightedRandom()
