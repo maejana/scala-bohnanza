@@ -55,29 +55,40 @@ object UIlogic {
     str
   }
 
-  def gameUpdate(): Unit = {
+  def gameUpdate(): String = {
     var i = 0
-
     var round = 1
-    while (round <= 10) {
+    var gameUpdateLog = new StringBuilder
+
+    while (round <= 1) {
       val playingPlayer: model.player = model.gamedata.players(i)
+
+
+      // Spieler kann eine Karte wählen
       println(plantSelectString(i))
+
       var bool = true
       while (bool) {
-        val Line = scala.io.StdIn.readLine().split((" "), 2)
+        val Line = scala.io.StdIn.readLine().split(" ", 2)
         val plantCard = Line(0)
         val fieldNr = Line(1).toInt
+
         if (playingPlayer.hand.contains(plantCard)) {
           gamelogic.plant(plantCard, fieldNr, playingPlayer)
+          gameUpdateLog.append(s"${playingPlayer.name} pflanzt $plantCard auf Feld $fieldNr\n")
           bool = false
         } else {
-          println(model.gamedata.errorBeanNotInHand)
+          println(model.gamedata.errorBeanNotInHand + "\n")
         }
       }
 
       round += 1
     }
+
+    gameUpdateLog.toString // Gibt das gesamte Log als String zurück
   }
+
+
   private def plantSelectString(i : Int): String={
     val playingPlayer: model.player = model.gamedata.players(i)
     var s :String = ""
