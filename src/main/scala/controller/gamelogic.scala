@@ -1,20 +1,11 @@
-package Test
+package Test.controller
+
+import Test.model
 import scala.util.Random
 
-object B1 {
-  @main def run: Unit = {
-    println("Welcome to Bohnanza")
-    println("Wie viele Spieler spielen?")
-    println(initGame)
-
-    // Anbaufeld ist (2x7)x10 groß
-    // Spiekarte 6x9
-    // Jeder Spieler braucht 2 Felder (evtl 3.) Handkarten
-  }
-
+object gamelogic {
   def weightedRandom(weights: Array[Int]): String = {
-    val hand = Array("Blaue", "Feuer", "Sau", "Brech", "Soja", "Augen", "Rote", "Garten")
-    //
+    val hand = model.gamedata.beans
     val cumulativeWeights = weights.scanLeft(0)(_ + _).tail
     val totalWeight = cumulativeWeights.last
 
@@ -35,7 +26,7 @@ object B1 {
              |     |     |
              |_____|_____|
           """
-    val weights = Array(20, 18, 16, 14, 12, 10, 8, 6)
+    val weights = model.gamedata.weights
     for (i <- 1 to 4) {
       growingFieldText += weightedRandom(weights) + ", "
     }
@@ -52,12 +43,10 @@ object B1 {
 
       playernames(i - 1) = scala.io.StdIn.readLine()
     }
-    
+
     for (i <- 1 to playerCount) {
       str += initPlayer(playernames(i - 1))
     }
     str
   }
-
-
 }
