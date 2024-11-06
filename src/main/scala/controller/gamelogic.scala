@@ -32,11 +32,11 @@ object gamelogic {
   }
   def trade(): String ={
 
-  }
+  }*/
   def drawCards(): String ={
-
+    
   }
-  */
+  
 
 
 }
