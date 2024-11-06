@@ -27,5 +27,12 @@ class ScalaTest extends AnyWordSpec with Matchers {
       val result = controller.UIlogic.weightedRandom(weights = Array(20, 18, 16, 14, 12, 10, 8, 6))
       result should include regex ("(Blaue|Feuer|Sau|Brech|Soja|Augen|Rote|Garten)")
     }
+    "gameUpdate" in {
+    }
+    "plantSelected" in{
+      
+    }
   }
 }
+
+// noch testen Update gamelogic plant gameupdate
