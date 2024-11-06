@@ -2,6 +2,7 @@ package Test.controller
 
 import Test.model
 
+import scala.language.postfixOps
 import scala.util.Random
 
 object setuplogic {
@@ -54,4 +55,35 @@ object setuplogic {
     str
   }
 
+  def gameUpdate(): Unit = {
+    var i = 0
+
+    var round = 1
+    while (round <= 10) {
+      val playingPlayer: model.player = model.gamedata.players(i)
+      println(plantSelectString(i))
+      var bool = true
+      while (bool) {
+        val Line = scala.io.StdIn.readLine().split((" "), 2)
+        val plantCard = Line(0)
+        val fieldNr = Line(1).toInt
+        if (playingPlayer.hand.contains(plantCard)) {
+          gamelogic.plant(plantCard, fieldNr, playingPlayer)
+          bool = false
+        } else {
+          println(model.gamedata.errorBeanNotInHand)
+        }
+      }
+
+      round += 1
+    }
+  }
+  private def plantSelectString(i : Int): String={
+    val playingPlayer: model.player = model.gamedata.players(i)
+    var s :String = ""
+    s += playingPlayer.playerName + ":"
+    s += model.gamedata.selectPlantCard + ":"
+    s +=playingPlayer.hand.mkString("", ", ", "")
+    s
+  }
 }
