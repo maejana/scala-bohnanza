@@ -6,7 +6,7 @@ import org.scalatest.matchers.should.Matchers.regex
 
 
 class ScalaTest extends AnyWordSpec with Matchers {
-  "B1" should {
+  "UIlogic" should {
     "initPlayer" in {
       val playerName = "TestPlayer"
       val result = controller.setuplogic.initPlayer(playerName)

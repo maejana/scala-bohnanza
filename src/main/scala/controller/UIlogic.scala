@@ -5,7 +5,7 @@ import Test.model
 import scala.language.postfixOps
 import scala.util.Random
 
-object setuplogic {
+object UIlogic {
   def weightedRandom(weights: Array[Int]): String = {
     val hand = model.gamedata.beans
     val cumulativeWeights = weights.scanLeft(0)(_ + _).tail
