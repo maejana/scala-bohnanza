@@ -21,7 +21,7 @@ object GameUpdate {
         val plantCard = Line(0)
         val fieldNrStr = Line(1)
 
-        if (playingPlayer.hand.contains(plantCard) && isPlantable(playingPlayer, plantCard) && (fieldNrStr == "1" || fieldNrStr == "2" || fieldNrStr == "3")) {
+        if (UIlogic.isPlantable(playingPlayer, plantCard) && (fieldNrStr == "1" || fieldNrStr == "2" || fieldNrStr == "3")) {
           val fieldNr = fieldNrStr.toInt
           gamelogic.plant(plantCard, fieldNr, playingPlayer)
           gameUpdateLog.append(s"${playingPlayer.name} pflanzt $plantCard auf Feld $fieldNr\n")

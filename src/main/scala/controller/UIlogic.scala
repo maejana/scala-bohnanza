@@ -73,6 +73,9 @@ object UIlogic{
     str
   }
   def isPlantable(player :model.player, bean: String): Boolean = {
+    if(!player.hand.contains(bean)){
+      return false
+    }
     if(player.plantfield1.contains(bean) || player.plantfield2.contains(bean) || player.plantfield3.contains(bean)){
       return true
     }
