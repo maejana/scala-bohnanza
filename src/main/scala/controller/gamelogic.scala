@@ -1,25 +1,9 @@
 package Test.controller
 
 import Test.model
-
 import scala.collection.mutable.ArrayBuffer
 
 object gamelogic {
-  def update(playerID: model.player): String = {
-    var output: String =
-      s"""
-          ${playerID.playerName}:
-             Field 1:
-             ${playerID.plantfield1}
-             Field 2:
-             ${playerID.plantfield2}
-             Field 3:
-             ${playerID.plantfield3}
-
-          """
-    output += playerID.playerHand
-    output
-  }
 
   def plant(cards: String, fieldNr: Int, playerID: model.player): Unit ={
     fieldNr match {
@@ -28,18 +12,20 @@ object gamelogic {
       case 3 => playerID.plantfield3 += cards + "\n"
     }
   }
+
   /*
   def harvest(field: Int): String={
 
-  }
-  def trade(): String ={
-
   }*/
-  def drawCards(): ArrayBuffer[String] ={
+  def trade(playingPlayer : model.player, tradePartner : model.player, card1: model.card, card2: model.card): Unit ={
+    val playerCard = playingPlayer.playerHand[Utility.findCardId(playingPlayer,card1)]
+    val traderCard = tradePartner.playerHand[Utility.findCardId(tradePartner,card2)]
+  }
+  def drawCards(): String = {
     var cardArray = ArrayBuffer[String]()
-    for(i <- 1 to 2){
+    for (i <- 1 to 2) {
       cardArray.addOne(UIlogic.weightedRandom())
     }
-    cardArray
+    cardArray.mkString("", ",", "")
   }
 }
