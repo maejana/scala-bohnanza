@@ -2,6 +2,8 @@ package Test.controller
 
 import Test.model
 
+import scala.collection.mutable.ArrayBuffer
+
 object gamelogic {
   def update(playerID: model.player): String = {
     var output: String =
@@ -33,13 +35,11 @@ object gamelogic {
   def trade(): String ={
 
   }*/
-  /*
-  def drawCards(): String ={
-    
+  def drawCards(): ArrayBuffer[String] ={
+    var cardArray = ArrayBuffer[String]()
+    for(i <- 1 to 2){
+      cardArray.addOne(UIlogic.weightedRandom())
+    }
+    cardArray
   }
-  
-   */
-  
-
-
 }

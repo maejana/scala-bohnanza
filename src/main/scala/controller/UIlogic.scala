@@ -2,11 +2,18 @@ package Test.controller
 
 import Test.model
 
+import java.awt.event.KeyListener
 import scala.collection.mutable.ArrayBuffer
 import scala.language.postfixOps
 import scala.util.Random
+import org.jline.terminal.{Terminal, TerminalBuilder}
+import org.jline.keymap.{BindingReader, KeyMap}
 
-object UIlogic {
+
+object UIlogic{
+  val terminal: Terminal = TerminalBuilder.builder().system(true).build()
+  terminal.enterRawMode()
+  val reader = terminal.reader()
   def weightedRandom(): String = {
     var allcards = ArrayBuffer[String]()
     for(i <- 1 to model.gamedata.cards.size){
@@ -65,64 +72,7 @@ object UIlogic {
     }
     str
   }
-  def gameUpdate(): String = {
-    var i = 0
-    var p = 0
-    var round = 1
-    val gameUpdateLog = new StringBuilder
-
-    while (round <= 10) {
-      val playingPlayer: model.player = model.gamedata.players(p)
-      println(playingPlayer.playerName + ":\n")
-      // Spieler kann eine Karte wählen )
-      println(model.gamedata.plantAmountQuestion)
-      var bool = true
-      var plantCount = 0
-      while (bool){
-        val Nr = scala.io.StdIn.readLine()
-        if(Nr == "1" || Nr == "2"){
-          plantCount = Nr.toInt
-          bool = false
-        }
-        else{
-          println(model.gamedata.errorInputNotInt)
-          bool = true
-        }
-      }
-      println(plantSelectString(playingPlayer))
-      while(i < plantCount) {
-        val Line = scala.io.StdIn.readLine().split(" ", 2)
-        val plantCard = Line(0)
-        val fieldNrStr = Line(1)
-
-        if (playingPlayer.hand.contains(plantCard) && isPlantable(playingPlayer, plantCard) && (fieldNrStr == "1" || fieldNrStr == "2" || fieldNrStr == "3")) {
-          val fieldNr = fieldNrStr.toInt
-          gamelogic.plant(plantCard, fieldNr, playingPlayer)
-          gameUpdateLog.append(s"${playingPlayer.name} pflanzt $plantCard auf Feld $fieldNr\n")
-          i += 1
-        } else {
-          println(model.gamedata.errorBeanNotInHand)
-          println(model.gamedata.errorPlantingField + "\n")
-        }
-      }
-      var growingFieldText: String =
-        s"""
-                          ${playingPlayer.playerName}:
-                             Field 1:
-                          ${playingPlayer.plantfield1}
-                             Field 2:
-                          ${playingPlayer.plantfield2}
-                             Field 3:
-                          ${playingPlayer.plantfield3}
-
-                          """
-      gameUpdateLog.append(growingFieldText)
-      round += 1
-      p += 1
-    }
-    gameUpdateLog.toString // Gibt das gesamte Log als String zurück
-  }
-  private def isPlantable(player :model.player, bean: String): Boolean = {
+  def isPlantable(player :model.player, bean: String): Boolean = {
     if(player.plantfield1.contains(bean) || player.plantfield2.contains(bean) || player.plantfield3.contains(bean)){
       return true
     }
@@ -133,10 +83,17 @@ object UIlogic {
       return false
     }
   }
-  private def plantSelectString(player : model.player): String={
-    var s :String = ""
+  def plantSelectString(player: model.player): String = {
+    var s: String = ""
     s += model.gamedata.selectPlantCard
     s += player.hand.mkString("", ", ", "")
     s
+  }
+  def keyListener(): Int = {
+    val key = reader.read()
+    key match {
+      case '1' => 1
+      case '2' => 2
+    }
   }
 }

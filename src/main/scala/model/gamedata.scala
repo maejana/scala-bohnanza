@@ -13,5 +13,6 @@ object gamedata {
   val errorPlantingField = "Diese Bohnenfeld existiert nicht!"
   val errorInputNotInt = "Eingabe ist keine Integer zwischen 1 und 2 \n"
   val plantAmountQuestion = "Pflanze eine oder zwei Bohnen an, indem du 1 oder 2 eingibst."
+  val drawCardText = "Wähle welche Bohne du behälst indem du den Namen der Bohne eingibst."
   var players = ArrayBuffer[player]()
 }
