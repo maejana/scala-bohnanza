@@ -8,7 +8,7 @@ object Utility {
 
   def plantInfo(): model.card = {
     val cardname = scala.io.StdIn.readLine()
-      findCardWithName(cardname)
+    findCardWithName(cardname)
   }
 
   def plantPreperation(player: model.player): String = {
@@ -27,7 +27,8 @@ object Utility {
     }
   }
   def findCardWithName(name: String): model.card = {
-    for (i <- 1 to model.gamedata.cards.size){
+    var i = 0
+    for (i <- 1 to model.gamedata.cards.length){
       if (model.gamedata.cards(i).beanName == name ){
         return model.gamedata.cards(i)
       }
@@ -84,5 +85,17 @@ object Utility {
     else {
       return false
     }
+
   }
+
+  def chooseOrEmpty(playerID: model.player, card: model.card): Int ={
+    if(playerID.field == card.beanName) {
+      println(model.gamedata.newOrOldField)
+      val fieldChoosen = UIlogic.keyListener()
+      fieldChoosen
+    } else {
+      emptyPlantfieldNr(playerID)
+    }
+  }
+
 }

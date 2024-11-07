@@ -17,12 +17,12 @@ object GameUpdate {
       //planting
       while (i < plantCount) {
         Utility.plantPreperation(playingPlayer)
-        i = i+1
+        i +=1
       }
       println(UIlogic.buildGrowingFieldStr(playingPlayer))
       //Trade or plant 2 Cards
       val cards = gamelogic.drawCards()
-      println(cards.mkString("",",",""))
+      cards.foreach(card => println(card.beanName))
       Utility.plantOrTrade(cards, playingPlayer)
       
       round += 1

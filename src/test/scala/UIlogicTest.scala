@@ -85,61 +85,6 @@ class UIlogicTest extends AnyWordSpec with Matchers {
       assert(result == expected)
 
     }
-    test("isPlantable should return true if the bean is in the player's hand and can be planted") {
-      val mockPlayer = player(
-        playerName = "TestPlayer",
-        hand = Array("Bean1", "Bean2", "Bean3"),
-        growingFieldText = "",
-        plantfield1 = "Bean1",
-        plantfield2 = "",
-        plantfield3 = ""
-      )
-
-      assert(UIlogic.isPlantable(mockPlayer, "Bean1"))
-      assert(UIlogic.isPlantable(mockPlayer, "Bean2"))
-      assert(UIlogic.isPlantable(mockPlayer, "Bean3"))
-    }
-
-    test("isPlantable should return false if the bean is not in the player's hand") {
-      val mockPlayer = player(
-        name = "TestPlayer",
-        hand = Array("Bean1", "Bean2", "Bean3"),
-        //growingFieldText = "",
-        field = "Bean1",
-        //plantfield2 = "",
-        //plantfield3 = ""
-      )
-
-      assert(!UIlogic.isPlantable(mockPlayer, "Bean4"))
-    }
-
-    test("isPlantable should return true if the bean is not in the fields but there is an empty field") {
-      val mockPlayer = player(
-        name = "TestPlayer",
-        hand = Array("Bean1", "Bean2", "Bean3"),
-//        growingFieldText = "",
-//        plantfield1 = "",
-//        plantfield2 = "",
-//        plantfield3 = ""
-      )
-
-      assert(UIlogic.isPlantable(mockPlayer, "Bean1"))
-    }
-
-    "isPlantable" in {
-      val mockPlayer = player(
-        name = "TestPlayer",
-        hand = Array("Bean1", "Bean2", "Bean3"),
-        growingFieldText = "",
-        player.plantField1 = "Bean4",
-        player.plantField2 = "Bean5",
-        player.plantField3 = "Bean6"
-      )
-
-      assert(!UIlogic.isPlantable(mockPlayer, "Bean1"))
-    }
-
-
   }
 }
 

@@ -80,6 +80,7 @@ object UIlogic{
     key match {
       case "1" => 1
       case "2" => 2
+      case "3" => 3
     }
   }
   def buildGrowingFieldStr(playingPlayer : model.player): String = {
