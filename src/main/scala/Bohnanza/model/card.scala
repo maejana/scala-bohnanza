@@ -1,4 +1,4 @@
-package Test.model
+package Bohnanza.model
 
 case class card(bean: String, weight: Int) {
   val beanName = bean
