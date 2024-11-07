@@ -1,6 +1,6 @@
-package Test.controller
+package Bohnanza.controller
 
-import Test.model
+import Bohnanza.model
 
 import scala.collection.mutable.ArrayBuffer
 import scala.language.postfixOps
@@ -11,17 +11,15 @@ import org.jline.keymap.{BindingReader, KeyMap}
 
 object UIlogic{
   val terminal: Terminal = TerminalBuilder.builder().system(true).build()
-  terminal.enterRawMode()
-  val reader = terminal.reader()
-  def weightedRandom(): String = {
-    var allcards = ArrayBuffer[String]()
+  def weightedRandom(): model.card = {
+    var allcards = ArrayBuffer[model.card]()
     for(i <- 1 to model.gamedata.cards.size){
       for(h <- 1 to model.gamedata.cards(i-1).weightCount)
-      allcards.addOne(model.gamedata.cards(i-1).beanName)
+      allcards.addOne(model.gamedata.cards(i-1))
     }
     val rand = Random.nextInt(allcards.size)
-    allcards(rand) match
-      case "Blaue" => model.gamedata.cards(0).weightCount -= 1
+    allcards(rand).beanName match
+      case "Blaue"=> model.gamedata.cards(0).weightCount -= 1
       case "Feuer" => model.gamedata.cards(1).weightCount -= 1
       case "Sau" => model.gamedata.cards(2).weightCount -= 1
       case "Brech" => model.gamedata.cards(3).weightCount -= 1
@@ -48,10 +46,10 @@ object UIlogic{
     val weights = model.gamedata.weights
     var hand: Array[String] = Array("","","","","")
     for (i <- 1 to 4) {
-      hand(i-1) = weightedRandom()
+      hand(i-1) = weightedRandom().beanName
       growingFieldText += hand(i-1) + ", "
     }
-    hand(4) = weightedRandom()
+    hand(4) = weightedRandom().beanName
     growingFieldText += hand(4)
     model.gamedata.players += model.player(playerName,hand,growingFieldText)
     growingFieldText
@@ -71,20 +69,6 @@ object UIlogic{
     }
     str
   }
-  def isPlantable(player :model.player, bean: String): Boolean = {
-    if(!player.hand.contains(bean)){
-      return false
-    }
-    if(player.plantfield1.contains(bean) || player.plantfield2.contains(bean) || player.plantfield3.contains(bean)){
-      return true
-    }
-    else if(player.plantfield1 == ""|| player.plantfield2 == ""|| player.plantfield3 == ""){
-      return true
-    }
-    else {
-      return false
-    }
-  }
   def plantSelectString(player: model.player): String = {
     var s: String = ""
     s += model.gamedata.selectPlantCard
@@ -92,10 +76,10 @@ object UIlogic{
     s
   }
   def keyListener(): Int = {
-    val key = reader.read()
+    val key = scala.io.StdIn.readLine().strip()
     key match {
-      case '1' => 1
-      case '2' => 2
+      case "1" => 1
+      case "2" => 2
     }
   }
   def buildGrowingFieldStr(playingPlayer : model.player): String = {

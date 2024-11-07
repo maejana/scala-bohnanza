@@ -1,6 +1,6 @@
-package Test.view
+package Bohnanza.view
 
-import Test.{controller, model}
+import Bohnanza.{controller, model}
 
 object TUI {
   def setUpTUI(): Unit = {

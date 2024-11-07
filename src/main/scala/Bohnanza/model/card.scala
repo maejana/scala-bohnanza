@@ -1,4 +1,4 @@
-package Test.model
+package Bohnanza.model
 
 import scala.collection.mutable.ArrayBuffer
 

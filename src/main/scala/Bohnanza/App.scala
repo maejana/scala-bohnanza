@@ -1,4 +1,4 @@
-package Test
+package Bohnanza
 
 object App {
   @main def run: Unit = {

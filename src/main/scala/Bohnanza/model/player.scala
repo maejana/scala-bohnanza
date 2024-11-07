@@ -1,4 +1,4 @@
-package Test.model
+package Bohnanza.model
 
 case class player(name: String, hand: Array[String], field : String) {
   val playerName = name

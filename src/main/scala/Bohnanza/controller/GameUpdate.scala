@@ -1,6 +1,6 @@
-package Test.controller
+package Bohnanza.controller
 
-import Test.model
+import Bohnanza.model
 
 object GameUpdate {
   def gameUpdate(): String = {
@@ -8,17 +8,22 @@ object GameUpdate {
     var p = 0
     var round = 1
     val gameUpdateLog = new StringBuilder
-    val plantCount = 0
+    var plantCount = 0
     while (round <= 10) {
+      //Start of Game
       val playingPlayer = Utility.selectPlayer(p)
       println(model.gamedata.plantAmountQuestion)
-      Utility.plant1or2(playingPlayer)
+      plantCount = Utility.plant1or2(playingPlayer)
+      //planting
       while (i < plantCount) {
         Utility.plantPreperation(playingPlayer)
+        i = i+1
       }
       println(UIlogic.buildGrowingFieldStr(playingPlayer))
-      println(gamelogic.drawCards())
-      Utility.keepOrTrade()
+      //Trade or plant 2 Cards
+      val cards = gamelogic.drawCards()
+      println(cards.mkString("",",",""))
+      Utility.plantOrTrade(cards, playingPlayer)
       
       round += 1
       p += 1
