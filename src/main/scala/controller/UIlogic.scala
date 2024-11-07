@@ -99,4 +99,18 @@ object UIlogic{
       case '2' => 2
     }
   }
+  def buildGrowingFieldStr(playingPlayer : model.player): String = {
+    val growingFieldText: String =
+      s"""
+                               ${playingPlayer.playerName}:
+                                  Field 1:
+                               ${playingPlayer.plantfield1}
+                                  Field 2:
+                               ${playingPlayer.plantfield2}
+                                  Field 3:
+                               ${playingPlayer.plantfield3}
+
+                               """
+    growingFieldText
+  }
 }

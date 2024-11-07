@@ -1,21 +1,18 @@
 package Test.controller
 
+import Test.model
+
 object GameUpdate {
   def gameUpdate(): String = {
     var i = 0
     var p = 0
     var round = 1
     val gameUpdateLog = new StringBuilder
-
+    val plantCount = 0
     while (round <= 10) {
-      val playingPlayer: model.player = model.gamedata.players(p)
-      println(playingPlayer.playerName + ":\n")
+      val playingPlayer = Utility.selectPlayer(p)
       println(model.gamedata.plantAmountQuestion)
-      val plantCount = 0
-      val Nr = UIlogic.keyListener()
-      println(Nr)
-      println(UIlogic.plantSelectString(playingPlayer))
-      i = 0
+      Utility.plant1or2(playingPlayer)
       while (i < plantCount) {
         val Line = scala.io.StdIn.readLine().split(" ", 2)
         val plantCard = Line(0)
@@ -32,21 +29,10 @@ object GameUpdate {
           println(model.gamedata.errorPlantingField + "\n")
         }
       }
-      var growingFieldText: String =
-        s"""
-                           ${playingPlayer.playerName}:
-                              Field 1:
-                           ${playingPlayer.plantfield1}
-                              Field 2:
-                           ${playingPlayer.plantfield2}
-                              Field 3:
-                           ${playingPlayer.plantfield3}
-
-                           """
-      println(growingFieldText)
-      println(gamelogic.drawCards().mkString("", ",", ""))
-      println(model.gamedata.drawCardText)
-      var keepCardNr = keyListener()
+      println(UIlogic.buildGrowingFieldStr(playingPlayer))
+      println(gamelogic.drawCards())
+      Utility.keepOrTrade()
+      
       round += 1
       p += 1
     }
