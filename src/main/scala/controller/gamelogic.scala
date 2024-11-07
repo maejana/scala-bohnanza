@@ -21,9 +21,9 @@ object gamelogic {
 
   def plant(cards: String, fieldNr: Int, playerID: model.player): Unit ={
     fieldNr match {
-      case 1 => playerID.plantfield1 = cards
-      case 2 => playerID.plantfield2 = cards
-      case 3 => playerID.plantfield3 = cards
+      case 1 => playerID.plantfield1 += cards + "\n"
+      case 2 => playerID.plantfield2 += cards + "\n"
+      case 3 => playerID.plantfield3 += cards + "\n"
     }
   }
   /*
