@@ -14,10 +14,18 @@ object gamelogic {
     }
   }
 
-  /*
-  def harvest(field: Int): String={
 
-  }*/
+  def harvest(field: Int): String ={
+    // angepflanze Bohnen erten und gegen Gold tauschen
+    ""
+  }
+  
+  def bohnometer(card :model.card ): Int ={
+    // gibt für jede Karte an, wie viel Geld sie Wert ist
+    
+    0
+  }
+
   def trade(playingPlayer : model.player, tradePartner : model.player, card1: model.card, card2: model.card): Unit ={
     val playerCard = playingPlayer.playerHand(Utility.findCardId(playingPlayer,card1))
     val traderCard = tradePartner.playerHand(Utility.findCardId(tradePartner,card2))
