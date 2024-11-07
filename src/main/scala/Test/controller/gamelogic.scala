@@ -1,6 +1,7 @@
 package Test.controller
 
 import Test.model
+
 import scala.collection.mutable.ArrayBuffer
 
 object gamelogic {
@@ -18,8 +19,8 @@ object gamelogic {
 
   }*/
   def trade(playingPlayer : model.player, tradePartner : model.player, card1: model.card, card2: model.card): Unit ={
-    val playerCard = playingPlayer.playerHand[Utility.findCardId(playingPlayer,card1)]
-    val traderCard = tradePartner.playerHand[Utility.findCardId(tradePartner,card2)]
+    val playerCard = playingPlayer.playerHand(Utility.findCardId(playingPlayer,card1))
+    val traderCard = tradePartner.playerHand(Utility.findCardId(tradePartner,card2))
   }
   def drawCards(): String = {
     var cardArray = ArrayBuffer[String]()

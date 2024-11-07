@@ -2,7 +2,6 @@ package Test.controller
 
 import Test.model
 
-import java.awt.event.KeyListener
 import scala.collection.mutable.ArrayBuffer
 import scala.language.postfixOps
 import scala.util.Random
