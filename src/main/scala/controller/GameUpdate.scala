@@ -20,6 +20,7 @@ object GameUpdate {
         val Line = scala.io.StdIn.readLine().split(" ", 2)
         val plantCard = Line(0)
         val fieldNrStr = Line(1)
+        Utility.plantInfo()
 
         if (playingPlayer.hand.contains(plantCard) && isPlantable(playingPlayer, plantCard) && (fieldNrStr == "1" || fieldNrStr == "2" || fieldNrStr == "3")) {
           val fieldNr = fieldNrStr.toInt
@@ -51,4 +52,5 @@ object GameUpdate {
     }
     gameUpdateLog.toString // Gibt das gesamte Log als String zurück
   }
+  
 }
