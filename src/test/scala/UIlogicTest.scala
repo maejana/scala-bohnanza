@@ -1,4 +1,4 @@
-package Test
+package Bohnanza
 
 import Test.controller.GameUpdate
 import org.scalatest.wordspec.AnyWordSpec
