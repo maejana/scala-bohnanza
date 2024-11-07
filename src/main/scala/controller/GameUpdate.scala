@@ -1,5 +1,7 @@
 package Test.controller
 
+import Test.Utility
+
 object GameUpdate {
   def gameUpdate(): String = {
     var i = 0
@@ -16,22 +18,7 @@ object GameUpdate {
       println(Nr)
       println(UIlogic.plantSelectString(playingPlayer))
       i = 0
-      while (i < plantCount) {
-        val Line = scala.io.StdIn.readLine().split(" ", 2)
-        val plantCard = Line(0)
-        val fieldNrStr = Line(1)
-        Utility.plantInfo()
-
-        if (UIlogic.isPlantable(playingPlayer, plantCard) && (fieldNrStr == "1" || fieldNrStr == "2" || fieldNrStr == "3")) {
-          val fieldNr = fieldNrStr.toInt
-          gamelogic.plant(plantCard, fieldNr, playingPlayer)
-          gameUpdateLog.append(s"${playingPlayer.name} pflanzt $plantCard auf Feld $fieldNr\n")
-          i += 1
-        } else {
-          println(model.gamedata.errorBeanNotInHand)
-          println(model.gamedata.errorPlantingField + "\n")
-        }
-      }
+      
       var growingFieldText: String =
         s"""
                            ${playingPlayer.playerName}:
