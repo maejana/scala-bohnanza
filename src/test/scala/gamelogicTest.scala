@@ -19,8 +19,8 @@ class GameLogicTest extends AnyWordSpec with Matchers {
   // Test setup
   val testCard1 = card("TestBean1", 1, ArrayBuffer(1))
   val testCard2 = card("TestBean2", 2, ArrayBuffer(2))
-  val testPlayer1 = player("Player1", Array(), "")
-  val testPlayer2 = player("Player2", Array(), "")
+  val testPlayer1 = player("Player1", ArrayBuffer())
+  val testPlayer2 = player("Player2", ArrayBuffer())
 
   "GameLogic" should {
     "plant cards correctly in different fields" when {
@@ -30,7 +30,7 @@ class GameLogicTest extends AnyWordSpec with Matchers {
         when(mockUtility.chooseOrEmpty(player, testCard1)).thenReturn(1)
 
         controller.gamelogic.plant(testCard1, player)
-        player.plantfield1 should include(testCard1.beanName)
+        player.plantfield1 should contain(testCard1.beanName)
       }
 
       "planting in field 2" in {
@@ -39,7 +39,7 @@ class GameLogicTest extends AnyWordSpec with Matchers {
         when(mockUtility.chooseOrEmpty(player, testCard1)).thenReturn(2)
 
         controller.gamelogic.plant(testCard1, player)
-        player.plantfield2 should include(testCard1.beanName)
+        player.plantfield2 should contain(testCard1.beanName)
       }
 
       "planting in field 3" in {
@@ -48,7 +48,7 @@ class GameLogicTest extends AnyWordSpec with Matchers {
         when(mockUtility.chooseOrEmpty(player, testCard1)).thenReturn(3)
 
         controller.gamelogic.plant(testCard1, player)
-        player.plantfield3 should include(testCard1.beanName)
+        player.plantfield3 should contain(testCard1.beanName)
       }
 
       "handling no available fields" in {
@@ -88,8 +88,8 @@ class GameLogicTest extends AnyWordSpec with Matchers {
       val player1 = testPlayer1.copy()
       val player2 = testPlayer2.copy()
 
-      player1.playerHand :+= testCard1.beanName
-      player2.playerHand :+= testCard2.beanName
+      player1.playerHand :+= testCard1
+      player2.playerHand :+= testCard2
 
       val mockUtility = mock(classOf[Utility.type])
       when(mockUtility.findCardId(player1, testCard1)).thenReturn(0)
@@ -149,18 +149,18 @@ class GameLogicTest extends AnyWordSpec with Matchers {
   }
 
   // Helper functions
-  def createPlayerWithCards(name: String, cards: String*): player = {
-    val newPlayer: player = player(name, Array(), "")
+  def createPlayerWithCards(name: String, cards: card*): player = {
+    val newPlayer: player = player(name, ArrayBuffer())
     cards.foreach(card => newPlayer.playerHand :+= card)
     newPlayer
   }
 
-  def verifyFieldContents(player: player, fieldNumber: Int, expectedCard: String): Unit = {
+  def verifyFieldContents(player: player, fieldNumber: Int, expectedCard: card): Unit = {
     val field = fieldNumber match {
       case 1 => player.plantfield1
       case 2 => player.plantfield2
       case 3 => player.plantfield3
     }
-    field should include(expectedCard)
+    field should contain(expectedCard)
   }
 }

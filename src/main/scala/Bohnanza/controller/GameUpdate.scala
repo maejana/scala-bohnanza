@@ -10,7 +10,7 @@ object GameUpdate {
     val gameUpdateLog = new StringBuilder
     var plantCount = 0
     val playerCount = model.gamedata.players.size
-    while (round <= 10) {
+    while (round <= 3) {
       //Start of Game
       val playingPlayer = Utility.selectPlayer(p)
       println(model.gamedata.plantAmountQuestion)
