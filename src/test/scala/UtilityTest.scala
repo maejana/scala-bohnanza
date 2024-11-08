@@ -4,6 +4,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import Bohnanza.model.{player, *}
 import Bohnanza.controller.*
+import Bohnanza.model
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -105,17 +106,18 @@ class UtilityTest extends AnyWordSpec with Matchers {
       "when given valid player index" in {
         val testPlayer1 = player("1",ArrayBuffer())
         val testPlayer2 = player("2",ArrayBuffer())
-        val players = ArrayBuffer(player(testPlayer1, testPlayer2)
+        val players = ArrayBuffer(testPlayer1, testPlayer2)
         val selectedPlayer = Utility.selectPlayer(0)
         selectedPlayer shouldBe testPlayer1
       }
 
       "when card exists" in {
-        val testPlayer1 = player("1",ArrayBuffer())
-        val player = testPlayer1.copy()
-        player.playerHand :+= testCard1.beanName
+        val testPlayer1 = model.player("1",ArrayBuffer())
+        val player: model.player = testPlayer1.copy()
+        val testCard1 = card("TestBean1", 1, ArrayBuffer(1))
+        player.playerHand :+= testCard1
         val foundCard = Utility.findCardWithName("TestBean1")
-        foundCard shouldBe testCard1
+        foundCard should be(testCard1)
       }
     }
   }

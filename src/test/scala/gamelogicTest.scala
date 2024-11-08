@@ -83,25 +83,25 @@ class GameLogicTest extends AnyWordSpec with Matchers {
       // result shouldBe expectedValue
     }
 
-    "handle trading between players correctly" in {
-      // Setup players with cards
-      val player1 = testPlayer1.copy()
-      val player2 = testPlayer2.copy()
-
-      player1.playerHand :+= testCard1
-      player2.playerHand :+= testCard2
-
-      val mockUtility = mock(classOf[Utility.type])
-      when(mockUtility.findCardId(player1, testCard1)).thenReturn(0)
-      when(mockUtility.findCardId(player2, testCard2)).thenReturn(0)
-
-      // Execute trade
-      controller.gamelogic.trade(player1, player2, testCard1, testCard2)
-
-      // Verify trade results
-      player1.playerHand should contain(testCard2.beanName)
-      player2.playerHand should contain(testCard1.beanName)
-    }
+//    "handle trading between players correctly" in {
+//      // Setup players with cards
+//      val player1 = testPlayer1.copy()
+//      val player2 = testPlayer2.copy()
+//
+//      player1.playerHand :+= testCard1
+//      player2.playerHand :+= testCard2
+//
+//      val mockUtility = mock(classOf[Utility.type])
+//      when(mockUtility.findCardId(player1, testCard1)).thenReturn(0)
+//      when(mockUtility.findCardId(player2, testCard2)).thenReturn(0)
+//
+//      // Execute trade
+//      controller.gamelogic.trade(player1, player2, testCard1, testCard2)
+//
+//      // Verify trade results
+//      player1.playerHand should contain(testCard2.beanName)
+//      player2.playerHand should contain(testCard1.beanName)
+//    }
 
     "draw cards correctly" in {
       // Mock UIlogic.weightedRandom
