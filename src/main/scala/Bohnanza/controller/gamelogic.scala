@@ -14,6 +14,7 @@ object gamelogic {
       case 2 => playerID.plantfield2 += cards.beanName + "\n"
       case 3 => playerID.plantfield3 += cards.beanName + "\n"
       case -1 => println("Kein Feld frei zum anpflanzen")
+      case _ => // No available fields
     }
   }
 

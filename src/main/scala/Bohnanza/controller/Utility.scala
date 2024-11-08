@@ -1,6 +1,7 @@
 package Bohnanza.controller
 
 import Bohnanza.model
+import Bohnanza.model.player
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -70,11 +71,13 @@ object Utility {
       Nr
     }
 
-  def selectPlayer(p: Int): model.player = {
-      val playingPlayer: model.player = model.gamedata.players(p)
-      println(playingPlayer.playerName + ":\n")
-      playingPlayer
+  def selectPlayer(index: Int): player = {
+    if (index >= 0 && index < players.length) {
+      players(index)
+    } else {
+      throw new IndexOutOfBoundsException(s"$index is out of bounds (min 0, max ${players.length - 1})")
     }
+  }
 
   def isPlantable(player: model.player, bean: model.card): Boolean = {
     if (player.plantfield1.contains(bean.beanName) || player.plantfield2.contains(bean.beanName) || player.plantfield3.contains(bean.beanName)) {

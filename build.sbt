@@ -6,10 +6,18 @@ lazy val root = (project in file("."))
   .settings(
     name := "Bohnanza"
   )
-libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14"
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
-libraryDependencies += "org.jline" % "jline" % "3.21.0"
 
-//libraryDependencies += "org.scalamock" %% "scalamock" % "5.2.0" % "test"
+libraryDependencies ++= Seq(
+  "org.mockito" % "mockito-core" % "5.4.0" % Test,
+  "org.scalatest" %% "scalatest" % "3.2.16" % Test
+)
+
+libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14"
+//libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
+libraryDependencies += "org.jline" % "jline" % "3.21.0"
+//libraryDependencies += "org.mockito" %% "mockito-scala" % "1.16.42" % Test
+
+
+
 
 
