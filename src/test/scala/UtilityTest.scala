@@ -2,8 +2,9 @@ package test
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import Bohnanza.model._
-import Bohnanza.controller._
+import Bohnanza.model.{player, *}
+import Bohnanza.controller.*
+
 import scala.collection.mutable.ArrayBuffer
 
 object gamedata {
@@ -14,7 +15,7 @@ object gamedata {
 class UtilityTest extends AnyWordSpec with Matchers {
 
   // Test data setup
-  val testPlayer: player = player("TestPlayer", Array(), "")
+  val testPlayer: player = player("TestPlayer", ArrayBuffer())
   val testCard: card = card("TestBean", 1, ArrayBuffer(1))
   val testCard2: card = card("TestBean2", 2, ArrayBuffer(2))
 
@@ -26,19 +27,19 @@ class UtilityTest extends AnyWordSpec with Matchers {
       Utility.emptyPlantfieldNr(player) shouldEqual 1
 
       // Test partially filled fields
-      player.plantfield1 = "Bean"
+      player.plantfield1 should contain(card)
       Utility.emptyPlantfieldNr(player) shouldEqual 2
 
       // Test full fields
-      player.plantfield1 = "Bean1"
-      player.plantfield2 = "Bean2"
-      player.plantfield3 = "Bean3"
+      player.plantfield1 should contain(card)
+      player.plantfield2 should contain(card)
+      player.plantfield3 should contain(card)
       Utility.emptyPlantfieldNr(player) shouldEqual -1
     }
 
     "find card ID correctly" in {
       val player = testPlayer.copy()
-      player.playerHand :+= testCard.beanName
+      player.playerHand :+= testCard
 
       val result = Utility.findCardId(player, testCard)
       result shouldEqual 0
@@ -55,14 +56,14 @@ class UtilityTest extends AnyWordSpec with Matchers {
       Utility.isPlantable(player, testCard) shouldBe true
 
       // Test matching field
-      player.plantfield1 = testCard.beanName
+      player.plantfield1 should contain(testCard)
       Utility.isPlantable(player, testCard) shouldBe true
 
       // Test full non-matching fields
       val fullPlayer = testPlayer.copy()
-      fullPlayer.plantfield1 = "Bean1"
-      fullPlayer.plantfield2 = "Bean2"
-      fullPlayer.plantfield3 = "Bean3"
+      fullPlayer.plantfield1 should contain(card)
+      fullPlayer.plantfield2 should contain(card)
+      fullPlayer.plantfield3 should contain(card)
       Utility.isPlantable(fullPlayer, testCard) shouldBe false
     }
 
@@ -102,26 +103,21 @@ class UtilityTest extends AnyWordSpec with Matchers {
         result shouldBe null
       }
       "when given valid player index" in {
-        val players = Array(testPlayer1, testPlayer2)
-        val selectedPlayer = Utility.selectPlayer(players, 0)
+        val testPlayer1 = player("1",ArrayBuffer())
+        val testPlayer2 = player("2",ArrayBuffer())
+        val players = ArrayBuffer(player(testPlayer1, testPlayer2)
+        val selectedPlayer = Utility.selectPlayer(0)
         selectedPlayer shouldBe testPlayer1
       }
 
       "when card exists" in {
+        val testPlayer1 = player("1",ArrayBuffer())
         val player = testPlayer1.copy()
         player.playerHand :+= testCard1.beanName
-        val foundCard = Utility.findCardWithName(player, "TestBean1")
+        val foundCard = Utility.findCardWithName("TestBean1")
         foundCard shouldBe testCard1
       }
     }
   }
 
-  // Helper function to create a player with specific field setup
-  def createPlayerWithFields(field1: String = "", field2: String = "", field3: String = ""): player = {
-    val player = testPlayer.copy()
-    player.plantfield1 = field1
-    player.plantfield2 = field2
-    player.plantfield3 = field3
-    player
-  }
 }
