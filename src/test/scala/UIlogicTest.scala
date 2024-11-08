@@ -10,6 +10,8 @@ import Bohnanza.model.player
 import Bohnanza.view
 import org.scalactic.Prettifier.default
 
+import scala.collection.mutable.ArrayBuffer
+
 
 
 class UIlogicTest extends AnyWordSpec with Matchers {
@@ -57,11 +59,11 @@ class UIlogicTest extends AnyWordSpec with Matchers {
       // Create a mock player with predefined fields
       val mockPlayer = player(
         name = "TestPlayer",
-        hand = Array("Bean1", "Bean2", "Bean3"),
-        //growingFieldText = "",
-        field = "Bean1",
-        //field = "Bean2",
-        //plantfield = "Bean3"
+        hand = ArrayBuffer(
+          model.card("Bean1", 1, ArrayBuffer(1)),
+          model.card("Bean2", 1, ArrayBuffer(1)),
+          model.card("Bean3", 1, ArrayBuffer(1))
+        )
       )
 
       // Call the method

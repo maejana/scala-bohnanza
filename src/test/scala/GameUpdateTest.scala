@@ -22,7 +22,7 @@ class GameUpdateTest extends AnyWordSpec with Matchers {
       val mockGameLogic = mock(classOf[gamelogic.type])
 
       // Test player
-      val testPlayer = player("TestPlayer", Array(), "")
+      val testPlayer = player("TestPlayer", ArrayBuffer())
 
       // Mock card for testing
       val testCard = card("TestBean", 1, scala.collection.mutable.ArrayBuffer(1))
@@ -51,7 +51,7 @@ class GameUpdateTest extends AnyWordSpec with Matchers {
       val mockGameLogic = mock(classOf[gamelogic.type])
 
       // Test with different plant counts
-      val testPlayer = player("TestPlayer", Array(), "")
+      val testPlayer = player("TestPlayer", ArrayBuffer())
 
       // Setup expectations for 2 plants
       when(mockUtility.selectPlayer(any())).thenReturn(testPlayer)
@@ -71,7 +71,7 @@ class GameUpdateTest extends AnyWordSpec with Matchers {
       val mockGameLogic = mock(classOf[gamelogic.type])
 
       // Test player
-      val testPlayer = player("TestPlayer", Array(), "")
+      val testPlayer = player("TestPlayer", ArrayBuffer())
 
       // Setup expectations for exactly 10 rounds
       when(mockUtility.selectPlayer(any())).thenReturn(testPlayer)
@@ -92,7 +92,7 @@ class GameUpdateTest extends AnyWordSpec with Matchers {
       val mockGameLogic = mock(classOf[gamelogic.type])
 
       // Test player
-      val testPlayer = player("TestPlayer", Array(), "")
+      val testPlayer = player("TestPlayer", ArrayBuffer())
 
       // Setup mock to throw exception
       when(mockUtility.selectPlayer(any())).thenReturn(testPlayer)
