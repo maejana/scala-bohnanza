@@ -63,9 +63,9 @@ object Utility {
       keepCardNr match
         case 0 => //gamelogic.trade()
         case 1 => println(model.gamedata.drawnCardName)
-                  plantDrawnCard(player, selectCardToPlant(cards, player))
+          plantDrawnCard(player, selectCardToPlant(cards, player))
         case 2 => plantDrawnCard(player, cards(0))
-                  plantDrawnCard(player, cards(1))
+          plantDrawnCard(player, cards(1))
     }
   def selectCardToPlant(cards : ArrayBuffer[model.card], player: model.player): model.card = {
     var bool = true
@@ -91,10 +91,10 @@ object Utility {
     }
 
   def selectPlayer(index: Int): player = {
-    if (index >= 0 && index < players.length) {
-      players(index)
+    if (index >= 0 && index < model.gamedata.players.length) {
+      model.gamedata.players(index)
     } else {
-      throw new IndexOutOfBoundsException(s"$index is out of bounds (min 0, max ${players.length - 1})")
+      throw new IndexOutOfBoundsException(s"$index is out of bounds (min 0, max ${model.gamedata.players.length - 1})")
     }
   }
 
