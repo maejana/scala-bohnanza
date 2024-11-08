@@ -16,6 +16,7 @@ object gamedata {
   val plantAmountQuestion = "Pflanze eine oder zwei Bohnen an, indem du 1 oder 2 eingibst."
   val drawCardText = "Waehle wie viele Bohnen du behaelst indem du 0, 1 oder 2 eingibst."
   val newOrOldField ="Du hast diese Bohne schonmal angepflanz, willst du sie im gleichen Feld anpflanzen? Gib die Nummer des Feldes, auf welches du pflanzen willst an."
-  val drawnCardName = "Gib den Namen der Bohne ein die du anpflanzen moechtest."
+  var drawnCardName = "Gib den Namen der Bohne ein die du anpflanzen moechtest."
   var players = ArrayBuffer[player]()
+  var drawnCards: ArrayBuffer[card] = ArrayBuffer[card]()
 }

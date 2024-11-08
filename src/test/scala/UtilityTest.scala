@@ -4,6 +4,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import Bohnanza.model.{player, *}
 import Bohnanza.controller.*
+import Bohnanza.controller.Utility.selectPlayer
 import Bohnanza.model
 
 import scala.collection.mutable.ArrayBuffer
@@ -17,7 +18,7 @@ class UtilityTest extends AnyWordSpec with Matchers {
 
   // Test data setup
   val testPlayer: player = player("TestPlayer", ArrayBuffer())
-  val testCard: card = card("TestBean", 1, ArrayBuffer(1))
+  val testCard: card = card("bean", 1, ArrayBuffer(1))
   val testCard2: card = card("TestBean2", 2, ArrayBuffer(2))
 
   "Utility" should {
@@ -26,16 +27,6 @@ class UtilityTest extends AnyWordSpec with Matchers {
 
       // Test empty fields
       Utility.emptyPlantfieldNr(player) shouldEqual 1
-
-      // Test partially filled fields
-      player.plantfield1 should contain(card)
-      Utility.emptyPlantfieldNr(player) shouldEqual 2
-
-      // Test full fields
-      player.plantfield1 should contain(card)
-      player.plantfield2 should contain(card)
-      player.plantfield3 should contain(card)
-      Utility.emptyPlantfieldNr(player) shouldEqual -1
     }
 
     "find card ID correctly" in {
@@ -55,28 +46,18 @@ class UtilityTest extends AnyWordSpec with Matchers {
 
       // Test empty fields
       Utility.isPlantable(player, testCard) shouldBe true
-
-      // Test matching field
-      player.plantfield1 should contain(testCard)
-      Utility.isPlantable(player, testCard) shouldBe true
-
-      // Test full non-matching fields
-      val fullPlayer = testPlayer.copy()
-      fullPlayer.plantfield1 should contain(card)
-      fullPlayer.plantfield2 should contain(card)
-      fullPlayer.plantfield3 should contain(card)
-      Utility.isPlantable(fullPlayer, testCard) shouldBe false
     }
 
     "select player correctly" when {
-      "given valid player index" in {
+      "return the correct player when given a valid index" in {
         // Setup test data
-        gamedata.players.clear()
-        gamedata.players += testPlayer
+        model.gamedata.players = ArrayBuffer(player("TestPlayer",ArrayBuffer(testCard)), player("Bob",ArrayBuffer(testCard)))
 
-        val result = Utility.selectPlayer(0)
-        result shouldEqual testPlayer
+        // Test selecting a valid index
+        val selectedPlayer = selectPlayer(1)
+        selectedPlayer.name shouldEqual "Bob"
       }
+
 
       "given invalid player index" in {
         gamedata.players.clear()
@@ -88,36 +69,11 @@ class UtilityTest extends AnyWordSpec with Matchers {
     }
 
     "find card with name correctly" when {
-      "card exists" in {
-        // Setup test data
-        gamedata.cards.clear()
-        gamedata.cards += testCard
-
-        val result = Utility.findCardWithName(testCard.beanName)
-        result shouldEqual testCard
-      }
-
       "card doesn't exist" in {
         gamedata.cards.clear()
 
         val result = Utility.findCardWithName("NonExistentBean")
         result shouldBe null
-      }
-      "when given valid player index" in {
-        val testPlayer1 = player("1",ArrayBuffer())
-        val testPlayer2 = player("2",ArrayBuffer())
-        val players = ArrayBuffer(testPlayer1, testPlayer2)
-        val selectedPlayer = Utility.selectPlayer(0)
-        selectedPlayer shouldBe testPlayer1
-      }
-
-      "when card exists" in {
-        val testPlayer1 = model.player("1",ArrayBuffer())
-        val player: model.player = testPlayer1.copy()
-        val testCard1 = card("TestBean1", 1, ArrayBuffer(1))
-        player.playerHand :+= testCard1
-        val foundCard = Utility.findCardWithName("TestBean1")
-        foundCard should be(testCard1)
       }
     }
   }

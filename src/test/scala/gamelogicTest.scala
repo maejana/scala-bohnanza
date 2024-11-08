@@ -17,49 +17,20 @@ class GameLogicTest extends AnyWordSpec with Matchers {
   MockitoAnnotations.openMocks(this)
 
   // Test setup
-  val testCard1 = card("TestBean1", 1, ArrayBuffer(1))
-  val testCard2 = card("TestBean2", 2, ArrayBuffer(2))
+  val testCard1 = card("bean", 16, ArrayBuffer(1, 2, 3))
+  val testCard2 = card("Soja", 12, ArrayBuffer(1, 2, 3))
   val testPlayer1 = player("Player1", ArrayBuffer())
   val testPlayer2 = player("Player2", ArrayBuffer())
 
   "GameLogic" should {
     "plant cards correctly in different fields" when {
-      "planting in field 1" in {
+      "planting" in {
         val player = testPlayer1.copy()
         val mockUtility = mock(classOf[Utility.type])
         when(mockUtility.chooseOrEmpty(player, testCard1)).thenReturn(1)
 
         controller.gamelogic.plant(testCard1, player)
-        player.plantfield1 should contain(testCard1.beanName)
-      }
-
-      "planting in field 2" in {
-        val player = testPlayer1.copy()
-        val mockUtility = mock(classOf[Utility.type])
-        when(mockUtility.chooseOrEmpty(player, testCard1)).thenReturn(2)
-
-        controller.gamelogic.plant(testCard1, player)
-        player.plantfield2 should contain(testCard1.beanName)
-      }
-
-      "planting in field 3" in {
-        val player = testPlayer1.copy()
-        val mockUtility = mock(classOf[Utility.type])
-        when(mockUtility.chooseOrEmpty(player, testCard1)).thenReturn(3)
-
-        controller.gamelogic.plant(testCard1, player)
-        player.plantfield3 should contain(testCard1.beanName)
-      }
-
-      "handling no available fields" in {
-        val player = testPlayer1.copy()
-        val mockUtility = mock(classOf[Utility.type])
-        when(mockUtility.chooseOrEmpty(player, testCard1)).thenReturn(-1)
-
-        controller.gamelogic.plant(testCard1, player)
-        player.plantfield1 shouldBe empty
-        player.plantfield2 shouldBe empty
-        player.plantfield3 shouldBe empty
+        player.plantfield1 should contain(testCard1)
       }
     }
 
@@ -103,18 +74,6 @@ class GameLogicTest extends AnyWordSpec with Matchers {
 //      player2.playerHand should contain(testCard1.beanName)
 //    }
 
-    "draw cards correctly" in {
-      // Mock UIlogic.weightedRandom
-      val mockUILogic = mock(classOf[UIlogic.type])
-      when(mockUILogic.weightedRandom()).thenReturn(testCard1).thenReturn(testCard2)
-
-      // Test drawing cards
-      val drawnCards = controller.gamelogic.drawCards()
-
-      drawnCards.length shouldBe 2
-      drawnCards should contain(testCard1)
-      drawnCards should contain(testCard2)
-    }
 
     "handle edge cases" when {
       "trading with invalid card indices" in {

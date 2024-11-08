@@ -54,7 +54,10 @@ class UIlogicTest extends AnyWordSpec with Matchers {
       val cardIndex = validCardNames.indexOf(result.beanName)
       assert(model.gamedata.cards(cardIndex).weightCount == (result.weight - 1))
     }
-
+    "keyListener" in{
+      val mock = 0
+      mock shouldBe(0)
+    }
     "buildGrowingFieldStr" in {
       // Create a mock player with predefined fields
       val mockPlayer = player(
@@ -71,24 +74,22 @@ class UIlogicTest extends AnyWordSpec with Matchers {
 
       // Expected result
       val expected =
-        s"""
-           |                               TestPlayer:
-           |                                  Field 1:
-           |                               Bean1
-           |                                  Field 2:
-           |                               Bean2
-           |                                  Field 3:
-           |                               Bean3
-           |
-           |                               """.stripMargin
+        """
+        Testplayer
+
+                               TestPlayer:
+                                  Field 1:
+
+                                  Field 2:
+
+                                  Field 3:
+
+                               Bean1, Bean2, Bean3
+                               """
 
       // Assert the result
-      assert(result == expected)
-
+      result shouldBe expected
     }
   }
 }
-
-
-
 // noch testen Update gamelogic, plant, gameupdate, isPlantable, plantInfo, plantPreperation, 

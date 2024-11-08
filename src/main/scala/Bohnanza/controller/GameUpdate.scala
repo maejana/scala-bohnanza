@@ -22,9 +22,9 @@ object GameUpdate {
       }
       println(UIlogic.buildGrowingFieldStr(playingPlayer))
       //Trade or plant 2 Cards
-      val cards = gamelogic.drawCards()
-      cards.foreach(card => println(card.beanName))
-      Utility.plantOrTrade(cards, playingPlayer)
+      model.gamedata.drawnCards = gamelogic.drawCards()
+      model.gamedata.drawnCards.foreach(card => println(card.beanName))
+      Utility.plantOrTrade(model.gamedata.drawnCards, playingPlayer)
       println(UIlogic.buildGrowingFieldStr(playingPlayer))
 
       round += 1
