@@ -27,10 +27,9 @@ object Utility {
     }
   }
   def findCardWithName(name: String): model.card = {
-    var i = 0
     for (i <- 1 to model.gamedata.cards.length){
-      if (model.gamedata.cards(i).beanName == name ){
-        return model.gamedata.cards(i)
+      if (model.gamedata.cards(i-1).beanName == name ){
+        return model.gamedata.cards(i-1)
       }
     }
     null
