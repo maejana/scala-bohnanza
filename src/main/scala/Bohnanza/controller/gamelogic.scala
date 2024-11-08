@@ -10,9 +10,9 @@ object gamelogic {
     
     val fieldNr = Utility.chooseOrEmpty(playerID, cards)
     fieldNr match {
-      case 1 => playerID.plantfield1 += cards.beanName + "\n"
-      case 2 => playerID.plantfield2 += cards.beanName + "\n"
-      case 3 => playerID.plantfield3 += cards.beanName + "\n"
+      case 1 => playerID.plantfield1.addOne(cards)
+      case 2 => playerID.plantfield2.addOne(cards)
+      case 3 => playerID.plantfield3.addOne(cards)
       case -1 => println("Kein Feld frei zum anpflanzen")
     }
   }
