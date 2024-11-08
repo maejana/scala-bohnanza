@@ -11,6 +11,7 @@ object Utility {
     findCardWithName(cardname)
   }
 
+
   def plantPreperation(player: model.player): String = {
     val gameUpdateLog = new StringBuilder()
     val plantCard: model.card = Utility.plantInfo()
@@ -28,7 +29,7 @@ object Utility {
   }
   def findCardWithName(name: String): model.card = {
     var i = 0
-    for (i <- 1 to model.gamedata.cards.length){
+    for (i <- 1 until model.gamedata.cards.length){
       if (model.gamedata.cards(i).beanName == name ){
         return model.gamedata.cards(i)
       }
