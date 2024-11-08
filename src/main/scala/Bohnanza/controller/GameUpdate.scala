@@ -9,6 +9,7 @@ object GameUpdate {
     var round = 1
     val gameUpdateLog = new StringBuilder
     var plantCount = 0
+    val playerCount = model.gamedata.players.size
     while (round <= 10) {
       //Start of Game
       val playingPlayer = Utility.selectPlayer(p)
@@ -24,13 +25,15 @@ object GameUpdate {
       val cards = gamelogic.drawCards()
       cards.foreach(card => println(card.beanName))
       Utility.plantOrTrade(cards, playingPlayer)
-      
+      println(UIlogic.buildGrowingFieldStr(playingPlayer))
+
       round += 1
-      if(p == plantCount-1){
+      if(p == playerCount || playerCount == 1){
         p = 0
       }else{
         p += 1
       }
+      i = 0
     }
     gameUpdateLog.toString // Gibt das gesamte Log als String zurück
   }

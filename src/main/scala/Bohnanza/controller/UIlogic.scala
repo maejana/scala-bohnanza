@@ -44,14 +44,14 @@ object UIlogic{
 
           """
     val weights = model.gamedata.weights
-    var hand: Array[String] = Array("","","","","")
+    var hand: ArrayBuffer[model.card] = ArrayBuffer()
     for (i <- 1 to 4) {
-      hand(i-1) = weightedRandom().beanName
-      growingFieldText += hand(i-1) + ", "
+      hand.addOne(weightedRandom())
+      growingFieldText += hand(i-1).beanName + ", "
     }
-    hand(4) = weightedRandom().beanName
-    growingFieldText += hand(4)
-    model.gamedata.players += model.player(playerName,hand,growingFieldText)
+    hand.addOne(weightedRandom())
+    growingFieldText += hand(4).beanName
+    model.gamedata.players += model.player(playerName,hand)
     growingFieldText
   }
   def initGame: String = {
@@ -60,7 +60,6 @@ object UIlogic{
     val playernames: Array[String] = new Array[String](playerCount)
     println("Namen eingeben:")
     for (i <- 1 to playerCount) {
-
       playernames(i - 1) = scala.io.StdIn.readLine()
     }
 
@@ -72,12 +71,18 @@ object UIlogic{
   def plantSelectString(player: model.player): String = {
     var s: String = ""
     s += model.gamedata.selectPlantCard
-    s += player.hand.mkString("", ", ", "")
+    s += playerHandToString(player.playerHand)
+    s
+  }
+  def playerHandToString(hand: ArrayBuffer[model.card]): String = {
+    var s = ""
+    hand.foreach(card => s += card.beanName + " ")
     s
   }
   def keyListener(): Int = {
     val key = scala.io.StdIn.readLine().strip()
     key match {
+      case "0" => 0
       case "1" => 1
       case "2" => 2
       case "3" => 3
@@ -88,13 +93,18 @@ object UIlogic{
       s"""
                                ${playingPlayer.playerName}:
                                   Field 1:
-                               ${playingPlayer.plantfield1}
+                               ${playerFieldToString(playingPlayer.plantfield1)}
                                   Field 2:
-                               ${playingPlayer.plantfield2}
+                               ${playerFieldToString(playingPlayer.plantfield2)}
                                   Field 3:
-                               ${playingPlayer.plantfield3}
+                               ${playerFieldToString(playingPlayer.plantfield3)}
 
                                """
     growingFieldText
+  }
+  def playerFieldToString(field: ArrayBuffer[model.card]): String = {
+    var s = ""
+    field.foreach(card => s += card.beanName + " ")
+    s
   }
 }

@@ -16,10 +16,12 @@ object Utility {
   def plantPreperation(player: model.player): String = {
     val gameUpdateLog = new StringBuilder()
     val plantCard: model.card = Utility.plantInfo()
-
-
-    if (isPlantable(player, plantCard) && player.playerHand.contains(plantCard.beanName)) {
+    if(plantCard == null){
+      return ""
+    }
+    else if (isPlantable(player, plantCard) && player.playerHand.contains(plantCard)) {
       gamelogic.plant(plantCard,  player)
+      takeNewCard(player, plantCard)
       gameUpdateLog.append(s"${player.name} pflanzt $plantCard\n")
       gameUpdateLog.toString
     } else {
@@ -28,9 +30,13 @@ object Utility {
       plantPreperation(player)
     }
   }
+  def takeNewCard(player: model.player, plantCard: model.card): Unit = {
+    val index = player.playerHand.indexOf(plantCard)
+    player.playerHand(index) = UIlogic.weightedRandom()
+  }
   def findCardWithName(name: String): model.card = {
     var i = 0
-    for (i <- 1 until model.gamedata.cards.length){
+    for (i <- 0 until model.gamedata.cards.length){
       if (model.gamedata.cards(i).beanName == name ){
         return model.gamedata.cards(i)
       }
@@ -43,11 +49,11 @@ object Utility {
     }
   }
   def emptyPlantfieldNr(player: model.player): Int = {
-    if (player.plantfield1 == ""){
+    if (player.plantfield1.isEmpty){
       return 1
-    }else if (player.plantfield2 == ""){
+    }else if (player.plantfield2.isEmpty){
       return 2
-    }else if( player.plantfield3 == ""){
+    }else if( player.plantfield3.isEmpty){
       return 3
     }else return -1
   }
@@ -56,13 +62,26 @@ object Utility {
       val keepCardNr = UIlogic.keyListener()
       keepCardNr match
         case 0 => //gamelogic.trade()
-        case 1 => //trade 1 und plant 1
+        case 1 => println(model.gamedata.drawnCardName)
+                  plantDrawnCard(player, selectCardToPlant(cards, player))
         case 2 => plantDrawnCard(player, cards(0))
                   plantDrawnCard(player, cards(1))
     }
-
+  def selectCardToPlant(cards : ArrayBuffer[model.card], player: model.player): model.card = {
+    var bool = true
+    while (bool){
+      val cardToPlant = plantInfo()
+      if (cards.contains(cardToPlant)) {
+        bool = false
+        return cardToPlant
+      } else {
+        bool = true
+      }
+    }
+    null
+  }
   def findCardId(player: model.player, card: model.card): Int = {
-      player.playerHand.indexOf(card.beanName)
+      player.playerHand.indexOf(card)
     }
 
   def plant1or2(playingPlayer: model.player): Int = {
@@ -83,23 +102,23 @@ object Utility {
     if (player.plantfield1.contains(bean.beanName) || player.plantfield2.contains(bean.beanName) || player.plantfield3.contains(bean.beanName)) {
       return true
     }
-    else if (player.plantfield1 == "" || player.plantfield2 == "" || player.plantfield3 == "") {
+    else if (player.plantfield1.isEmpty || player.plantfield2.isEmpty || player.plantfield3.isEmpty) {
       return true
     }
     else {
       return false
     }
-
   }
 
   def chooseOrEmpty(playerID: model.player, card: model.card): Int ={
-    if(playerID.field == card.beanName) {
-      println(model.gamedata.newOrOldField)
-      val fieldChoosen = UIlogic.keyListener()
-      fieldChoosen
+    if(playerID.plantfield1.contains(card)) {
+      return 1
+    } else if(playerID.plantfield2.contains(card)) {
+      return 2
+    } else if(playerID.plantfield3.contains(card)){
+      return 3
     } else {
       emptyPlantfieldNr(playerID)
     }
   }
-
 }
