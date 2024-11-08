@@ -26,7 +26,11 @@ object GameUpdate {
       Utility.plantOrTrade(cards, playingPlayer)
       
       round += 1
-      p += 1
+      if(p == plantCount-1){
+        p = 0
+      }else{
+        p += 1
+      }
     }
     gameUpdateLog.toString // Gibt das gesamte Log als String zurück
   }
