@@ -6,6 +6,6 @@ object TUI {
   def setUpTUI(): Unit = {
     println(model.gamedata.welcome)
     println(model.gamedata.playerCountQuestion)
-    println(controller.UIlogic.initGame)
+    println(model.gameDataFunc.initGame)
   }
 }

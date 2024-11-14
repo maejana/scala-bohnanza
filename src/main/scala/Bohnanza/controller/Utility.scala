@@ -1,7 +1,9 @@
 package Bohnanza.controller
 
+import Bohnanza.view
 import Bohnanza.model
 import Bohnanza.model.player
+import Bohnanza.model.gameDataFunc
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -11,8 +13,6 @@ object Utility {
     val cardname = scala.io.StdIn.readLine()
     findCardWithName(cardname)
   }
-
-
   def plantPreperation(player: model.player): String = {
     val gameUpdateLog = new StringBuilder()
     val plantCard: model.card = Utility.plantInfo()
@@ -21,7 +21,7 @@ object Utility {
     }
     else if (isPlantable(player, plantCard) && player.playerHand.contains(plantCard)) {
       gamelogic.plant(plantCard,  player)
-      takeNewCard(player, plantCard)
+      model.gameDataFunc.takeNewCard(player, plantCard)
       gameUpdateLog.append(s"${player.name} pflanzt $plantCard\n")
       gameUpdateLog.toString
     } else {
@@ -29,10 +29,6 @@ object Utility {
       model.gamedata.errorPlantingField
       plantPreperation(player)
     }
-  }
-  def takeNewCard(player: model.player, plantCard: model.card): Unit = {
-    val index = player.playerHand.indexOf(plantCard)
-    player.playerHand(index) = UIlogic.weightedRandom()
   }
   def findCardWithName(name: String): model.card = {
     var i = 0
@@ -59,7 +55,7 @@ object Utility {
   }
   def plantOrTrade(cards: ArrayBuffer[model.card], player: model.player): Unit = {
       println(model.gamedata.drawCardText)
-      val keepCardNr = UIlogic.keyListener()
+      val keepCardNr = view.playerInput.keyListener()
       keepCardNr match
         case 0 => //gamelogic.trade()
         case 1 => println(model.gamedata.drawnCardName)
@@ -83,13 +79,6 @@ object Utility {
   def findCardId(player: model.player, card: model.card): Int = {
       player.playerHand.indexOf(card)
     }
-
-  def plant1or2(playingPlayer: model.player): Int = {
-      val Nr = UIlogic.keyListener()
-      println(UIlogic.plantSelectString(playingPlayer))
-      Nr
-    }
-
   def selectPlayer(index: Int): player = {
     if (index >= 0 && index < model.gamedata.players.length) {
       model.gamedata.players(index)
@@ -97,7 +86,6 @@ object Utility {
       throw new IndexOutOfBoundsException(s"$index is out of bounds (min 0, max ${model.gamedata.players.length - 1})")
     }
   }
-
   def isPlantable(player: model.player, bean: model.card): Boolean = {
     if (player.plantfield1.contains(bean.beanName) || player.plantfield2.contains(bean.beanName) || player.plantfield3.contains(bean.beanName)) {
       return true
@@ -109,7 +97,6 @@ object Utility {
       return false
     }
   }
-
   def chooseOrEmpty(playerID: model.player, card: model.card): Int ={
     if(playerID.plantfield1.contains(card)) {
       return 1
@@ -120,5 +107,10 @@ object Utility {
     } else {
       emptyPlantfieldNr(playerID)
     }
+  }
+  def plant1or2(playingPlayer: player): Int = {
+    val Nr = view.playerInput.keyListener()
+    println(UIlogic.plantSelectString(playingPlayer))
+    Nr
   }
 }

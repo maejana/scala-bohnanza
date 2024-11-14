@@ -35,11 +35,4 @@ object gamelogic {
     playingPlayer.playerHand(Utility.findCardId(playingPlayer, card1)) = traderCard
     tradePartner.playerHand(Utility.findCardId(tradePartner, card2)) = playerCard
   }
-  def drawCards(): ArrayBuffer[model.card] ={
-    var cardArray = ArrayBuffer[model.card]()
-    for (i <- 1 to 2) {
-      cardArray.addOne(UIlogic.weightedRandom())
-    }
-    cardArray
-  }
 }

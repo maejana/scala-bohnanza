@@ -1,6 +1,7 @@
 package Bohnanza.controller
 
 import Bohnanza.model
+import Bohnanza.model.gameDataFunc
 
 import scala.collection.mutable.ArrayBuffer
 import scala.language.postfixOps
@@ -30,81 +31,10 @@ object UIlogic{
 
     allcards(rand)
   }
-  def initPlayer(name: String): String = {
-    val playerName = name
-    var growingFieldText: String =
-      s"""
-          ${playerName}:
-             Field 1:
-
-             Field 2:
-
-             Field 3:
-
-
-          """
-    val weights = model.gamedata.weights
-    var hand: ArrayBuffer[model.card] = ArrayBuffer()
-    for (i <- 1 to 4) {
-      hand.addOne(weightedRandom())
-      growingFieldText += hand(i-1).beanName + ", "
-    }
-    hand.addOne(weightedRandom())
-    growingFieldText += hand(4).beanName
-    model.gamedata.players += model.player(playerName,hand)
-    growingFieldText
-  }
-  def initGame: String = {
-    var str = ""
-    val playerCount = scala.io.StdIn.readInt()
-    val playernames: Array[String] = new Array[String](playerCount)
-    println("Namen eingeben:")
-    for (i <- 1 to playerCount) {
-      playernames(i - 1) = scala.io.StdIn.readLine()
-    }
-
-    for (i <- 1 to playerCount) {
-      str += initPlayer(playernames(i - 1))
-    }
-    str
-  }
   def plantSelectString(player: model.player): String = {
     var s: String = ""
     s += model.gamedata.selectPlantCard
-    s += playerHandToString(player.playerHand)
-    s
-  }
-  def playerHandToString(hand: ArrayBuffer[model.card]): String = {
-    var s = ""
-    hand.foreach(card => s += card.beanName + " ")
-    s
-  }
-  def keyListener(): Int = {
-    val key = scala.io.StdIn.readLine().strip()
-    key match {
-      case "0" => 0
-      case "1" => 1
-      case "2" => 2
-      case "3" => 3
-    }
-  }
-  def buildGrowingFieldStr(playingPlayer : model.player): String = {
-    val growingFieldText: String =
-      s"""
-                               ${playingPlayer.playerName}:
-                                  Field 1:
-                               ${playerFieldToString(playingPlayer.plantfield1)}
-                                  Field 2:
-                               ${playerFieldToString(playingPlayer.plantfield2)}
-                                  Field 3:
-                               ${playerFieldToString(playingPlayer.plantfield3)}
-
-                               """
-    growingFieldText
-  }
-  def playerFieldToString(field: ArrayBuffer[model.card]): String = {
-    var s = ""
-    field.foreach(card => s += card.beanName + " ")
+    s += model.gameDataFunc.playerHandToString(player.playerHand)
     s
   }
 }

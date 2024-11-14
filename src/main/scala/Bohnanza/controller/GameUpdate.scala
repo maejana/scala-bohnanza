@@ -20,15 +20,15 @@ object GameUpdate {
         Utility.plantPreperation(playingPlayer)
         i +=1
       }
-      println(UIlogic.buildGrowingFieldStr(playingPlayer))
+      println(model.gameDataFunc.buildGrowingFieldStr(playingPlayer))
       //Trade or plant 2 Cards
-      model.gamedata.drawnCards = gamelogic.drawCards()
+      model.gamedata.drawnCards = model.gameDataFunc.drawCards()
       model.gamedata.drawnCards.foreach(card => println(card.beanName))
       Utility.plantOrTrade(model.gamedata.drawnCards, playingPlayer)
-      println(UIlogic.buildGrowingFieldStr(playingPlayer))
+      println(model.gameDataFunc.buildGrowingFieldStr(playingPlayer))
 
       round += 1
-      if(p == playerCount || playerCount == 1){
+      if(p == playerCount-1 || playerCount == 1){
         p = 0
       }else{
         p += 1
