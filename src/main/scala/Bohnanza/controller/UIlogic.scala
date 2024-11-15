@@ -11,7 +11,6 @@ import org.jline.keymap.{BindingReader, KeyMap}
 
 
 object UIlogic{
-  val terminal: Terminal = TerminalBuilder.builder().system(true).build()
   def weightedRandom(): model.card = {
     var allcards = ArrayBuffer[model.card]()
     for(i <- 1 to model.gamedata.cards.size){

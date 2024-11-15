@@ -4,8 +4,10 @@ import Bohnanza.{controller, model}
 
 object TUI {
   def setUpTUI(): Unit = {
-    println(model.gamedata.welcome)
-    println(model.gamedata.playerCountQuestion)
-    println(model.gameDataFunc.initGame)
+    println(controller.GameUpdate.gameSetup())
+    println(controller.GameUpdate.gameStart())
+  }
+  def startGame(): Unit ={
+    println(controller.GameUpdate.gameUpdate())
   }
 }

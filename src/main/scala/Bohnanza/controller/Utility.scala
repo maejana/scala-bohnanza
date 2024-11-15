@@ -15,19 +15,17 @@ object Utility {
   }
   def plantPreperation(player: model.player): String = {
     val gameUpdateLog = new StringBuilder()
-    val plantCard: model.card = Utility.plantInfo()
-    if(plantCard == null){
+    val plantCard: model.card = plantInfo()
+    if(plantCard == null) {
       return ""
     }
     else if (isPlantable(player, plantCard) && player.playerHand.contains(plantCard)) {
-      gamelogic.plant(plantCard,  player)
+      gamelogic.plant(plantCard, player)
       model.gameDataFunc.takeNewCard(player, plantCard)
       gameUpdateLog.append(s"${player.name} pflanzt $plantCard\n")
       gameUpdateLog.toString
     } else {
-      model.gamedata.errorBeanNotInHand
-      model.gamedata.errorPlantingField
-      plantPreperation(player)
+      ""
     }
   }
   def findCardWithName(name: String): model.card = {
