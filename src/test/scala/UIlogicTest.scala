@@ -18,7 +18,7 @@ class UIlogicTest extends AnyWordSpec with Matchers {
   "UIlogic" should {
     "initPlayer" in {
       val playerName = "TestPlayer"
-      val result = controller.UIlogic.initPlayer(playerName)
+      val result = model.gameDataFunc.initPlayer(playerName)
       result should include(playerName)
       result should include regex ("((?:Blaue|Feuer|Sau|Brech|Soja|Augen|Rote|Garten),\\s){4}(Blaue|Feuer|Sau|Brech|Soja|Augen|Rote|Garten)")
     }
@@ -26,7 +26,7 @@ class UIlogicTest extends AnyWordSpec with Matchers {
     "initGame" in {
       val input = new java.io.ByteArrayInputStream("2\nPlayer1\nPlayer2\n".getBytes)
       Console.withIn(input) {
-        val result = controller.UIlogic.initGame
+        val result = model.gameDataFunc.initGame
         result should include("Player1")
         result should include("Player2")
       }
@@ -70,7 +70,7 @@ class UIlogicTest extends AnyWordSpec with Matchers {
       )
 
       // Call the method
-      val result = UIlogic.buildGrowingFieldStr(mockPlayer)
+      val result = model.gameDataFunc.buildGrowingFieldStr(mockPlayer)
 
       // Expected result
       val expected =

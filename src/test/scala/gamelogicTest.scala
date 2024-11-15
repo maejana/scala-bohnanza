@@ -5,6 +5,7 @@ import org.scalatest.matchers.should.Matchers
 import org.mockito.Mockito._
 import org.mockito.ArgumentMatchers._
 import org.mockito.MockitoAnnotations
+import Bohnanza.model
 import Bohnanza.model._
 import Bohnanza.model.player
 import Bohnanza.controller.Utility
@@ -101,7 +102,7 @@ class GameLogicTest extends AnyWordSpec with Matchers {
         val mockUILogic = mock(classOf[UIlogic.type])
         when(mockUILogic.weightedRandom()).thenReturn(null)
 
-        val drawnCards = controller.gamelogic.drawCards()
+        val drawnCards = model.gameDataFunc.drawCards()
         drawnCards.length shouldBe 2  // Should still return correct number of cards
       }
     }
