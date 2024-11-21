@@ -47,7 +47,7 @@ jobs:
 
     # Schritt 7: Ergebnisse an Coveralls senden (erfordert ein Coveralls Token)
     - name: Send coverage results to Coveralls
-      run: sbt coverallsPush
+      run: sbt coverallsPush -v
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }} # Token muss als GitHub Secret hinterlegt sein
 
