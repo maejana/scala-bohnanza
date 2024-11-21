@@ -2,7 +2,7 @@ package Bohnanza.view
 
 object playerInput {
   def keyListener(): Int = {
-    val key = scala.io.StdIn.readLine().strip()
+    val key = scala.io.StdIn.readLine()
     key match {
       case "0" => 0
       case "1" => 1
