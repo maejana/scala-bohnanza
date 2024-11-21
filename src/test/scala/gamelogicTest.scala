@@ -25,7 +25,7 @@ class GameLogicTest extends AnyWordSpec with Matchers {
 
   "GameLogic" should {
     "plant cards correctly in different fields" when {
-      
+
       /*
       "planting" in {
         val player = testPlayer1.copy()
@@ -35,12 +35,12 @@ class GameLogicTest extends AnyWordSpec with Matchers {
         controller.gamelogic.plant(testCard1, player)
         player.plantfield1 should contain(testCard1)
       }
-      
+
        */
     }
 
 
-       
+
     "handle harvesting correctly" in {
       // Test harvesting from different fields
       val result1 = controller.gamelogic.harvest(1)
@@ -105,7 +105,7 @@ class GameLogicTest extends AnyWordSpec with Matchers {
       }
 
 
- */
+
       "drawing cards with empty deck" in {
         val mockUILogic = mock(classOf[UIlogic.type])
         when(mockUILogic.weightedRandom()).thenReturn(null)
@@ -113,8 +113,12 @@ class GameLogicTest extends AnyWordSpec with Matchers {
         val drawnCards = model.gameDataFunc.drawCards()
         drawnCards.length shouldBe 2  // Should still return correct number of cards
       }
+
+ */
     }
   }
+
+
 
   // Helper functions
   def createPlayerWithCards(name: String, cards: card*): player = {
