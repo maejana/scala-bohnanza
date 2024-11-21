@@ -5,4 +5,6 @@ object App {
     view.TUI.setUpTUI()
     view.TUI.startGame()
   }
+  //es wäre besser für dich wenn es jetzt funktioniert
+
 }
