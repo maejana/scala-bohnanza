@@ -6,6 +6,10 @@ lazy val root = (project in file("."))
   .settings(
     name := "Bohnanza"
   )
+javacOptions ++= Seq(
+  "-source", "11",
+  "-target", "11"
+)
 
 libraryDependencies ++= Seq(
   "org.mockito" % "mockito-core" % "5.4.0" % Test,
