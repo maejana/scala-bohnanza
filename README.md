@@ -1,5 +1,5 @@
 [![Coverage Status](https://coveralls.io/repos/github/maejana/scala-bohnanza/badge.svg?branch=main)](https://coveralls.io/github/maejana/scala-bohnanza?branch=main)
-
+[![Build Status](https://app.travis-ci.com/maejana/scala-bohnanza.svg?token=vZAarPcrkyXMWyYFszft&branch=main)](https://app.travis-ci.com/maejana/scala-bohnanza)
 # Bohnanza
 A clone of the Card Game Bohnanza
 
