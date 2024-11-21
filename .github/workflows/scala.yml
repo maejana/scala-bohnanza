@@ -29,8 +29,8 @@ jobs:
     - name: Install sbt
       uses: olafurpg/setup-scala@v10
       with:
-        scala-version: '2.12.17' # Passen Sie die Scala-Version an Ihre Bedürfnisse an
-        sbt-version: '1.8.0'     # Geben Sie die passende sbt-Version an
+        scala-version: '1.10.3' # Passen Sie die Scala-Version an Ihre Bedürfnisse an
+        sbt-version: '1.10.3'     # Geben Sie die passende sbt-Version an
 
     # Schritt 4: Abhängigkeiten auflösen und Projekt bauen
     - name: sbt compile
