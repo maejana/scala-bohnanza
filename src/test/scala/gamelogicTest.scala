@@ -35,10 +35,12 @@ class GameLogicTest extends AnyWordSpec with Matchers {
         controller.gamelogic.plant(testCard1, player)
         player.plantfield1 should contain(testCard1)
       }
+      
+       */
     }
 
 
-       */
+       
     "handle harvesting correctly" in {
       // Test harvesting from different fields
       val result1 = controller.gamelogic.harvest(1)
