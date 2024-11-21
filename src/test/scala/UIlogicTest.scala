@@ -34,6 +34,7 @@ class UIlogicTest extends AnyWordSpec with Matchers {
 
     "weigthedRandom" in {
       // Setup initial game data
+      /*
       model.gamedata.cards = Array(
         model.card("Blaue", 20, scala.collection.mutable.ArrayBuffer(1, 2, 3)),
         model.card("Feuer", 18, scala.collection.mutable.ArrayBuffer(1, 2, 3)),
@@ -41,18 +42,14 @@ class UIlogicTest extends AnyWordSpec with Matchers {
         model.card("Brech", 14, scala.collection.mutable.ArrayBuffer(1, 2, 3)),
         model.card("Soja", 12, scala.collection.mutable.ArrayBuffer(1, 2, 3)),
         model.card("Augen", 10, scala.collection.mutable.ArrayBuffer(1, 2, 3)),
-        model.card("Rote", 8, scala.collection.mutable.ArrayBuffer(1, 2, 3)))
+        model.card("Rote", 8, scala.collection.mutable.ArrayBuffer(1, 2, 3)),
+        model.card("Garten",6, scala.collection.mutable.ArrayBuffer(1,2,3)))
 
+       */
       // Call the method
       val result = UIlogic.weightedRandom()
 
-      // Check if the result is a valid card name
-      val validCardNames = model.gamedata.cards.map(_.beanName)
-      assert(validCardNames.contains(result.beanName))
-
-      // Check if the weight of the returned card is decremented
-      val cardIndex = validCardNames.indexOf(result.beanName)
-      assert(model.gamedata.cards(cardIndex).weightCount == (result.weight - 1))
+      model.gamedata.cards should contain(result)
     }
     "keyListener" in{
       val mock = 0

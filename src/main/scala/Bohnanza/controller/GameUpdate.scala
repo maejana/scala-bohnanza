@@ -17,9 +17,7 @@ object GameUpdate {
       println(model.gameDataFunc.playerHandToString(playingPlayer.playerHand))
       plantCount = Utility.plant1or2(playingPlayer)
       //planting
-      println("i außerhalb der while: " + i)
       while (i < plantCount) {
-        println("i in while : "+ i)
         if(!Utility.plantPreperation(playingPlayer).equals("")){
           i += 1
         }
