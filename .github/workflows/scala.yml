@@ -38,8 +38,8 @@ jobs:
       run: sbt compile
 
     # Schritt 5: Tests ausführen
-    - name: sbt clean Coverage Test
-      run: sbt clean Coverage Test
+    - name: sbt clean coverage Test
+      run: sbt clean coverage Test
 
     # Schritt 6: Coverage generieren
     - name: sbt coverageReport
