@@ -4,6 +4,8 @@
 ![example branch parameter](https://github.com/maejana/scala-bohnanza/actions/workflows/scala.yml/badge.svg?branch=main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![GitHub contributors](https://img.shields.io/github/contributors/maejana/scala-bohnanza)
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/w/maejana/scala-bohnanza/main)
+
 
 
 # Bohnanza
