@@ -51,4 +51,5 @@ object GameUpdate {
     s.append(model.gameDataFunc.initGame)
     s.toString()
   }
+  //super
 }
