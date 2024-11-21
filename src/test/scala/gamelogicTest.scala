@@ -15,7 +15,7 @@ import scala.collection.mutable.ArrayBuffer
 
 class GameLogicTest extends AnyWordSpec with Matchers {
 
-  MockitoAnnotations.openMocks(this)
+
 
   // Test setup
   val testCard1 = card("bean", 16, ArrayBuffer(1, 2, 3))
