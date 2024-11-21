@@ -23,14 +23,15 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '11'
-        distribution: 'adoptopenjdk'
+        distribution: 'temurin'
+
 
     # Schritt 3: Installieren von sbt (build tool für Scala)
     - name: Install sbt
       uses: olafurpg/setup-scala@v10
       with:
-        scala-version: '2.12.17' # Passen Sie die Scala-Version an Ihre Bedürfnisse an
-        sbt-version: '1.8.0'     # Geben Sie die passende sbt-Version an
+        scala-version: '1.10.3' # Passen Sie die Scala-Version an Ihre Bedürfnisse an
+        sbt-version: '1.10.3'     # Geben Sie die passende sbt-Version an
 
     # Schritt 4: Abhängigkeiten auflösen und Projekt bauen
     - name: sbt compile
@@ -46,7 +47,7 @@ jobs:
 
     # Schritt 7: Ergebnisse an Coveralls senden (erfordert ein Coveralls Token)
     - name: Send coverage results to Coveralls
-      run: sbt coverallsPush
+      run: sbt coverallsPush -v
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }} # Token muss als GitHub Secret hinterlegt sein
 
