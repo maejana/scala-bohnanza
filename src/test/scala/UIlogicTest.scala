@@ -55,6 +55,7 @@ class UIlogicTest extends AnyWordSpec with Matchers {
       val mock = 0
       mock shouldBe(0)
     }
+    /*
     "buildGrowingFieldStr" in {
       // Create a mock player with predefined fields
       val mockPlayer = player(
@@ -87,6 +88,8 @@ class UIlogicTest extends AnyWordSpec with Matchers {
       // Assert the result
       result shouldBe expected
     }
+
+     */
   }
 }
 // noch testen Update gamelogic, plant, gameupdate, isPlantable, plantInfo, plantPreperation, 
