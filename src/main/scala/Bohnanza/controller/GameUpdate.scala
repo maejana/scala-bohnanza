@@ -1,6 +1,7 @@
 package Bohnanza.controller
 
 import Bohnanza.model
+import Bohnanza.controller.plantAmount
 
 object GameUpdate {
   def gameUpdate(): String = {
@@ -26,7 +27,8 @@ object GameUpdate {
       //Trade or plant 2 Cards
       model.gamedata.drawnCards = model.gameDataFunc.drawCards()
       model.gamedata.drawnCards.foreach(card => println(card.beanName))
-      Utility.plantOrTrade(model.gamedata.drawnCards, playingPlayer)
+      println(model.gamedata.drawCardText)
+      plantAmount.strategy.execute(model.gamedata.drawnCards, playingPlayer)
       println(model.gameDataFunc.buildGrowingFieldStr(playingPlayer))
 
       round += 1

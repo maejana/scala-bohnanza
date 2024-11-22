@@ -51,16 +51,7 @@ object Utility {
       return 3
     }else return -1
   }
-  def plantOrTrade(cards: ArrayBuffer[model.card], player: model.player): Unit = {
-      println(model.gamedata.drawCardText)
-      val keepCardNr = view.playerInput.keyListener()
-      keepCardNr match
-        case 0 => //gamelogic.trade()
-        case 1 => println(model.gamedata.drawnCardName)
-          plantDrawnCard(player, selectCardToPlant(cards, player))
-        case 2 => plantDrawnCard(player, cards(0))
-          plantDrawnCard(player, cards(1))
-    }
+ 
   def selectCardToPlant(cards : ArrayBuffer[model.card], player: model.player): model.card = {
     var bool = true
     while (bool){
