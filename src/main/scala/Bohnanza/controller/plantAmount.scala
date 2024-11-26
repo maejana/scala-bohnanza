@@ -33,13 +33,17 @@ object plantAmount {
       Utility.plantDrawnCard(player, cards(1))
     }
   }
-  class StrategyRETRY extends Strategy{
+  private class StrategyRETRY extends Strategy{
     override def execute(cards: ArrayBuffer[card], player: player): Unit = {
-      strategy.execute(cards, player)
+      selectStrategy().execute(cards, player)
     }
   }
-
-
-  var strategy: Strategy = if (view.playerInput.keyListener() == 0) new Strategy1 else if (view.playerInput.keyListener() == 1) new Strategy2
-  else if (view.playerInput.keyListener() == 2) new Strategy3 else new StrategyRETRY
+  private def selectStrategy(): Strategy = {
+    val nr = view.playerInput.keyListener()
+    if (nr == 0) new Strategy1
+    else if (nr == 1) new Strategy2
+    else if (nr == 2) new Strategy3
+    else new StrategyRETRY
+  }
+  var strategy: Strategy = selectStrategy()
 }
