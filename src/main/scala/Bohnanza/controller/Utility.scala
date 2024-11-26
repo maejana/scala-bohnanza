@@ -12,10 +12,11 @@ object Utility {
     val cardname = scala.io.StdIn.readLine()
     findCardWithName(cardname)
   }
+
   def plantPreperation(player: model.player): String = {
     val gameUpdateLog = new StringBuilder()
     val plantCard: model.card = plantInfo()
-    if(plantCard == null) {
+    if (plantCard == null) {
       return ""
     }
     else if (isPlantable(player, plantCard) && player.playerHand.contains(plantCard)) {
@@ -27,32 +28,36 @@ object Utility {
       ""
     }
   }
+
   def findCardWithName(name: String): model.card = {
     var i = 0
-    for (i <- 0 until model.gamedata.cards.length){
-      if (model.gamedata.cards(i).beanName == name ){
+    for (i <- 0 until model.gamedata.cards.length) {
+      if (model.gamedata.cards(i).beanName == name) {
         return model.gamedata.cards(i)
       }
     }
     null
   }
+
   def plantDrawnCard(player: model.player, card: model.card): Unit = {
-    if(isPlantable(player, card)){
-      gamelogic.plant(card,player)
+    if (isPlantable(player, card)) {
+      gamelogic.plant(card, player)
     }
   }
+
   def emptyPlantfieldNr(player: model.player): Int = {
-    if (player.plantfield1.isEmpty){
+    if (player.plantfield1.isEmpty) {
       return 1
-    }else if (player.plantfield2.isEmpty){
+    } else if (player.plantfield2.isEmpty) {
       return 2
-    }else if( player.plantfield3.isEmpty){
+    } else if (player.plantfield3.isEmpty) {
       return 3
-    }else return -1
+    } else return -1
   }
-  def selectCardToPlant(cards : ArrayBuffer[model.card], player: model.player): model.card = {
+
+  def selectCardToPlant(cards: ArrayBuffer[model.card], player: model.player): model.card = {
     var bool = true
-    while (bool){
+    while (bool) {
       val cardToPlant = plantInfo()
       if (cards.contains(cardToPlant)) {
         bool = false
@@ -63,16 +68,20 @@ object Utility {
     }
     null
   }
+
   def findCardId(player: model.player, card: model.card): Int = {
-      player.playerHand.indexOf(card)
-    }
+    player.playerHand.indexOf(card)
+  }
+
   def selectPlayer(): player = {
-    for(player: player <- model.gamedata.players){
-      if(player.plays == playerState.plays()){ {
-        return player
+    for (player: player <- model.gamedata.players) {
+      if (player.plays == playerState.plays()) {
+        {
+          return player
+        }
       }
+      null
     }
-    null
   }
   def isPlantable(player: model.player, bean: model.card): Boolean = {
     if (player.plantfield1.contains(bean.beanName) || player.plantfield2.contains(bean.beanName) || player.plantfield3.contains(bean.beanName)) {
@@ -85,20 +94,23 @@ object Utility {
       return false
     }
   }
-  def chooseOrEmpty(playerID: model.player, card: model.card): Int ={
-    if(playerID.plantfield1.contains(card)) {
+
+  def chooseOrEmpty(playerID: model.player, card: model.card): Int = {
+    if (playerID.plantfield1.contains(card)) {
       return 1
-    } else if(playerID.plantfield2.contains(card)) {
+    } else if (playerID.plantfield2.contains(card)) {
       return 2
-    } else if(playerID.plantfield3.contains(card)){
+    } else if (playerID.plantfield3.contains(card)) {
       return 3
     } else {
       emptyPlantfieldNr(playerID)
     }
   }
+
   def plant1or2(playingPlayer: player): Int = {
     val Nr = view.playerInput.keyListener()
     println(UIlogic.plantSelectString(playingPlayer))
     Nr
   }
+  
 }

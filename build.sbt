@@ -17,8 +17,6 @@ libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14"
 libraryDependencies += "org.jline" % "jline" % "3.21.0"
 //libraryDependencies += "org.mockito" %% "mockito-scala" % "1.16.42" % Test
 
-enablePlugins(CoverallsPlugin)
-
 // Optionally, specify ScalaTest or another test framework for better integration
 coverageEnabled := true
 

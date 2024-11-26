@@ -7,7 +7,7 @@ import Bohnanza.controller.playerState
 object GameUpdate {
   def gameUpdate(): String = {
     var i = 0
-    model.gamedata.players(0).plays = playerState.plays()
+    model.gamedata.players(0).plays = playerState.handle()
     var round = 1
     val gameUpdateLog = new StringBuilder
     var plantCount = 0
