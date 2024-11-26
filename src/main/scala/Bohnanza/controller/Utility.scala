@@ -105,7 +105,9 @@ object Utility {
   }
 
   def plant1or2(playingPlayer: player): Int = {
-    val Nr = view.playerInput.keyListener()
+    var Nr = view.playerInput.keyListener()
+    if(Nr < 1) Nr = 1
+    if(Nr > 2) Nr = 2
     println(UIlogic.plantSelectString(playingPlayer))
     Nr
   }
