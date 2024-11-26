@@ -2,11 +2,12 @@ package Bohnanza.controller
 
 import Bohnanza.model
 import Bohnanza.controller.plantAmount
+import Bohnanza.controller.playerState
 
 object GameUpdate {
   def gameUpdate(): String = {
     var i = 0
-    model.gamedata.players(0).plays = true
+    model.gamedata.players(0).plays = playerState.plays()
     var round = 1
     val gameUpdateLog = new StringBuilder
     var plantCount = 0
@@ -33,6 +34,7 @@ object GameUpdate {
 
       round += 1
       i = 0
+      
     }
     gameUpdateLog.toString // Gibt das gesamte Log als String zurück
   }

@@ -68,7 +68,7 @@ object Utility {
     }
   def selectPlayer(): player = {
     for(player: player <- model.gamedata.players){
-      if(player.plays == true) {
+      if(player.plays == playerState.plays()){ {
         return player
       }
     }
