@@ -1,33 +1,29 @@
 package Bohnanza.controller
 
-import org.w3c.dom.events.Event
 import Bohnanza.model
 
-/*
 object playerState {
 
-  trait Event
-  case class playsEvent() extends Event
-  case class dontPlaysEvent() extends Event
-
   trait State {
-    def handle(p: model.player): State
+    def handle(player: model.player): State
   }
-  case class plays() extends State{
-    override def handle(p: model.player): State = {
-      p.plays match
-        case Plays: playsEvent => dontPlays()
-        case DontPlays: dontPlaysEvent => plays()
+
+  case class Plays() extends State {
+    override def handle(player: model.player): State = {
+      DontPlays() // Transition to DontPlays state
     }
   }
-  case class dontPlays() extends State{
-    override def handle(p : model.player): State = {
-      p.plays match
-        case Plays: playsEvent => plays()
-        case DontPlays: dontPlaysEvent => dontPlays()
+
+  case class DontPlays() extends State {
+    override def handle(player: model.player): State = {
+      println(s"${player.playerName} is not playing.")
+      Plays()// Transition to Plays state
     }
   }
-  var state: State = dontPlays()
-  def handle(p: model.player) = state = state.handle(p)
+
+  var state: State = DontPlays() // Initial state
+
+  def handle(player: model.player): Unit = {
+    state = state.handle(player)
+  }
 }
-*/

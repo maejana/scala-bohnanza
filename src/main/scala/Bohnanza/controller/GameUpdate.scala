@@ -1,6 +1,7 @@
 package Bohnanza.controller
 
 import Bohnanza.model
+import Bohnanza.controller.plantAmount
 
 object GameUpdate {
   def gameUpdate(): String = {
@@ -29,6 +30,9 @@ object GameUpdate {
       println(model.gamedata.drawCardText)
       plantAmount.strategy.execute(model.gamedata.drawnCards, model.gamedata.playingPlayer)
       println(model.gameDataFunc.buildGrowingFieldStr(model.gamedata.playingPlayer))
+
+      playerState.handle(model.gamedata.playingPlayer)
+
       round += 1
       i = 0
       if (p == playerCount - 1 || playerCount == 1) {
