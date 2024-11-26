@@ -37,15 +37,12 @@ object GameUpdate {
         p += 1
       }
       i = 0
-      
     }
     gameUpdateLog.toString // Gibt das gesamte Log als String zurück
   }
   def gameSetup(): String = {
     val s = new StringBuilder()
-    println("test")
     s.append(model.gamedata.welcome)
-    println("toll")
     s.append("\n")
     s.append(model.gamedata.playerCountQuestion)
     s.toString()

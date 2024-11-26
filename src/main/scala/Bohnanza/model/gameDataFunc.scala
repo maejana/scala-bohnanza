@@ -27,7 +27,7 @@ object gameDataFunc {
 
             """
     val weights = gamedata.weights
-    var hand: ArrayBuffer[card] = ArrayBuffer()
+    val hand: ArrayBuffer[card] = ArrayBuffer()
     for (i <- 1 to 4) {
       hand.addOne(controller.UIlogic.weightedRandom())
       growingFieldText += hand(i - 1).beanName + ", "
