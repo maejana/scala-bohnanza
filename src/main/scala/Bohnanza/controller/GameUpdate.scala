@@ -33,7 +33,6 @@ object GameUpdate {
 
       round += 1
       i = 0
-      
     }
     gameUpdateLog.toString // Gibt das gesamte Log als String zurück
   }
