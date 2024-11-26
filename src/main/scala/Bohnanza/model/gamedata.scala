@@ -19,4 +19,5 @@ object gamedata {
   var drawnCardName = "Gib den Namen der Bohne ein die du anpflanzen moechtest."
   var players = ArrayBuffer[player]()
   var drawnCards: ArrayBuffer[card] = ArrayBuffer[card]()
+  var playingPlayer: Bohnanza.model.player = players(0) 
 }
