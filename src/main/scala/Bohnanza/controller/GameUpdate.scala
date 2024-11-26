@@ -7,7 +7,7 @@ import Bohnanza.controller.playerState
 object GameUpdate {
   def gameUpdate(): String = {
     var i = 0
-    model.gamedata.players(0).plays = playerState.handle()
+    var p = 0
     var round = 1
     val gameUpdateLog = new StringBuilder
     var plantCount = 0
@@ -33,6 +33,12 @@ object GameUpdate {
       println(model.gameDataFunc.buildGrowingFieldStr(playingPlayer))
 
       round += 1
+      i = 0
+      if (p == playerCount - 1 || playerCount == 1) {
+        p = 0
+      } else {
+        p += 1
+      }
       i = 0
       
     }
