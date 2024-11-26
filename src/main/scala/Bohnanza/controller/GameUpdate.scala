@@ -2,7 +2,6 @@ package Bohnanza.controller
 
 import Bohnanza.model
 import Bohnanza.controller.plantAmount
-import Bohnanza.controller.playerState
 
 object GameUpdate {
   def gameUpdate(): String = {
@@ -14,7 +13,7 @@ object GameUpdate {
     val playerCount = model.gamedata.players.size
     while (round <= 5) {
       //Start of Game
-      val playingPlayer = Utility.selectPlayer()
+      val playingPlayer = Utility.selectPlayer(p)
       println(model.gamedata.plantAmountQuestion)
       println(model.gameDataFunc.playerHandToString(playingPlayer.playerHand))
       plantCount = Utility.plant1or2(playingPlayer)

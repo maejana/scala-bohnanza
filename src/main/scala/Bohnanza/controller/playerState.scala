@@ -3,7 +3,9 @@ package Bohnanza.controller
 import org.w3c.dom.events.Event
 import Bohnanza.model
 
+/*
 object playerState {
+
   trait Event
   case class playsEvent() extends Event
   case class dontPlaysEvent() extends Event
@@ -28,3 +30,4 @@ object playerState {
   var state: State = dontPlays()
   def handle(p: model.player) = state = state.handle(p)
 }
+*/

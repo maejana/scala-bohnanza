@@ -73,14 +73,11 @@ object Utility {
     player.playerHand.indexOf(card)
   }
 
-  def selectPlayer(): player = {
-    for (player: player <- model.gamedata.players) {
-      if (player.plays == playerState.plays()) {
-        {
-          return player
-        }
-      }
-      null
+  def selectPlayer(index : Int): player = {
+    if (index >= 0 && index < model.gamedata.players.length) {
+      model.gamedata.players(index)
+    } else {
+      throw new IndexOutOfBoundsException(s"$index is out of bounds (min 0, max ${model.gamedata.players.length - 1})")
     }
   }
   def isPlantable(player: model.player, bean: model.card): Boolean = {
