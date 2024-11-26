@@ -2,8 +2,7 @@ package Bohnanza.controller
 
 import Bohnanza.view
 import Bohnanza.model
-import Bohnanza.model.player
-import Bohnanza.model.gameDataFunc
+import Bohnanza.model.{card, player}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -51,7 +50,6 @@ object Utility {
       return 3
     }else return -1
   }
- 
   def selectCardToPlant(cards : ArrayBuffer[model.card], player: model.player): model.card = {
     var bool = true
     while (bool){
@@ -68,12 +66,13 @@ object Utility {
   def findCardId(player: model.player, card: model.card): Int = {
       player.playerHand.indexOf(card)
     }
-  def selectPlayer(index: Int): player = {
-    if (index >= 0 && index < model.gamedata.players.length) {
-      model.gamedata.players(index)
-    } else {
-      throw new IndexOutOfBoundsException(s"$index is out of bounds (min 0, max ${model.gamedata.players.length - 1})")
+  def selectPlayer(): player = {
+    for(player: player <- model.gamedata.players){
+      if(player.plays == true) {
+        return player
+      }
     }
+    null
   }
   def isPlantable(player: model.player, bean: model.card): Boolean = {
     if (player.plantfield1.contains(bean.beanName) || player.plantfield2.contains(bean.beanName) || player.plantfield3.contains(bean.beanName)) {

@@ -10,4 +10,5 @@ case class player(name: String, hand: ArrayBuffer[card]) {
   var plantfield2 = ArrayBuffer[card]()
   var plantfield3 = ArrayBuffer[card]()
   var gold = 0
+  var plays = false
 }

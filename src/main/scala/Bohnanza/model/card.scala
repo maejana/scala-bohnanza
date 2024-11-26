@@ -8,4 +8,3 @@ case class card(bean: String, weight: Int, price: ArrayBuffer[Int]) {
   val priceStairs: ArrayBuffer[Int] = price
   // garten ab 2 = 1 sau 3 = 1 
 }
- 

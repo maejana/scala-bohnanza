@@ -6,14 +6,14 @@ import Bohnanza.controller.plantAmount
 object GameUpdate {
   def gameUpdate(): String = {
     var i = 0
-    var p = 0
+    model.gamedata.players(0).plays = true
     var round = 1
     val gameUpdateLog = new StringBuilder
     var plantCount = 0
     val playerCount = model.gamedata.players.size
     while (round <= 5) {
       //Start of Game
-      val playingPlayer = Utility.selectPlayer(p)
+      val playingPlayer = Utility.selectPlayer()
       println(model.gamedata.plantAmountQuestion)
       println(model.gameDataFunc.playerHandToString(playingPlayer.playerHand))
       plantCount = Utility.plant1or2(playingPlayer)
@@ -32,12 +32,8 @@ object GameUpdate {
       println(model.gameDataFunc.buildGrowingFieldStr(playingPlayer))
 
       round += 1
-      if(p == playerCount-1 || playerCount == 1){
-        p = 0
-      }else{
-        p += 1
-      }
       i = 0
+      
     }
     gameUpdateLog.toString // Gibt das gesamte Log als String zurück
   }
