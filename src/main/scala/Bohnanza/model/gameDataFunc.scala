@@ -4,7 +4,7 @@ import Bohnanza.view
 import Bohnanza.controller
 
 import scala.collection.mutable.ArrayBuffer
-
+import Bohnanza.model.ObserverData
 object gameDataFunc {
   def drawCards(): ArrayBuffer[card] = {
     var cardArray = ArrayBuffer[card]()
@@ -13,6 +13,7 @@ object gameDataFunc {
     }
     cardArray
   }
+  
   def initPlayer(name: String): String = {
     val playerName = name
     var growingFieldText: String =
@@ -32,6 +33,7 @@ object gameDataFunc {
       hand.addOne(controller.UIlogic.weightedRandom())
       growingFieldText += hand(i - 1).beanName + ", "
     }
+    
     hand.addOne(controller.UIlogic.weightedRandom())
     growingFieldText += hand(4).beanName
     gamedata.players += player(playerName, hand)

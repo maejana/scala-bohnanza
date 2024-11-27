@@ -2,8 +2,10 @@ package Bohnanza.controller
 
 import Bohnanza.model
 import Bohnanza.controller.plantAmount
+import Bohnanza.model.ObserverData
 
 object GameUpdate {
+  ObserverData.addObserver(model.CardObserver)
   def gameUpdate(): String = {
     var i = 0
     var p = 0

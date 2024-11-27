@@ -1,5 +1,7 @@
 package Bohnanza.model
 
+
+
 import scala.collection.mutable.ArrayBuffer
 
 object gamedata {
@@ -20,4 +22,5 @@ object gamedata {
   var players = ArrayBuffer[player]()
   var drawnCards: ArrayBuffer[card] = ArrayBuffer[card]()
   var playingPlayer: Bohnanza.model.player = null
+  
 }
