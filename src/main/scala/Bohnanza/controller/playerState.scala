@@ -10,14 +10,14 @@ object playerState {
 
   case class Plays() extends State {
     override def handle(player: model.player): State = {
-      println(s"${player.playerName} is playing.")
+      println(s"${player.playerName} ist an der Reihe.")
       DontPlays() // Transition to DontPlays state
     }
   }
 
   case class DontPlays() extends State {
     override def handle(player: model.player): State = {
-      println(s"${player.playerName} is not playing.")
+      println(s"${player.playerName} hat Runde beendet.")
       Plays()// Transition to Plays state
     }
   }

@@ -14,7 +14,8 @@ object GameUpdate {
     while (round <= 5) {
       //Start of Round
       model.gamedata.playingPlayer = Utility.selectPlayer(p)
-      println(model.gamedata.playingPlayer.playerName + ": \n")
+      playerState.handle(model.gamedata.playingPlayer)
+      //println(model.gamedata.playingPlayer.playerName + ": \n")
       println(model.gamedata.plantAmountQuestion)
       println(model.gameDataFunc.playerHandToString(model.gamedata.playingPlayer.playerHand))
       plantCount = Utility.plant1or2(model.gamedata.playingPlayer)
@@ -57,6 +58,7 @@ object GameUpdate {
   def gameStart(): String = {
     val s = new StringBuilder()
     s.append(model.gameDataFunc.initGame)
+    s.append("\n\n")
     s.toString()
   }
 }
