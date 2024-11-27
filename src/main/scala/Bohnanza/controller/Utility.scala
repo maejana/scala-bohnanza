@@ -17,7 +17,7 @@ object Utility {
     val gameUpdateLog = new StringBuilder()
     val plantCard: model.card = plantInfo()
     if (plantCard == null) {
-      return ""
+      ""
     }
     else if (isPlantable(player, plantCard) && player.playerHand.contains(plantCard)) {
       gamelogic.plant(plantCard, player)
@@ -106,6 +106,10 @@ object Utility {
 
   def plant1or2(playingPlayer: player): Int = {
     var Nr = view.playerInput.keyListener()
+    if(Nr == 0) {
+      println(model.gamedata.keineKorrekteNR)
+      Nr = view.playerInput.keyListener()
+    }
     if(Nr < 1) Nr = 1
     if(Nr > 2) Nr = 2
     println(UIlogic.plantSelectString(playingPlayer))

@@ -1,12 +1,10 @@
 package Bohnanza.controller
 
 import Bohnanza.model
-import Bohnanza.controller.plantAmount
-import Bohnanza.model.ObserverData
 
 object GameUpdate {
-  ObserverData.addObserver(model.CardObserver)
   def gameUpdate(): String = {
+    var z = false
     var i = 0
     var p = 0
     var round = 1
@@ -14,7 +12,7 @@ object GameUpdate {
     var plantCount = 0
     val playerCount = model.gamedata.players.size
     while (round <= 5) {
-      //Start of Game
+      //Start of Round
       model.gamedata.playingPlayer = Utility.selectPlayer(p)
       println(model.gamedata.playingPlayer.playerName + ": \n")
       println(model.gamedata.plantAmountQuestion)
@@ -25,15 +23,17 @@ object GameUpdate {
         if(!Utility.plantPreperation(model.gamedata.playingPlayer).equals("")){
           i += 1
         }
+        else {
+          println(model.gamedata.keineKorrekteBohne)
+        }
       }
       println(model.gameDataFunc.buildGrowingFieldStr(model.gamedata.playingPlayer))
       //Trade or plant 2 Cards
       model.gamedata.drawnCards = model.gameDataFunc.drawCards()
       model.gamedata.drawnCards.foreach(card => println(card.beanName))
       println(model.gamedata.drawCardText)
-      plantAmount.strategy.execute(model.gamedata.drawnCards, model.gamedata.playingPlayer)
+      plantAmount.selectStrategy().execute(model.gamedata.drawnCards, model.gamedata.playingPlayer)
       println(model.gameDataFunc.buildGrowingFieldStr(model.gamedata.playingPlayer))
-
       playerState.handle(model.gamedata.playingPlayer)
 
       round += 1
@@ -59,5 +59,4 @@ object GameUpdate {
     s.append(model.gameDataFunc.initGame)
     s.toString()
   }
-  //super
 }
