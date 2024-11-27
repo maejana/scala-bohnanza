@@ -43,7 +43,10 @@ object plantAmount {
     if (nr == 0) new Strategy1
     else if (nr == 1) new Strategy2
     else if (nr == 2) new Strategy3
-    else new StrategyRETRY
+    else {
+      println(model.gamedata.keineKorrekteNR)
+      new StrategyRETRY
+    }
   }
   var strategy: Strategy = selectStrategy()
 }

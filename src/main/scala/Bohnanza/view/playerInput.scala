@@ -1,4 +1,5 @@
 package Bohnanza.view
+import Bohnanza.model
 
 object playerInput {
   def keyListener(): Int = {
@@ -7,7 +8,8 @@ object playerInput {
       case "0" => 0
       case "1" => 1
       case "2" => 2
-      case _ => -1
+      case _ => println(model.gamedata.keineKorrekteNR)
+        keyListener()
     }
   }
   def playercount(): Int={
