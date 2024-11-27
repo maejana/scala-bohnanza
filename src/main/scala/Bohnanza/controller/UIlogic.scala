@@ -8,9 +8,12 @@ import scala.language.postfixOps
 import scala.util.Random
 import org.jline.terminal.{Terminal, TerminalBuilder}
 import org.jline.keymap.{BindingReader, KeyMap}
+import model.ObserverData
+import model.CardObserver
 
 
 object UIlogic{
+  ObserverData.addObserver(CardObserver)
   def weightedRandom(): model.card = {
     var allcards = ArrayBuffer[model.card]()
     for(i <- 1 to model.gamedata.cards.size){
@@ -27,8 +30,9 @@ object UIlogic{
       case "Augen" => model.gamedata.cards(5).weightCount -= 1
       case "Rote" => model.gamedata.cards(6).weightCount -= 1
       case "Garten" => model.gamedata.cards(7).weightCount -= 1
-
+    ObserverData.updateCards()
     allcards(rand)
+    
   }
   def plantSelectString(player: model.player): String = {
     var s: String = ""

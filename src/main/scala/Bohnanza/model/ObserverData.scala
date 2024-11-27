@@ -4,8 +4,7 @@ import Bohnanza.controller.{ObserverTrait, SubjectTrait}
 
 object ObserverData extends SubjectTrait {
   var observers = List[ObserverTrait]()
-  def updateCards(newCards: Array[card]): Unit = {
-    gamedata.cards = newCards
+  def updateCards(): Unit = {
     notifyObservers()
   }
   override def notifyObservers(): Unit = {
