@@ -10,6 +10,7 @@ object playerState {
 
   case class Plays() extends State {
     override def handle(player: model.player): State = {
+      println(s"${player.playerName} is playing.")
       DontPlays() // Transition to DontPlays state
     }
   }
@@ -21,7 +22,7 @@ object playerState {
     }
   }
 
-  var state: State = DontPlays() // Initial state
+  var state: State = Plays() // Initial state
 
   def handle(player: model.player): Unit = {
     state = state.handle(player)

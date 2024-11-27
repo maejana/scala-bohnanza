@@ -2,7 +2,6 @@ package Bohnanza.controller
 
 import Bohnanza.model
 
-import scala.collection.mutable.ArrayBuffer
 
 object gamelogic {
 

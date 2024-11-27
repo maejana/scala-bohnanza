@@ -12,7 +12,7 @@ import org.jline.keymap.{BindingReader, KeyMap}
 
 object UIlogic{
   def weightedRandom(): model.card = {
-    var allcards = ArrayBuffer[model.card]()
+    val allcards = ArrayBuffer[model.card]()
     for(i <- 1 to model.gamedata.cards.size){
       for(h <- 1 to model.gamedata.cards(i-1).weightCount)
       allcards.addOne(model.gamedata.cards(i-1))

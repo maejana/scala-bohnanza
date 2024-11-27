@@ -7,7 +7,7 @@ import scala.collection.mutable.ArrayBuffer
 import Bohnanza.model.ObserverData
 object gameDataFunc {
   def drawCards(): ArrayBuffer[card] = {
-    var cardArray = ArrayBuffer[card]()
+    val cardArray = ArrayBuffer[card]()
     for (i <- 1 to 2) {
       cardArray.addOne(controller.UIlogic.weightedRandom())
     }
