@@ -17,7 +17,7 @@ object Utility {
     val gameUpdateLog = new StringBuilder()
     val plantCard: model.card = plantInfo()
     if (plantCard == null) {
-      return ""
+      ""
     }
     else if (isPlantable(player, plantCard) && player.playerHand.contains(plantCard)) {
       gamelogic.plant(plantCard, player)
