@@ -106,6 +106,7 @@ object Utility {
 
   def plant1or2(playingPlayer: player): Int = {
     var Nr = view.playerInput.keyListener()
+    if(Nr == -1)
     if(Nr == 0) {
       println(model.gamedata.keineKorrekteNR)
       Nr = view.playerInput.keyListener()

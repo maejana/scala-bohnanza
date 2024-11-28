@@ -1,6 +1,8 @@
 package Bohnanza.controller
 
 import Bohnanza.model
+import Bohnanza.view.TUI
+import Bohnanza.view
 
 object GameUpdate {
   def gameUpdate(): String = {
@@ -18,6 +20,7 @@ object GameUpdate {
       println(model.gamedata.plantAmountQuestion)
       println(model.gameDataFunc.playerHandToString(model.gamedata.playingPlayer.playerHand))
       plantCount = Utility.plant1or2(model.gamedata.playingPlayer)
+      UndoCommand.PlantBeanCommand(model.gamedata.playingPlayer).doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
       //planting
       while (i < plantCount) {
         if(!Utility.plantPreperation(model.gamedata.playingPlayer).equals("")){
@@ -27,6 +30,8 @@ object GameUpdate {
           println(model.gamedata.keineKorrekteBohne)
         }
       }
+
+      UndoCommand.PlantBeanCommand(model.gamedata.playingPlayer).doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
       println(model.gameDataFunc.buildGrowingFieldStr(model.gamedata.playingPlayer))
       //Trade or plant 2 Cards
       model.gamedata.drawnCards = model.gameDataFunc.drawCards()
@@ -35,6 +40,8 @@ object GameUpdate {
       plantAmount.selectStrategy().execute(model.gamedata.drawnCards, model.gamedata.playingPlayer)
       println(model.gameDataFunc.buildGrowingFieldStr(model.gamedata.playingPlayer))
       playerState.handle(model.gamedata.playingPlayer)
+
+      UndoCommand.PlantBeanCommand(model.gamedata.playingPlayer).doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
 
       round += 1
       i = 0
@@ -50,6 +57,7 @@ object GameUpdate {
   def gameSetup(): String = {
     val s = new StringBuilder()
     s.append(model.gamedata.welcome)
+    s.append(model.gamedata.menu)
     s.append("\n")
     s.append(model.gamedata.playerCountQuestion)
     s.toString()

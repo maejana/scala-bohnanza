@@ -6,7 +6,6 @@ import Bohnanza.model
 object gamelogic {
 
   def plant(cards: model.card, playerID: model.player): Unit = {
-    
     val fieldNr = Utility.chooseOrEmpty(playerID, cards)
     fieldNr match {
       case 1 => playerID.plantfield1.addOne(cards)

@@ -5,7 +5,8 @@ package Bohnanza.model
 import scala.collection.mutable.ArrayBuffer
 
 object gamedata {
-  val welcome = "Welcome to Bohnanza"
+  val welcome = "Welcome to Bohnanza\n"
+  val menu = "Druecke M um das Menue anzuzeigen"
   val playerCountQuestion = "Wie viele Spieler spielen?"
   val beans = Array("Blaue", "Feuer", "Sau", "Brech", "Soja", "Augen", "Rote", "Garten")
   val selectPlantCard = "Gib ein welche Bohne du Pflanzen moechtest Bsp: Sau: \n"

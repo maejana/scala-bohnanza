@@ -5,6 +5,7 @@ import Bohnanza.controller
 import Bohnanza.model.{card, player}
 import Bohnanza.view
 
+
 import scala.collection.mutable.ArrayBuffer
 
 object plantAmount {
@@ -35,6 +36,7 @@ object plantAmount {
   }
   private class StrategyRETRY extends Strategy{
     override def execute(cards: ArrayBuffer[card], player: player): Boolean = {
+      view.handleInput.handleInputF(player)
       false
     }
   }

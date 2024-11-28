@@ -8,8 +8,8 @@ object playerInput {
       case "0" => 0
       case "1" => 1
       case "2" => 2
-      case _ => println(model.gamedata.keineKorrekteNR)
-        keyListener()
+      case _ => handleInput.handleInputF(model.gamedata.playingPlayer)
+        -1
     }
   }
   def playercount(): Int={
