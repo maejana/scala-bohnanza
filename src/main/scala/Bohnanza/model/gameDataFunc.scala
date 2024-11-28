@@ -2,6 +2,7 @@ package Bohnanza.model
 
 import Bohnanza.view
 import Bohnanza.controller
+import Bohnanza.model.FactoryP
 
 import scala.collection.mutable.ArrayBuffer
 import Bohnanza.model.ObserverData
@@ -35,8 +36,9 @@ object gameDataFunc {
     }
     
     hand.addOne(controller.UIlogic.weightedRandom())
+    val newPlayer = FactoryP.PlayerFactory().createPlayer(playerName, hand) // Factory Pattern um Player zu erstellen
     growingFieldText += hand(4).beanName
-    gamedata.players += player(playerName, hand)
+    gamedata.players += newPlayer
     growingFieldText
   }
   def initGame: String = {
