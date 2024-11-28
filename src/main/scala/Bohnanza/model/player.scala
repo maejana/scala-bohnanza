@@ -34,7 +34,6 @@ case class player(name: String, hand: ArrayBuffer[card]) {
     newPlayer.plantfield3 = this.plantfield3.clone()
     newPlayer.gold = this.gold
     newPlayer.state = this.state
-    println(newPlayer.plantfield1)
     newPlayer
 
   }

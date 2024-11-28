@@ -22,7 +22,7 @@ object UndoCommand {
 
     override def doStep(player: player): Unit = {
       stateStack.push(player.copyState()) // Capture the entire state
-      println("UndoCommand: doStep")
+
 
     }
 
@@ -32,12 +32,10 @@ object UndoCommand {
       }
       if (!stateStack.isEmpty) {
         redoStack.push(stateStack.pop())
-        player.restore(stateStack.pop())// Restore the entire state
-      } else {
-        println("stateStack ist leer")
-        }
-      val growingField: String = model.gameDataFunc.buildGrowingFieldStr(player)
-      print(s"$growingField")
+        player.restore(stateStack.pop()) // Restore the entire state
+      }
+        val growingField: String = model.gameDataFunc.buildGrowingFieldStr(player)
+        print(s"$growingField")
     }
 
     override def redoStep(player: player): Unit = {
