@@ -34,7 +34,7 @@ object UndoCommand {
         redoStack.push(stateStack.pop())
         player.restore(stateStack.pop()) // Restore the entire state
       }
-        val growingField: String = model.gameDataFunc.buildGrowingFieldStr(player)
+        val growingField: String = model.fieldBuilder.buildGrowingFieldStr(player)
         print(s"$growingField")
     }
 

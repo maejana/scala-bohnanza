@@ -21,7 +21,7 @@ object GameUpdate {
       println(model.gamedata.plantAmountQuestion)
       println(model.gameDataFunc.playerHandToString(model.gamedata.playingPlayer.playerHand))
       plantCount = Utility.plant1or2(model.gamedata.playingPlayer)
-      UndoCommand.PlantBeanCommand(model.gamedata.playingPlayer).doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
+      //UndoCommand.PlantBeanCommand(model.gamedata.playingPlayer).doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
       //planting
       while (i < plantCount) {
         if(!Utility.plantPreperation(model.gamedata.playingPlayer).equals("")){
@@ -32,17 +32,17 @@ object GameUpdate {
         }
       }
 
-      UndoCommand.PlantBeanCommand(model.gamedata.playingPlayer).doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
-      println(model.gameDataFunc.buildGrowingFieldStr(model.gamedata.playingPlayer))
+      //UndoCommand.PlantBeanCommand(model.gamedata.playingPlayer).doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
+      println(model.fieldBuilder.buildGrowingFieldStr(model.gamedata.playingPlayer))
       //Trade or plant 2 Cards
       model.gamedata.drawnCards = model.gameDataFunc.drawCards()
       model.gamedata.drawnCards.foreach(card => println(card.beanName))
       println(model.gamedata.drawCardText)
       plantAmount.selectStrategy().execute(model.gamedata.drawnCards, model.gamedata.playingPlayer)
-      println(model.gameDataFunc.buildGrowingFieldStr(model.gamedata.playingPlayer))
+      println(model.fieldBuilder.buildGrowingFieldStr(model.gamedata.playingPlayer))
       playerState.handle(model.gamedata.playingPlayer)
 
-      UndoCommand.PlantBeanCommand(model.gamedata.playingPlayer).doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
+      //UndoCommand.PlantBeanCommand(model.gamedata.playingPlayer).doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
 
       round += 1
       i = 0

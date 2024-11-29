@@ -55,20 +55,6 @@ object gameDataFunc {
     }
     str
   }
-  def buildGrowingFieldStr(playingPlayer: player): String = {
-    val growingFieldText: String =
-      s"""
-                                 ${playingPlayer.playerName}:
-                                    Field 1:
-                                 ${playerFieldToString(playingPlayer.plantfield1)}
-                                    Field 2:
-                                 ${playerFieldToString(playingPlayer.plantfield2)}
-                                    Field 3:
-                                 ${playerFieldToString(playingPlayer.plantfield3)}
-
-                                 """
-    growingFieldText
-  }
   def playerFieldToString(field: ArrayBuffer[card]): String = {
     var s = ""
     field.foreach(card => s += card.beanName + " ")
