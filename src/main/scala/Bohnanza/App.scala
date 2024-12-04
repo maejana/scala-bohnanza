@@ -7,7 +7,8 @@ import scalafx.application.JFXApp3
 
 object App {
   @main def run: Unit = {
-    view.TUI.setUpTUI()
-    view.TUI.startGame()
+    //view.TUI.setUpTUI()
+    //view.TUI.startGame()
+    GUI.main()
   }
 }
