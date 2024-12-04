@@ -16,6 +16,10 @@
 .idea/jsLibraryMappings.xml
 **/.idea/
 
+# GUI files
+*.fxml
+
+
 # Caches and logs
 .idea/.idea_modules/
 .idea/caches/
