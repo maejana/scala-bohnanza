@@ -4,9 +4,9 @@ import Bohnanza.{controller, model}
 
 object TUI {
   def displayMenu(): Unit = {
-    println("U. Undo")
-    println("R. Redo")
-    println("E. Exit")
+    println(model.gamedata.Undo)
+    println(model.gamedata.Redo)
+    println(model.gamedata.Exit)
   }
   def setUpTUI(): Unit = {
     println(controller.GameUpdate.gameSetup())

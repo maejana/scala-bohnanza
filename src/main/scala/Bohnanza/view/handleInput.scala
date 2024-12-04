@@ -17,15 +17,13 @@ object handleInput {
       case "2" => keyListener()
       case "U" =>
         // Undo the last action
-        PlantBeanCommand(player).undoStep(player)
-        println("Undo successful.")
+        PlantBeanCommand.undoStep(player)
       case "R" =>
         // Redo the last undone action
-        PlantBeanCommand(player).redoStep(player)
-        println("Redo successful.")
+        PlantBeanCommand.redoStep(player)
       case "E" =>
         // Exit the application
-        println("Exiting...")
+        println(model.gamedata.exiting)
         System.exit(0)
       case "M" =>
         // Display the menu

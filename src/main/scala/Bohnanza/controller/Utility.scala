@@ -114,7 +114,19 @@ object Utility {
     if(Nr < 1) Nr = 1
     if(Nr > 2) Nr = 2
     println(UIlogic.plantSelectString(playingPlayer))
+    playingPlayer.lastMethodUsed = "plant1or2"
     Nr
   }
-  
+
+  def plantAllSelectedCards(plantCount : Integer): Unit = {
+    var i = 0
+    while (i < plantCount) {
+      if (!Utility.plantPreperation(model.gamedata.playingPlayer).equals("")) {
+        i += 1
+      }
+      else {
+        println(model.gamedata.keineKorrekteBohne)
+      }
+    }
+  }
 }

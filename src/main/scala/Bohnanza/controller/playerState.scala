@@ -26,5 +26,6 @@ object playerState {
 
   def handle(player: model.player): Unit = {
     state = state.handle(player)
+    model.gamedata.playingPlayer.lastMethodUsed = "handle"
   }
 }

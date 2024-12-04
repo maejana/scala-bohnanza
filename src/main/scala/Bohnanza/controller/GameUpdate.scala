@@ -11,7 +11,6 @@ object GameUpdate {
     var p = 0
     var round = 1
     val gameUpdateLog = new StringBuilder
-    var plantCount = 0
     val playerCount = model.gamedata.players.size
     while (round <= 5) {
       //Start of Round
@@ -20,19 +19,11 @@ object GameUpdate {
       //println(model.gamedata.playingPlayer.playerName + ": \n")
       println(model.gamedata.plantAmountQuestion)
       println(model.gameDataFunc.playerHandToString(model.gamedata.playingPlayer.playerHand))
-      plantCount = Utility.plant1or2(model.gamedata.playingPlayer)
-      //UndoCommand.PlantBeanCommand(model.gamedata.playingPlayer).doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
+      model.gamedata.plantCount = Utility.plant1or2(model.gamedata.playingPlayer)
+      UndoCommand.PlantBeanCommand.doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
       //planting
-      while (i < plantCount) {
-        if(!Utility.plantPreperation(model.gamedata.playingPlayer).equals("")){
-          i += 1
-        }
-        else {
-          println(model.gamedata.keineKorrekteBohne)
-        }
-      }
-
-      //UndoCommand.PlantBeanCommand(model.gamedata.playingPlayer).doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
+      Utility.plantAllSelectedCards(model.gamedata.plantCount)
+      UndoCommand.PlantBeanCommand.doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
       println(model.fieldBuilder.buildGrowingFieldStr(model.gamedata.playingPlayer))
       //Trade or plant 2 Cards
       model.gamedata.drawnCards = model.gameDataFunc.drawCards()
@@ -42,7 +33,7 @@ object GameUpdate {
       println(model.fieldBuilder.buildGrowingFieldStr(model.gamedata.playingPlayer))
       playerState.handle(model.gamedata.playingPlayer)
 
-      //UndoCommand.PlantBeanCommand(model.gamedata.playingPlayer).doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
+      UndoCommand.PlantBeanCommand.doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
 
       round += 1
       i = 0
