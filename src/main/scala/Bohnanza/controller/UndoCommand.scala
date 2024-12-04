@@ -55,8 +55,11 @@ object UndoCommand {
           stateStack.push(player.copyState())
           player.restore(redoStack.pop())
         }
+        println(model.fieldBuilder.buildGrowingFieldStr(player))
         println(model.gamedata.redoSuccessful)
+        matchState()
       }
+
     }
   }
 
