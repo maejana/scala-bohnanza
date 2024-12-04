@@ -9,5 +9,6 @@ object App {
   @main def run: Unit = {
     //view.TUI.setUpTUI()
     //view.TUI.startGame()
+    GUI.main()
   }
 }

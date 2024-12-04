@@ -8,8 +8,8 @@ import javafx.stage.Stage
 import java.nio.file.Paths
 
 object GUI {
-  def main(args: Array[String]): Unit = {
-    Application.launch(classOf[ScalaFXApp], args: _*)
+  def main(): Unit = {
+    Application.launch(classOf[ScalaFXApp])
   }
 }
 
