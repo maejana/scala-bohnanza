@@ -14,9 +14,25 @@ libraryDependencies ++= Seq(
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14"
 //libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
 libraryDependencies += "org.jline" % "jline" % "3.21.0"
-//libraryDependencies += "org.mockito" %% "mockito-scala" % "1.16.42" % Test
-libraryDependencies += "org.scalafx" %% "scalafx" % "16.0.0-R25"
-lazy val javaFXModules = Seq("base", "controls", "fxml", "graphics", "media", "swing")
-libraryDependencies ++= javaFXModules.map(m => "org.openjfx" % s"javafx-$m" % "16" classifier "win")
+
+libraryDependencies += "org.scalafx" %% "scalafx" % "23.0.1-R34"
+// In build.sbt
+libraryDependencies ++= Seq(
+  "org.openjfx" % "javafx-controls" % "19",
+  "org.openjfx" % "javafx-fxml" % "19"
+)
+
+
+
+// Enable the JavaFX modules required for your project
+// You can modify these based on which parts of JavaFX you are using
+javaOptions ++= Seq(
+  "--module-path",
+  "C:/User/hoppe/Documents/GitHub/scala-bohnanza/javafx-sdk-23.0.1/lib",
+  "--add-modules",
+  "javafx.controls,javafx.fxml"
+)
+
+
 // Optionally, specify ScalaTest or another test framework for better integration
 coverageEnabled := true
