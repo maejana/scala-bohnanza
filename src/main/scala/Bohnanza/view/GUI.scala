@@ -15,6 +15,9 @@ object GUI extends SimpleSwingApplication{
    guiThread.start()
  }
 
+  var pa: BoxPanel = new BoxPanel(Orientation.Vertical) {
+  }
+  var Nr: Int = 0
   val mainFrame = new MainFrame {
     title = "Bohnanza"
     contents = Startseite()
@@ -40,7 +43,8 @@ object GUI extends SimpleSwingApplication{
     new BoxPanel(Orientation.Vertical) {
       preferredSize = new Dimension(1920, 1000)
       contents += new Label(model.gamedata.bohnanza)
-      contents += addPlayer(0)
+      contents += pa
+      contents += addPlayer(Nr)
       val button = new Button(model.gamedata.continue)
       contents += button
       listenTo(button)
@@ -52,7 +56,7 @@ object GUI extends SimpleSwingApplication{
     }
   }
   def addPlayer(nr : Int): Panel = {
-    val Nr = nr+1
+    Nr = nr+1
     new BoxPanel(Orientation.Vertical){
       contents += new Label(Nr + ".")
       val textField = new TextField()
@@ -80,18 +84,17 @@ object GUI extends SimpleSwingApplication{
       }
     }
   }
-  def addPlayerViaTUI(Pname: String, nr: Int): Panel = {
-    new BoxPanel(Orientation.Vertical) {
-      contents += new Label(nr + ".")
-      val textField = new TextField()
-      textField.columns = 1
-      textField.maximumSize = new Dimension(1000, 30)
-      textField.text = Pname
-      textField.editable = false
-      contents += textField
-      revalidate()
-      mainFrame.repaint()
-      }
+  def addPlayerViaTUI(Pname: String, nr: Int): Unit = {
+    pa.contents += new Label(nr + ".")
+    Nr += 1
+    val textField = new TextField()
+    textField.columns = 1
+    textField.maximumSize = new Dimension(1000, 30)
+    textField.text = Pname
+    textField.editable = false
+    pa.contents += textField
+    pa.repaint()
+    mainFrame.repaint()
   }
   def SpielerRunde(): Panel = {
     new BoxPanel(Orientation.Vertical) {
