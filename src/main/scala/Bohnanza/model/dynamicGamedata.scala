@@ -10,6 +10,4 @@ object dynamicGamedata extends SubjectTrait {
   var playingPlayer: Bohnanza.model.player = null
   var plantCount = 0
   var playerNameBuffer = ArrayBuffer[String]()
-
-
 }

@@ -18,4 +18,4 @@ libraryDependencies += "org.jline" % "jline" % "3.21.0"
 libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0"
 // Optionally, specify ScalaTest or another test framework for better integration
 coverageEnabled := true
-fork:=true
+//fork:=true

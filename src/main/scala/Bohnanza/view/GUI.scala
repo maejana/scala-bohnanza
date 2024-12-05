@@ -1,11 +1,20 @@
 package Bohnanza.view
 
-import Bohnanza.model
+import Bohnanza.{model, view}
 
 import scala.swing.*
 import scala.swing.event.ButtonClicked
 
 object GUI extends SimpleSwingApplication{
+ def guistart(): Unit = {
+   val guiThread = new Thread(new Runnable {
+     override def run(): Unit = {
+       top.visible = true
+     }
+   })
+   guiThread.start()
+ }
+
   val mainFrame = new MainFrame {
     title = "Bohnanza"
     contents = Startseite()
@@ -70,6 +79,19 @@ object GUI extends SimpleSwingApplication{
         }
       }
     }
+  }
+  def addPlayerViaTUI(Pname: String, nr: Int): Panel = {
+    new BoxPanel(Orientation.Vertical) {
+      contents += new Label(nr + ".")
+      val textField = new TextField()
+      textField.columns = 1
+      textField.maximumSize = new Dimension(1000, 30)
+      textField.text = Pname
+      textField.editable = false
+      contents += textField
+      revalidate()
+      mainFrame.repaint()
+      }
   }
   def SpielerRunde(): Panel = {
     new BoxPanel(Orientation.Vertical) {

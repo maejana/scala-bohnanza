@@ -2,10 +2,7 @@ package Bohnanza.model
 
 import Bohnanza.view
 import Bohnanza.controller
-import Bohnanza.model.FactoryP
-
 import scala.collection.mutable.ArrayBuffer
-import Bohnanza.model.ObserverData
 object gameDataFunc {
   def drawCards(): ArrayBuffer[card] = {
     val cardArray = ArrayBuffer[card]()
@@ -48,6 +45,7 @@ object gameDataFunc {
     println("Namen eingeben:")
     for (i <- 1 to playerCount) {
       playernames(i - 1) = view.playerInput.playername()
+      view.GUI.addPlayerViaTUI(playernames(i-1), i)
     }
 
     for (i <- 1 to playerCount) {
