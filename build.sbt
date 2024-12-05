@@ -12,9 +12,10 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.2.16" % Test
 )
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14"
-//libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % "test"
+
 libraryDependencies += "org.jline" % "jline" % "3.21.0"
 
+libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0"
 libraryDependencies += "org.scalafx" %% "scalafx" % "23.0.1-R34"
 // In build.sbt
 libraryDependencies ++= Seq(
