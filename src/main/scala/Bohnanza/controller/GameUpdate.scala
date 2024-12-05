@@ -11,29 +11,29 @@ object GameUpdate {
     var p = 0
     var round = 1
     val gameUpdateLog = new StringBuilder
-    val playerCount = model.gamedata.players.size
+    val playerCount = model.dynamicGamedata.players.size
     while (round <= 5) {
       //Start of Round
-      model.gamedata.playingPlayer = Utility.selectPlayer(p)
-      playerState.handle(model.gamedata.playingPlayer)
+      model.dynamicGamedata.playingPlayer = Utility.selectPlayer(p)
+      playerState.handle(model.dynamicGamedata.playingPlayer)
       //println(model.gamedata.playingPlayer.playerName + ": \n")
       println(model.gamedata.plantAmountQuestion)
-      println(model.gameDataFunc.playerHandToString(model.gamedata.playingPlayer.playerHand))
-      model.gamedata.plantCount = Utility.plant1or2(model.gamedata.playingPlayer)
-      UndoCommand.PlantBeanCommand.doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
+      println(model.gameDataFunc.playerHandToString(model.dynamicGamedata.playingPlayer.playerHand))
+      model.dynamicGamedata.plantCount = Utility.plant1or2(model.dynamicGamedata.playingPlayer)
+      UndoCommand.PlantBeanCommand.doStep(model.dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
       //planting
-      Utility.plantAllSelectedCards(model.gamedata.plantCount)
-      UndoCommand.PlantBeanCommand.doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
-      println(model.fieldBuilder.buildGrowingFieldStr(model.gamedata.playingPlayer))
+      Utility.plantAllSelectedCards(model.dynamicGamedata.plantCount)
+      UndoCommand.PlantBeanCommand.doStep(model.dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
+      println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
       //Trade or plant 2 Cards
-      model.gamedata.drawnCards = model.gameDataFunc.drawCards()
-      model.gamedata.drawnCards.foreach(card => println(card.beanName))
+      model.dynamicGamedata.drawnCards = model.gameDataFunc.drawCards()
+      model.dynamicGamedata.drawnCards.foreach(card => println(card.beanName))
       println(model.gamedata.drawCardText)
-      plantAmount.selectStrategy().execute(model.gamedata.drawnCards, model.gamedata.playingPlayer)
-      println(model.fieldBuilder.buildGrowingFieldStr(model.gamedata.playingPlayer))
-      playerState.handle(model.gamedata.playingPlayer)
+      plantAmount.selectStrategy().execute(model.dynamicGamedata.drawnCards, model.dynamicGamedata.playingPlayer)
+      println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
+      playerState.handle(model.dynamicGamedata.playingPlayer)
 
-      UndoCommand.PlantBeanCommand.doStep(model.gamedata.playingPlayer) // Für Undo immer Status speichern
+      UndoCommand.PlantBeanCommand.doStep(model.dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
 
       round += 1
       i = 0

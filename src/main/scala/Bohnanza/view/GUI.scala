@@ -3,7 +3,7 @@ package Bohnanza.view
 import Bohnanza.model
 
 import scala.swing.*
-import scala.swing.event.{ButtonClicked, Key, KeyPressed, KeyTyped}
+import scala.swing.event.ButtonClicked
 
 object GUI extends SimpleSwingApplication{
   val mainFrame = new MainFrame {
@@ -62,7 +62,7 @@ object GUI extends SimpleSwingApplication{
           revalidate()
           mainFrame.repaint()
         case ButtonClicked(`buttonSave`) => if (!textField.text.isEmpty) {
-          model.gamedata.playerNameBuffer += textField.text
+          model.dynamicGamedata.playerNameBuffer += textField.text
           contents -= buttonSave
           textField.editable = false
           revalidate()

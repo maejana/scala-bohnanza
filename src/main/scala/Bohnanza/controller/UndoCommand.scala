@@ -35,17 +35,17 @@ object UndoCommand {
     }
 
     def matchState(): Unit = {
-      model.gamedata.playingPlayer.lastMethodUsed match {
+      model.dynamicGamedata.playingPlayer.lastMethodUsed match {
         case "plant1or2" => println(model.gamedata.plantAmountQuestion)
-          println(model.gameDataFunc.playerHandToString(model.gamedata.playingPlayer.playerHand))
-          model.gamedata.plantCount = Utility.plant1or2(model.gamedata.playingPlayer)
-          Utility.plantAllSelectedCards(model.gamedata.plantCount)
-          UndoCommand.PlantBeanCommand.doStep(model.gamedata.playingPlayer)
-        case "handle" => model.gamedata.drawnCards.foreach(card => println(card.beanName))
+          println(model.gameDataFunc.playerHandToString(model.dynamicGamedata.playingPlayer.playerHand))
+          model.dynamicGamedata.plantCount = Utility.plant1or2(model.dynamicGamedata.playingPlayer)
+          Utility.plantAllSelectedCards(model.dynamicGamedata.plantCount)
+          UndoCommand.PlantBeanCommand.doStep(model.dynamicGamedata.playingPlayer)
+        case "handle" => model.dynamicGamedata.drawnCards.foreach(card => println(card.beanName))
           println(model.gamedata.drawCardText)
-          plantAmount.selectStrategy().execute(model.gamedata.drawnCards, model.gamedata.playingPlayer)
-          println(model.fieldBuilder.buildGrowingFieldStr(model.gamedata.playingPlayer))
-          playerState.handle(model.gamedata.playingPlayer)
+          plantAmount.selectStrategy().execute(model.dynamicGamedata.drawnCards, model.dynamicGamedata.playingPlayer)
+          println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
+          playerState.handle(model.dynamicGamedata.playingPlayer)
       }
     }
 

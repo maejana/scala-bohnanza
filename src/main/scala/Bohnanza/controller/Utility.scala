@@ -74,10 +74,10 @@ object Utility {
   }
 
   def selectPlayer(index : Int): player = {
-    if (index >= 0 && index < model.gamedata.players.length) {
-      model.gamedata.players(index)
+    if (index >= 0 && index < model.dynamicGamedata.players.length) {
+      model.dynamicGamedata.players(index)
     } else {
-      throw new IndexOutOfBoundsException(s"$index is out of bounds (min 0, max ${model.gamedata.players.length - 1})")
+      throw new IndexOutOfBoundsException(s"$index is out of bounds (min 0, max ${model.dynamicGamedata.players.length - 1})")
     }
   }
   def isPlantable(player: model.player, bean: model.card): Boolean = {
@@ -121,7 +121,7 @@ object Utility {
   def plantAllSelectedCards(plantCount : Integer): Unit = {
     var i = 0
     while (i < plantCount) {
-      if (!Utility.plantPreperation(model.gamedata.playingPlayer).equals("")) {
+      if (!Utility.plantPreperation(model.dynamicGamedata.playingPlayer).equals("")) {
         i += 1
       }
       else {

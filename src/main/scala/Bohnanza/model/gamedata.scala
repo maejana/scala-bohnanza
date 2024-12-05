@@ -28,7 +28,6 @@ object gamedata {
   val bohnanza: String = "Bohnanza"
   val play: String = "Spielen"
   val continue: String = "Weiter"
-  var playerNameBuffer = ArrayBuffer[String]()
   val weights = Array(20, 18, 16, 14, 12, 10, 8, 6)
   val priceSoja: Array[Int] = Array(2, 4, 6, 7)
   val priceFeuer: Array[Int] = Array(3, 6, 8, 9)
@@ -38,10 +37,7 @@ object gamedata {
   val priceBrech: Array[Int] = Array(3, 5, 6, 7)
   val priceRote: Array[Int] = Array(2, 3, 4, 5)
   val priceGarten: Array[Int] = Array(2, 3)
-  var cards = Array(card(beans(0),weights(0), priceBlaue),card(beans(1),weights(1),priceFeuer),card(beans(2),weights(2),priceSau),card(beans(3),weights(3),priceBrech),card(beans(4),weights(4),priceSoja),card(beans(5),weights(5),priceAugen),card(beans(6),weights(6),priceRote),card(beans(7),weights(7),priceGarten))
-  var players = ArrayBuffer[player]()
-  var drawnCards: ArrayBuffer[card] = ArrayBuffer[card]()
-  var playingPlayer: Bohnanza.model.player = null
-  var plantCount = 0
+  val cards = Array(card(beans(0),weights(0), priceBlaue),card(beans(1),weights(1),priceFeuer),card(beans(2),weights(2),priceSau),card(beans(3),weights(3),priceBrech),card(beans(4),weights(4),priceSoja),card(beans(5),weights(5),priceAugen),card(beans(6),weights(6),priceRote),card(beans(7),weights(7),priceGarten))
+  
   
 }

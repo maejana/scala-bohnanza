@@ -8,7 +8,7 @@ object playerInput {
       case "0" => 0
       case "1" => 1
       case "2" => 2
-      case "M" => handleInput.handleInputF(model.gamedata.playingPlayer)
+      case "M" => handleInput.handleInputF(model.dynamicGamedata.playingPlayer)
         -1
       case _ => println(model.gamedata.keineKorrekteNR)
         keyListener()
