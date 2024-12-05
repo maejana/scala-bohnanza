@@ -96,7 +96,13 @@ object GUI extends SimpleSwingApplication{
   def SpielerRunde(): Panel = {
     new BoxPanel(Orientation.Vertical) {
       preferredSize = new Dimension(1920, 1000)
-      contents += new Label("Super")
+      contents += new Label("Spieler Runde")
+      val playingPlayer =  new Label("Spieler: " + model.dynamicGamedata.players(model.dynamicGamedata.currentPlayer).playerName) {
+        font = new Font("Arial", 1, 24)
+      }
+
+
+
     }
   }
 }
