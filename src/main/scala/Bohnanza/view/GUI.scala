@@ -103,7 +103,7 @@ object GUI extends SimpleSwingApplication{
         case ButtonClicked(`buttonSave`) => if (!textField.text.isEmpty) {
           model.dynamicGamedata.playerNameBuffer += textField.text
           model.gameDataFunc.initPlayer(model.dynamicGamedata.playerNameBuffer.toString())
-          model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer(Nr)
+          model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer(Nr-1)
           println(model.dynamicGamedata.playingPlayer)
           contents -= buttonSave
           textField.editable = false
@@ -131,7 +131,7 @@ object GUI extends SimpleSwingApplication{
       preferredSize = new Dimension(1920, 1000)
       contents += new Label("Spieler Runde")
 
-      val playingPlayer  = new Label("Spieler: " + model.dynamicGamedata.playingPlayer.playerName) {
+      val playingPlayer = new Label("Spieler: " + model.dynamicGamedata.playingPlayer.playerName) {
         font = new Font("Arial", 1, 36)
       }
       contents += playingPlayer
@@ -143,21 +143,51 @@ object GUI extends SimpleSwingApplication{
         font = new Font("Arial", 1, 24)
       }
       contents += PlayerHand
-      contents  += new Label(model.gamedata.plantAmountQuestion) 
+      contents += new Label(model.gamedata.plantAmountQuestion)
       val button = new Button("1")
       contents += button
       val button2 = new Button("2")
       contents += button2
-      listenTo(button) 
+      listenTo(button)
       listenTo(button2)
       reactions += {
-        case ButtonClicked(`button`) =>
-        case ButtonClicked(`button2`) => 
+        case ButtonClicked(`button`) => plantBean(1)
+        case ButtonClicked(`button2`) => plantBean(2)
       }
     }
-
+  }
+  def plantBean(i: Int): Unit = {
+    i match {
+      case 0 => mainFrame.contents = SpielerRunde()
+        mainFrame.repaint()
+      case 1 => mainFrame.contents = plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(1).toString)
+        controller.Utility.plantAllSelectedCards(1)
+      case 2 => mainFrame.contents = plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(1).toString)
+        plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(2).toString)
+        controller.Utility.plantAllSelectedCards(2)
+    }
 
   }
+
+
+  def plantField(): Panel = {
+    new BoxPanel(Orientation.Vertical) {
+      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
+      preferredSize = new Dimension(800, 1000)
+      var plantfield = new Label(model.gamedata.plantfield)
+      contents += plantfield
+    }
+  }
+
+  def plantInPlantfield(bean: String): Panel = {
+    new BoxPanel(Orientation.Vertical) {
+      contents += plantField()
+
+      var plantedBean = new Label(bean)
+    }
+  }
+
+
   def PlayerHand: Panel = {
     new BoxPanel(Orientation.Vertical) {
       border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
@@ -167,7 +197,4 @@ object GUI extends SimpleSwingApplication{
       }
     }
   }
-
-  
-
 }
