@@ -2,7 +2,7 @@ package Bohnanza.model
 
 
 
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.{ArrayBuffer, ArrayStack}
 
 object gamedata {
   val welcome = "Welcome to Bohnanza\n"
@@ -25,6 +25,10 @@ object gamedata {
   val Undo: String = "U. Undo"
   val Redo: String = "R. Redo"
   val Exit: String = "E. Exit"
+  val bohnanza: String = "Bohnanza"
+  val play: String = "Spielen"
+  val continue: String = "Weiter"
+  var playerNameBuffer = ArrayBuffer[String]()
   val weights = Array(20, 18, 16, 14, 12, 10, 8, 6)
   val priceSoja: Array[Int] = Array(2, 4, 6, 7)
   val priceFeuer: Array[Int] = Array(3, 6, 8, 9)

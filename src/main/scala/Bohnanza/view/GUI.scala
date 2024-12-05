@@ -1,31 +1,80 @@
 package Bohnanza.view
 
-import javafx.application.Application
-import javafx.fxml.FXMLLoader
-import javafx.scene.Scene
-import javafx.scene.layout.Pane
-import javafx.stage.Stage
-import java.nio.file.Paths
+import Bohnanza.model
 
-object GUI {
-  def main(): Unit = {
-    Application.launch(classOf[ScalaFXApp])
+import scala.swing.*
+import scala.swing.event.{ButtonClicked, Key, KeyPressed, KeyTyped}
+
+object GUI extends SimpleSwingApplication{
+  val mainFrame = new MainFrame {
+    title = "Bohnanza"
+    contents = Startseite()
+    size = new Dimension(1920, 1000)
   }
-}
 
-class ScalaFXApp extends Application {
-  override def start(primaryStage: Stage): Unit = {
-    // Lade die FXML-Datei
-    val fxmlPath = "C:/Users/hoppe/Documents/GitHub/scala-bohnanza/GUItemplate.fxml"
-    val fxmlLoader = new FXMLLoader(Paths.get(fxmlPath).toUri.toURL)
-
-    // Root-Node aus der FXML laden
-    val root: Pane = fxmlLoader.load()
-
-    // Scene und Stage konfigurieren
-    val scene = new Scene(root)
-    primaryStage.setScene(scene)
-    primaryStage.setTitle("Bohnanza")
-    primaryStage.show()
+  def top: MainFrame = mainFrame
+  def Startseite(): Panel = {
+    new BoxPanel(Orientation.Vertical) {
+      minimumSize = new Dimension(1920, 1000)
+      contents += new Label(model.gamedata.bohnanza)
+      val button = new Button(model.gamedata.play)
+      contents += button
+      listenTo(button)
+      reactions += {
+        case ButtonClicked(`button`) => mainFrame.contents = NamenEingeben()
+          revalidate()
+          top.repaint()
+      }
+    }
+  }
+  def NamenEingeben(): Panel = {
+    new BoxPanel(Orientation.Vertical) {
+      preferredSize = new Dimension(1920, 1000)
+      contents += new Label(model.gamedata.bohnanza)
+      contents += addPlayer(0)
+      val button = new Button(model.gamedata.continue)
+      contents += button
+      listenTo(button)
+      reactions += {
+        case ButtonClicked(`button`) => mainFrame.contents = SpielerRunde()
+          revalidate()
+          top.repaint()
+      }
+    }
+  }
+  def addPlayer(nr : Int): Panel = {
+    val Nr = nr+1
+    new BoxPanel(Orientation.Vertical){
+      contents += new Label(Nr + ".")
+      val textField = new TextField()
+      textField.columns = 1
+      textField.maximumSize = new Dimension(1000,30)
+      val buttonSave = new Button("speichern")
+      val button = new Button("+")
+      contents += textField
+      contents += buttonSave
+      contents += button
+      listenTo(buttonSave)
+      listenTo(button)
+      reactions += {
+        case ButtonClicked(`button`) => contents += addPlayer(Nr)
+          contents -= button
+          revalidate()
+          mainFrame.repaint()
+        case ButtonClicked(`buttonSave`) => if (!textField.text.isEmpty) {
+          model.gamedata.playerNameBuffer += textField.text
+          contents -= buttonSave
+          textField.editable = false
+          revalidate()
+          mainFrame.repaint()
+        }
+      }
+    }
+  }
+  def SpielerRunde(): Panel = {
+    new BoxPanel(Orientation.Vertical) {
+      preferredSize = new Dimension(1920, 1000)
+      contents += new Label("Super")
+    }
   }
 }
