@@ -1,9 +1,10 @@
 package Bohnanza.view
 
-import Bohnanza.{model, view}
+import Bohnanza.{model, view, controller}
 
 import scala.swing.*
 import scala.swing.event.ButtonClicked
+import javax.swing.BorderFactory
 
 object GUI extends SimpleSwingApplication{
  def guistart(): Unit = {
@@ -57,6 +58,7 @@ object GUI extends SimpleSwingApplication{
   }
   def addPlayer(nr : Int): Panel = {
     Nr = nr+1
+    model.dynamicGamedata.playerNameBuffer.clear()
     new BoxPanel(Orientation.Vertical){
       contents += new Label(Nr + ".")
       val textField = new TextField()
@@ -76,6 +78,9 @@ object GUI extends SimpleSwingApplication{
           mainFrame.repaint()
         case ButtonClicked(`buttonSave`) => if (!textField.text.isEmpty) {
           model.dynamicGamedata.playerNameBuffer += textField.text
+          model.gameDataFunc.initPlayer(model.dynamicGamedata.playerNameBuffer.toString())
+          model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer(Nr)
+          println(model.dynamicGamedata.playingPlayer)
           contents -= buttonSave
           textField.editable = false
           revalidate()
@@ -97,15 +102,47 @@ object GUI extends SimpleSwingApplication{
     mainFrame.repaint()
   }
   def SpielerRunde(): Panel = {
+    var i = 0
     new BoxPanel(Orientation.Vertical) {
       preferredSize = new Dimension(1920, 1000)
       contents += new Label("Spieler Runde")
-      val playingPlayer =  new Label("Spieler: " + model.dynamicGamedata.players(model.dynamicGamedata.currentPlayer).playerName) {
+      val playingPlayer  = new Label("Spieler: " + model.dynamicGamedata.playingPlayer.playerName) {
+        font = new Font("Arial", 1, 36)
+      }
+      contents += playingPlayer
+      val coins = new Label(model.gamedata.coinsString + model.dynamicGamedata.playingPlayer.gold) {
         font = new Font("Arial", 1, 24)
       }
+      contents += coins
+      val Handkarten = new Label(model.gamedata.handcards) {
+        font = new Font("Arial", 1, 24)
+      }
+      contents += PlayerHand
+      contents  += new Label(model.gamedata.plantAmountQuestion) 
+      val button = new Button("1")
+      contents += button
+      val button2 = new Button("2")
+      contents += button2
+      listenTo(button) 
+      listenTo(button2)
+      reactions += {
+        case ButtonClicked(`button`) =>
+        case ButtonClicked(`button2`) => 
+      }
+    }
 
 
-
+  }
+  def PlayerHand: Panel = {
+    new BoxPanel(Orientation.Vertical) {
+      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
+      preferredSize = new Dimension(1500, 500)
+      model.dynamicGamedata.playingPlayer.playerHand.foreach { card =>
+        contents += view.GUICards().getCardPanel(card)
+      }
     }
   }
+
+  
+
 }
