@@ -14,8 +14,9 @@ object playerInput {
         keyListener()
     }
   }
-  def playercount(): Int={
+  def playercount(): Unit={
     val count = scala.io.StdIn.readInt()
+    model.dynamicGamedata.playerCount = count
     count
   }
   def playername(): String = {

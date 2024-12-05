@@ -1,7 +1,5 @@
 package Bohnanza.model
 
-
-
 import scala.collection.mutable.{ArrayBuffer, ArrayStack}
 
 object gamedata {
@@ -38,6 +36,4 @@ object gamedata {
   val priceRote: Array[Int] = Array(2, 3, 4, 5)
   val priceGarten: Array[Int] = Array(2, 3)
   val cards = Array(card(beans(0),weights(0), priceBlaue),card(beans(1),weights(1),priceFeuer),card(beans(2),weights(2),priceSau),card(beans(3),weights(3),priceBrech),card(beans(4),weights(4),priceSoja),card(beans(5),weights(5),priceAugen),card(beans(6),weights(6),priceRote),card(beans(7),weights(7),priceGarten))
-  
-  
 }

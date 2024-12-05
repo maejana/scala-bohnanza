@@ -4,6 +4,7 @@ import Bohnanza.{model, view}
 
 import scala.swing.*
 import scala.swing.event.ButtonClicked
+import scala.swing.event._
 
 object GUI extends SimpleSwingApplication{
  def guistart(): Unit = {
@@ -33,25 +34,55 @@ object GUI extends SimpleSwingApplication{
       contents += button
       listenTo(button)
       reactions += {
-        case ButtonClicked(`button`) => mainFrame.contents = NamenEingeben()
+        case ButtonClicked(`button`) => mainFrame.contents = NamenEingebenSeite()
           revalidate()
           top.repaint()
       }
     }
   }
-  def NamenEingeben(): Panel = {
+  def SpieleranzahlEingeben(): Unit = {
+    new BoxPanel(Orientation.Vertical){
+      pa.contents += new Label("Wie viele Spieler spielen?")
+      val dropdown =  new ComboBox(Seq("2", "3", "4", "5"))
+      dropdown.maximumSize = new Dimension(100,30)
+      pa.contents += dropdown
+      val button = new Button("Hinzufügen")
+      pa.contents += button
+      listenTo(button)
+      reactions += {
+        case ButtonClicked(`button`) => val selectedItem = dropdown.selection.item
+          if (selectedItem == "1") NamenEingeben(1)
+          else if (selectedItem == "2") NamenEingeben(2)
+          else if (selectedItem == "3") NamenEingeben(3)
+          else NamenEingeben(4)
+          revalidate()
+          mainFrame.repaint()
+      }
+    }
+  }
+  def NamenEingeben(x: Int): Unit = {
+    pa.contents.clear()
+    model.dynamicGamedata.playerCount = x
+    for (i <- 0 to x - 1) {
+      pa.contents += addPlayer(i)
+    }
+    pa.revalidate()
+    pa.repaint()
+  }
+  def NamenEingebenSeite(): Panel = {
     new BoxPanel(Orientation.Vertical) {
       preferredSize = new Dimension(1920, 1000)
       contents += new Label(model.gamedata.bohnanza)
+      SpieleranzahlEingeben()
       contents += pa
-      contents += addPlayer(Nr)
       val button = new Button(model.gamedata.continue)
       contents += button
       listenTo(button)
       reactions += {
         case ButtonClicked(`button`) => mainFrame.contents = SpielerRunde()
           revalidate()
-          top.repaint()
+          pa.repaint()
+          mainFrame.repaint()
       }
     }
   }
@@ -63,17 +94,10 @@ object GUI extends SimpleSwingApplication{
       textField.columns = 1
       textField.maximumSize = new Dimension(1000,30)
       val buttonSave = new Button("speichern")
-      val button = new Button("+")
       contents += textField
       contents += buttonSave
-      contents += button
       listenTo(buttonSave)
-      listenTo(button)
       reactions += {
-        case ButtonClicked(`button`) => contents += addPlayer(Nr)
-          contents -= button
-          revalidate()
-          mainFrame.repaint()
         case ButtonClicked(`buttonSave`) => if (!textField.text.isEmpty) {
           model.dynamicGamedata.playerNameBuffer += textField.text
           contents -= buttonSave
@@ -100,7 +124,7 @@ object GUI extends SimpleSwingApplication{
     new BoxPanel(Orientation.Vertical) {
       preferredSize = new Dimension(1920, 1000)
       contents += new Label("Spieler Runde")
-      val playingPlayer =  new Label("Spieler: " + model.dynamicGamedata.players(model.dynamicGamedata.currentPlayer).playerName) {
+      val playingPlayer =  new Label("Spieler: " + model.dynamicGamedata.playingPlayer) {
         font = new Font("Arial", 1, 24)
       }
 

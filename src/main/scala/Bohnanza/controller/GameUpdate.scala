@@ -11,7 +11,7 @@ object GameUpdate {
     var p = 0
     var round = 1
     val gameUpdateLog = new StringBuilder
-    val playerCount = model.dynamicGamedata.players.size
+    val playerCount = model.dynamicGamedata.playerCount
     while (round <= 5) {
       //Start of Round
       model.dynamicGamedata.playingPlayer = Utility.selectPlayer(p)

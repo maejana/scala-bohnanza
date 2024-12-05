@@ -1,12 +1,11 @@
 package Bohnanza.model
 
-import javax.smartcardio.Card
 import scala.collection.mutable.ArrayBuffer
 import Bohnanza.controller.playerState
 import Bohnanza.controller.playerState.State
 
 case class player(name: String, hand: ArrayBuffer[card]) {
-  var playerName = name // eigentlich val
+  var playerName = name
   var playerHand = hand
   var plantfield1 = ArrayBuffer[card]()
   var plantfield2 = ArrayBuffer[card]()
