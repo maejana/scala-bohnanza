@@ -16,8 +16,9 @@ object playerInput {
   }
   def playercount(): Unit={
     val count = scala.io.StdIn.readInt()
-    model.dynamicGamedata.playerCount = count
-    count
+    if(model.dynamicGamedata.playerCount == 0) {
+      model.dynamicGamedata.playerCount = count
+    }
   }
   def playername(): String = {
     val name = scala.io.StdIn.readLine()

@@ -60,6 +60,7 @@ object GUI extends SimpleSwingApplication{
           else NamenEingeben(4)
           revalidate()
           mainFrame.repaint()
+          model.gameDataFunc.simulateInput()
       }
     }
   }
@@ -106,10 +107,10 @@ object GUI extends SimpleSwingApplication{
       reactions += {
         case ButtonClicked(`buttonSave`) => if (!textField.text.isEmpty) {
           model.dynamicGamedata.playerNameBuffer += textField.text
-          model.dynamicGamedata.playerNameBuffer.toSeq.foreach((name: String) => model.gameDataFunc.initPlayer(name))
-          val name = model.dynamicGamedata.playerNameBuffer(Nr-1)
+          val name = model.dynamicGamedata.playerNameBuffer(Nr-2)
           model.gameDataFunc.initPlayer(name)
-          model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer(Nr-1)
+
+          model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer(Nr-2)
           contents -= buttonSave
           textField.editable = false
           mainFrame.repaint()
