@@ -36,7 +36,7 @@ object gameDataFunc {
     val newPlayer = FactoryP.PlayerFactory().createPlayer(playerName, hand) // Factory Pattern um Player zu erstellen
     growingFieldText += hand(4).beanName
     if(!dynamicGamedata.players.isEmpty) {
-      dynamicGamedata.players.foreach((p: player) =>
+      dynamicGamedata.players.toList.foreach((p: player) =>
         if (!p.playerName.equals(newPlayer.playerName)) {
           dynamicGamedata.players += newPlayer
         })
@@ -51,21 +51,17 @@ object gameDataFunc {
     if(model.dynamicGamedata.players.length != model.dynamicGamedata.playerCount){
       val playernames: Array[String] = new Array[String](dynamicGamedata.playerCount)
       println("Namen eingeben:")
+
       for (i <- 1 to dynamicGamedata.playerCount-model.dynamicGamedata.players.length) {
         playernames(i - 1) = view.playerInput.playername()
         view.GUI.addPlayerViaTUI(playernames(i - 1), i)
       }
 
-      for (i <- 1 to dynamicGamedata.playerCount) {
-        str += initPlayer(playernames(i - 1))
+      for (i <- 0 to dynamicGamedata.playerCount) {
+        str += initPlayer(model.dynamicGamedata.players(i).playerName)
       }
     }
     str
-  }
-  def simulateInput(name: String): Unit = {
-    val simulatedInput = s"$name\n"
-    val inputStream: InputStream = new ByteArrayInputStream(simulatedInput.getBytes)
-    System.setIn(inputStream)
   }
   def playerFieldToString(field: ArrayBuffer[card]): String = {
     var s = ""

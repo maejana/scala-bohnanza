@@ -11,5 +11,6 @@ object dynamicGamedata extends SubjectTrait {
   var plantCount = 0
   var playerNameBuffer = ArrayBuffer[String]()
   var playerCount = 0
-  var cardsToPlant = ArrayBuffer[card]() 
+  var readerThread: Thread = new Thread()
+  var NameReaderThread: Thread = new Thread()
 }

@@ -53,11 +53,12 @@ object GUI extends SimpleSwingApplication{
       pa.contents += button
       listenTo(button)
       reactions += {
-        case ButtonClicked(`button`) => val selectedItem = dropdown.selection.item
-          if (selectedItem == "1") NamenEingeben(1)
-          else if (selectedItem == "2") NamenEingeben(2)
+        case ButtonClicked(`button`) => model.dynamicGamedata.readerThread.interrupt()
+          val selectedItem = dropdown.selection.item
+          if (selectedItem == "2") NamenEingeben(2)
           else if (selectedItem == "3") NamenEingeben(3)
-          else NamenEingeben(4)
+          else if (selectedItem == "4") NamenEingeben(4)
+          else NamenEingeben(5)
           revalidate()
           mainFrame.repaint()
       }
@@ -67,8 +68,9 @@ object GUI extends SimpleSwingApplication{
   def NamenEingeben(x: Int): Unit = {
     pa.contents.clear()
     model.dynamicGamedata.playerCount = x
-    for (i <- 0 to x - 1) {
+    for (i <- 0 to x-1) {
       pa.contents += addPlayer(i)
+      model.dynamicGamedata.NameReaderThread.interrupt()
     }
     pa.revalidate()
     pa.repaint()
@@ -105,11 +107,9 @@ object GUI extends SimpleSwingApplication{
       listenTo(buttonSave)
       reactions += {
         case ButtonClicked(`buttonSave`) => if (!textField.text.isEmpty) {
-          model.dynamicGamedata.playerNameBuffer += textField.text
-          val name = model.dynamicGamedata.playerNameBuffer(Nr-2)
-          model.gameDataFunc.initPlayer(name)
-          model.gameDataFunc.simulateInput(name)
-          model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer(Nr-2)
+          model.gameDataFunc.initPlayer(textField.text)
+          model.dynamicGamedata.NameReaderThread.interrupt()
+          model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer(Nr - model.dynamicGamedata.playerCount)
           contents -= buttonSave
           textField.editable = false
           mainFrame.repaint()

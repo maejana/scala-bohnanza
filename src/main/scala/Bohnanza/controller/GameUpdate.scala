@@ -15,8 +15,8 @@ object GameUpdate {
     while (round <= 5) {
       //Start of Round
       model.dynamicGamedata.playingPlayer = Utility.selectPlayer(p)
+      println(model.dynamicGamedata.playingPlayer.playerName)
       playerState.handle(model.dynamicGamedata.playingPlayer)
-      //println(model.gamedata.playingPlayer.playerName + ": \n")
       println(model.gamedata.plantAmountQuestion)
       println(model.gameDataFunc.playerHandToString(model.dynamicGamedata.playingPlayer.playerHand))
       model.dynamicGamedata.plantCount = Utility.plant1or2(model.dynamicGamedata.playingPlayer)
