@@ -1,7 +1,7 @@
 package Bohnanza.model
 
 import Bohnanza.{controller, model, view}
-
+import java.io.{ByteArrayInputStream, InputStream}
 import scala.collection.mutable.ArrayBuffer
 object gameDataFunc {
   def drawCards(): ArrayBuffer[card] = {
@@ -41,17 +41,25 @@ object gameDataFunc {
   def initGame: String = {
     var str = ""
     view.playerInput.playercount()
-    val playernames: Array[String] = new Array[String](dynamicGamedata.playerCount)
-    println("Namen eingeben:")
-    for (i <- 1 to dynamicGamedata.playerCount) {
-      playernames(i - 1) = view.playerInput.playername()
-      view.GUI.addPlayerViaTUI(playernames(i-1), i)
-    }
 
-    for (i <- 1 to dynamicGamedata.playerCount) {
-      str += initPlayer(playernames(i - 1))
+    if(model.dynamicGamedata.players.length != model.dynamicGamedata.playerCount){
+      val playernames: Array[String] = new Array[String](dynamicGamedata.playerCount)
+      println("Namen eingeben:")
+      for (i <- 1 to dynamicGamedata.playerCount-model.dynamicGamedata.players.length) {
+        playernames(i - 1) = view.playerInput.playername()
+        view.GUI.addPlayerViaTUI(playernames(i - 1), i)
+      }
+
+      for (i <- 1 to dynamicGamedata.playerCount) {
+        str += initPlayer(playernames(i - 1))
+      }
     }
     str
+  }
+  def simulateInput(name: String): Unit = {
+    val simulatedInput = s"$name\n"
+    val inputStream: InputStream = new ByteArrayInputStream(simulatedInput.getBytes)
+    System.setIn(inputStream)
   }
   def playerFieldToString(field: ArrayBuffer[card]): String = {
     var s = ""
@@ -68,3 +76,4 @@ object gameDataFunc {
     s
   }
 }
+
