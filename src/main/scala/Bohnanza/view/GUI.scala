@@ -118,6 +118,8 @@ object GUI extends SimpleSwingApplication{
     }
   }
 
+
+
   def addPlayerViaTUI(Pname: String, nr: Int): Unit = {
     pa.contents += new Label(nr + ".")
     Nr += 1
@@ -165,7 +167,11 @@ object GUI extends SimpleSwingApplication{
       listenTo(button2)
       reactions += {
         case ButtonClicked(`button`) => plantBean(1)
+          revalidate()
+          mainFrame.repaint()
         case ButtonClicked(`button2`) => plantBean(2)
+          revalidate()
+          mainFrame.repaint()
       }
     }
   }
@@ -184,6 +190,7 @@ object GUI extends SimpleSwingApplication{
             if (model.dynamicGamedata.playingPlayer.playerHand.size > 1) {
               contents += plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(1).toString)
             }
+            revalidate()
           }
       }
       mainFrame.repaint()
@@ -206,11 +213,15 @@ object GUI extends SimpleSwingApplication{
     }
   }
 
-  def plantInPlantfield(bean: String): BoxPanel = {
-    new BoxPanel(Orientation.Vertical) {
+  def plantInPlantfield(bean: String): Panel = {
+    val panel = new BoxPanel(Orientation.Vertical) {
       contents += plantField()
       var plantedBean = new Label(bean)
+      revalidate()
+      mainFrame.repaint()
     }
+    panel
+   
   }
 
   def PlayerHand: Panel = {
