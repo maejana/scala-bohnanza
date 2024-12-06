@@ -1,10 +1,12 @@
 package Bohnanza.view
 
-import Bohnanza.{model, view, controller}
+import Bohnanza.{controller, model, view}
 
 import scala.swing.*
-import scala.swing.event._
+import scala.swing.event.ButtonClicked
+import scala.swing.event.*
 import javax.swing.BorderFactory
+import scala.language.postfixOps
 
 object GUI extends SimpleSwingApplication{
  def guistart(): Unit = {
@@ -92,7 +94,6 @@ object GUI extends SimpleSwingApplication{
 
   def addPlayer(nr : Int): Panel = {
     Nr = nr+1
-    model.dynamicGamedata.playerNameBuffer.clear()
     new BoxPanel(Orientation.Vertical){
       contents += new Label(Nr + ".")
       val textField = new TextField()
@@ -106,8 +107,9 @@ object GUI extends SimpleSwingApplication{
         case ButtonClicked(`buttonSave`) => if (!textField.text.isEmpty) {
           model.dynamicGamedata.playerNameBuffer += textField.text
           model.dynamicGamedata.playerNameBuffer.toSeq.foreach((name: String) => model.gameDataFunc.initPlayer(name))
+          val name = model.dynamicGamedata.playerNameBuffer(Nr-1)
+          model.gameDataFunc.initPlayer(name)
           model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer(Nr-1)
-          println(model.dynamicGamedata.playingPlayer)
           contents -= buttonSave
           textField.editable = false
           mainFrame.repaint()
@@ -145,11 +147,15 @@ object GUI extends SimpleSwingApplication{
         font = new Font("Arial", 1, 24)
       }
       contents += coins
-      val Handkarten = new Label(model.gamedata.handcards) {
+      val Handkarten: Label = new Label(model.gamedata.handcards) {
         font = new Font("Arial", 1, 24)
       }
       contents += PlayerHand
-      contents += new Label(model.gamedata.plantAmountQuestion)
+      val question = new Label(model.gamedata.plantAmountQuestion) {
+        font = new Font("Arial", 1, 24)
+      }
+      contents += question
+
       val button = new Button("1")
       contents += button
       val button2 = new Button("2")
@@ -165,22 +171,38 @@ object GUI extends SimpleSwingApplication{
   }
 
   def plantBean(i: Int): Unit = {
-    i match {
-      case 0 => mainFrame.contents = SpielerRunde()
-      case 1 => fields.contents += plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(1).toString)
-        controller.Utility.plantAllSelectedCards(1)
-      case 2 => fields.contents += plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(1).toString)
-        fields.contents += plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(2).toString)
-        controller.Utility.plantAllSelectedCards(2)
+
+    if (model.dynamicGamedata.playingPlayer.playerHand.size >= i) {
+      i match {
+        case 1 =>
+          controller.Utility.plantAllSelectedCards(1)
+          mainFrame.contents = plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(0).toString)
+        case 2 =>
+          controller.Utility.plantAllSelectedCards(2)
+          mainFrame.contents = new BoxPanel(Orientation.Vertical) {
+            contents += plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(0).toString)
+            if (model.dynamicGamedata.playingPlayer.playerHand.size > 1) {
+              contents += plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(1).toString)
+            }
+          }
+      }
+      mainFrame.repaint()
+    } else {
+      println(s"Not enough cards in hand to plant $i beans.")
     }
   }
+
+
+
 
   def plantField(): Panel = {
     new BoxPanel(Orientation.Vertical) {
       border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
-      preferredSize = new Dimension(80, 100)
-      val plantfield = new Label(model.gamedata.plantfield)
+      preferredSize = new Dimension(1920, 1000)
+      var plantfield = new Label(model.gamedata.plantfield)
       contents += plantfield
+      revalidate()
+      mainFrame.repaint()
     }
   }
 
