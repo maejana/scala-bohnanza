@@ -60,7 +60,6 @@ object GUI extends SimpleSwingApplication{
           else NamenEingeben(4)
           revalidate()
           mainFrame.repaint()
-          model.gameDataFunc.simulateInput()
       }
     }
   }
@@ -109,7 +108,7 @@ object GUI extends SimpleSwingApplication{
           model.dynamicGamedata.playerNameBuffer += textField.text
           val name = model.dynamicGamedata.playerNameBuffer(Nr-2)
           model.gameDataFunc.initPlayer(name)
-
+          model.gameDataFunc.simulateInput(name)
           model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer(Nr-2)
           contents -= buttonSave
           textField.editable = false
