@@ -8,13 +8,12 @@ object GameUpdate {
   def gameUpdate(): String = {
     var z = false
     var i = 0
-    var p = 0
     var round = 1
     val gameUpdateLog = new StringBuilder
     val playerCount = model.dynamicGamedata.playerCount
     while (round <= 5) {
       //Start of Round
-      model.dynamicGamedata.playingPlayer = Utility.selectPlayer(p)
+      model.dynamicGamedata.playingPlayer = Utility.selectPlayer()
       println(model.dynamicGamedata.playingPlayer.playerName)
       playerState.handle(model.dynamicGamedata.playingPlayer)
       println(model.gamedata.plantAmountQuestion)
@@ -36,12 +35,6 @@ object GameUpdate {
       UndoCommand.PlantBeanCommand.doStep(model.dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
 
       round += 1
-      i = 0
-      if (p == playerCount - 1 || playerCount == 1) {
-        p = 0
-      } else {
-        p += 1
-      }
       i = 0
     }
     gameUpdateLog.toString // Gibt das gesamte Log als String zurück

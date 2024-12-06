@@ -109,7 +109,7 @@ object GUI extends SimpleSwingApplication{
         case ButtonClicked(`buttonSave`) => if (!textField.text.isEmpty) {
           model.gameDataFunc.initPlayer(textField.text)
           model.dynamicGamedata.NameReaderThread.interrupt()
-          model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer(Nr - model.dynamicGamedata.playerCount)
+          model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
           contents -= buttonSave
           textField.editable = false
           mainFrame.repaint()
@@ -217,9 +217,10 @@ object GUI extends SimpleSwingApplication{
       contents += buttonNext
       listenTo(buttonNext)
       reactions += {
-        case ButtonClicked(buttonNext) =>
+        case ButtonClicked(buttonNext) => model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
           controller.playerState.handle(model.dynamicGamedata.playingPlayer)
-          SpielerRunde()
+          mainFrame.contents = SpielerRunde()
+          repaint()
       }
       mainFrame.repaint()
       revalidate()

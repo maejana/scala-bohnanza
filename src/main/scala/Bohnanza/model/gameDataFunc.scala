@@ -42,6 +42,7 @@ object gameDataFunc {
         })
     }
     else dynamicGamedata.players += newPlayer
+
     growingFieldText
   }
   def initGame: String = {
@@ -51,14 +52,10 @@ object gameDataFunc {
     if(model.dynamicGamedata.players.length != model.dynamicGamedata.playerCount){
       val playernames: Array[String] = new Array[String](dynamicGamedata.playerCount)
       println("Namen eingeben:")
-
       for (i <- 1 to dynamicGamedata.playerCount-model.dynamicGamedata.players.length) {
-        playernames(i - 1) = view.playerInput.playername()
-        view.GUI.addPlayerViaTUI(playernames(i - 1), i)
-      }
-
-      for (i <- 0 to dynamicGamedata.playerCount) {
-        str += initPlayer(model.dynamicGamedata.players(i).playerName)
+        playernames(i-1) = view.playerInput.playername()
+        view.GUI.addPlayerViaTUI(playernames(i-1), i)
+        str += initPlayer(playernames(i-1))
       }
     }
     str

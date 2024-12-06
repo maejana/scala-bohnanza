@@ -82,12 +82,16 @@ object Utility {
     player.playerHand.indexOf(card)
   }
 
-  def selectPlayer(index : Int): player = {
-    println(model.dynamicGamedata.players.length)
-    if (index >= 0 && index < model.dynamicGamedata.players.length) {
-      model.dynamicGamedata.players(index)
-    } else {
-      throw new IndexOutOfBoundsException(s"$index is out of bounds (min 0, max ${model.dynamicGamedata.players.length - 1})")
+  def selectPlayer(): player = {
+    if (model.dynamicGamedata.playerCount < model.dynamicGamedata.playingPlayerID){
+      model.dynamicGamedata.playingPlayerID = 0
+      model.dynamicGamedata.playingPlayer = model.dynamicGamedata.players(0)
+      model.dynamicGamedata.playingPlayer
+    }
+    else {
+      model.dynamicGamedata.playingPlayer = model.dynamicGamedata.players(model.dynamicGamedata.playingPlayerID)
+      model.dynamicGamedata.playingPlayerID += 1
+      model.dynamicGamedata.playingPlayer
     }
   }
   def isPlantable(player: model.player, bean: model.card): Boolean = {
