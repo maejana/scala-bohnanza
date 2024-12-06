@@ -35,7 +35,13 @@ object gameDataFunc {
     hand.addOne(controller.UIlogic.weightedRandom())
     val newPlayer = FactoryP.PlayerFactory().createPlayer(playerName, hand) // Factory Pattern um Player zu erstellen
     growingFieldText += hand(4).beanName
-    dynamicGamedata.players += newPlayer
+    if(!dynamicGamedata.players.isEmpty) {
+      dynamicGamedata.players.foreach((p: player) =>
+        if (!p.playerName.equals(newPlayer.playerName)) {
+          dynamicGamedata.players += newPlayer
+        })
+    }
+    else dynamicGamedata.players += newPlayer
     growingFieldText
   }
   def initGame: String = {
