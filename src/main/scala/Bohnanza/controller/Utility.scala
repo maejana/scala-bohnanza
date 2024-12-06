@@ -74,6 +74,7 @@ object Utility {
   }
 
   def selectPlayer(index : Int): player = {
+    println(model.dynamicGamedata.players.length)
     if (index >= 0 && index < model.dynamicGamedata.players.length) {
       model.dynamicGamedata.players(index)
     } else {
