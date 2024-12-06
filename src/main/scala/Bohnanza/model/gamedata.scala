@@ -28,7 +28,7 @@ object gamedata {
   val continue: String = "Weiter"
   val handcards: String = "Handkarten"
   val coinsString: String = "Muenzen: "
-  val plantfield: String = "Feld"
+  val plantfield: String = "Feld    "
   val weights = Array(20, 18, 16, 14, 12, 10, 8, 6)
   val priceSoja: Array[Int] = Array(2, 4, 6, 7)
   val priceFeuer: Array[Int] = Array(3, 6, 8, 9)

@@ -136,7 +136,110 @@ object GUI extends SimpleSwingApplication{
   def SpielerRunde(): Panel = {
     var i = 0
     new BoxPanel(Orientation.Vertical) {
-      preferredSize = new Dimension(1920, 1000)
+      border = BorderFactory.createEmptyBorder(10, 10, 10, 10)
+
+      val combinedPanel = new BoxPanel(Orientation.Horizontal) {
+        contents += playerOut() // Linker Bereich
+        contents += Swing.HStrut(10) // Horizontaler Abstand
+        contents += fields // Rechter Bereich
+        xLayoutAlignment = 0.0
+      }
+      contents += combinedPanel
+
+      contents += Swing.VStrut(10) // Vertikaler Abstand zum nächsten Element
+
+      val question = new Label(model.gamedata.plantAmountQuestion) {
+        font = new Font("Arial", 1, 24)
+        yLayoutAlignment = 0.0
+      }
+      contents += question
+
+      contents += Swing.VStrut(5) // Vertikaler Abstand zum nächsten Element
+
+      val buttonPanel = new BoxPanel(Orientation.Horizontal) {
+        val button1 = new Button("1")
+        contents += button1
+        val button2 = new Button("2")
+        contents += button2
+        listenTo(button1)
+        listenTo(button2)
+        reactions += {
+          case ButtonClicked(`button1`) =>
+            plantBean(1)
+          case ButtonClicked(`button2`) =>
+            plantBean(2)
+        }
+        xLayoutAlignment = 0.0
+      }
+      contents += buttonPanel
+
+      mainFrame.validate()
+      mainFrame.repaint()
+    }
+  }
+
+  def plantBean(i: Int): Unit = {
+    i match {
+      case 1 =>
+        model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.playerHand(0)
+        controller.Utility.plantPreperation(model.dynamicGamedata.playingPlayer)
+        val beanToplant = model.gameDataFunc.playerFieldToString(model.dynamicGamedata.cardsToPlant)
+        mainFrame.contents = new BoxPanel(Orientation.Vertical) {
+          contents += playerOut()
+          contents += plantInPlantfield(beanToplant)
+        }
+      case 2 =>
+        model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.playerHand(0)
+        model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.playerHand(1)
+        controller.Utility.plantPreperation(model.dynamicGamedata.playingPlayer)
+        mainFrame.contents = new BoxPanel(Orientation.Vertical) {
+          contents += playerOut()
+          contents += plantInPlantfield(model.dynamicGamedata.cardsToPlant(0).toString)
+          if (model.dynamicGamedata.playingPlayer.playerHand.size > 1) {
+            contents += plantInPlantfield(model.dynamicGamedata.cardsToPlant(1).toString)
+          }
+        }
+    }
+    mainFrame.validate()
+    mainFrame.repaint()
+  }
+
+
+  def plantInPlantfield(bean: String): Panel = {
+    val panel = new BoxPanel(Orientation.Vertical) {
+      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
+      preferredSize = new Dimension(1000, 200)
+      var plantfield = new Label(model.gamedata.plantfield)
+      contents += plantfield
+      var plantedBean = new Label(bean)
+      contents += plantedBean
+      var buttonNext = new Button(model.gamedata.continue)
+      contents += buttonNext
+      listenTo(buttonNext)
+      reactions += {
+        case ButtonClicked(buttonNext) =>
+          controller.playerState.handle(model.dynamicGamedata.playingPlayer)
+           drawAndPlantCards()
+      }
+      mainFrame.repaint()
+      revalidate()
+    }
+    panel
+   
+  }
+
+  def PlayerHand: Panel = {
+    new BoxPanel(Orientation.Vertical) {
+      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
+      preferredSize = new Dimension(1500, 500)
+      model.dynamicGamedata.playingPlayer.playerHand.foreach { card =>
+        contents += view.GUICards().getCardPanel(card)
+      }
+    }
+  }
+
+  def playerOut(): Panel = {
+    new BoxPanel(Orientation.Vertical) {
       contents += new Label("Spieler Runde")
 
       val playerName: String = model.dynamicGamedata.playingPlayer.playerName
@@ -152,81 +255,11 @@ object GUI extends SimpleSwingApplication{
       val Handkarten: Label = new Label(model.gamedata.handcards) {
         font = new Font("Arial", 1, 24)
       }
+      contents += Handkarten
       contents += PlayerHand
-      val question = new Label(model.gamedata.plantAmountQuestion) {
-        font = new Font("Arial", 1, 24)
-      }
-      contents += question
-
-      val button = new Button("1")
-      contents += button
-      val button2 = new Button("2")
-      contents += button2
-      contents += fields
-      listenTo(button)
-      listenTo(button2)
-      reactions += {
-        case ButtonClicked(`button`) => plantBean(1)
-          revalidate()
-          mainFrame.repaint()
-        case ButtonClicked(`button2`) => plantBean(2)
-          revalidate()
-          mainFrame.repaint()
-      }
     }
   }
 
-  def plantBean(i: Int): Unit = {
 
-    if (model.dynamicGamedata.playingPlayer.playerHand.size >= i) {
-      i match {
-        case 1 =>
-          controller.Utility.plantAllSelectedCards(1)
-          mainFrame.contents = plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(0).toString)
-        case 2 =>
-          controller.Utility.plantAllSelectedCards(2)
-          mainFrame.contents = new BoxPanel(Orientation.Vertical) {
-            contents += plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(0).toString)
-            if (model.dynamicGamedata.playingPlayer.playerHand.size > 1) {
-              contents += plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(1).toString)
-            }
-            revalidate()
-          }
-      }
-      mainFrame.repaint()
-    }
-  }
 
-    
-  def plantField(): Panel = {
-    new BoxPanel(Orientation.Vertical) {
-      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
-      preferredSize = new Dimension(1920, 1000)
-      var plantfield = new Label(model.gamedata.plantfield)
-      contents += plantfield
-      revalidate()
-      mainFrame.repaint()
-    }
-  }
-
-  def plantInPlantfield(bean: String): Panel = {
-    val panel = new BoxPanel(Orientation.Vertical) {
-      contents += plantField()
-      var plantedBean = new Label(bean)
-      revalidate()
-      mainFrame.repaint()
-    }
-    panel
-   
-  }
-
-  def PlayerHand: Panel = {
-    new BoxPanel(Orientation.Vertical) {
-      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
-      preferredSize = new Dimension(1500, 500)
-      model.dynamicGamedata.playingPlayer.playerHand.foreach { card =>
-        contents += view.GUICards().getCardPanel(card)
-      }
-    }
-  }
 }

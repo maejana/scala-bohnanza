@@ -10,12 +10,21 @@ object Utility {
 
   def plantInfo(): model.card = {
     val cardname = scala.io.StdIn.readLine()
-    findCardWithName(cardname)
+    
+    var card: model.card = findCardWithName(cardname)
+    model.dynamicGamedata.cardsToPlant += card
+    card
+    
+    
   }
 
   def plantPreperation(player: model.player): String = {
+    var plantCard: model.card = null
+    if (model.dynamicGamedata.cardsToPlant.isEmpty) {
+      plantCard = plantInfo()
+     
+    }
     val gameUpdateLog = new StringBuilder()
-    val plantCard: model.card = plantInfo()
     if (plantCard == null) {
       ""
     }
