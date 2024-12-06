@@ -3,7 +3,6 @@ package Bohnanza.view
 import Bohnanza.{model, view, controller}
 
 import scala.swing.*
-import scala.swing.event.ButtonClicked
 import scala.swing.event._
 import javax.swing.BorderFactory
 
@@ -17,8 +16,8 @@ object GUI extends SimpleSwingApplication{
    guiThread.start()
  }
 
-  var pa: BoxPanel = new BoxPanel(Orientation.Vertical) {
-  }
+  var fields: BoxPanel = new BoxPanel(Orientation.Vertical){}
+  var pa: BoxPanel = new BoxPanel(Orientation.Vertical) {}
   var Nr: Int = 0
   val mainFrame = new MainFrame {
     title = "Bohnanza"
@@ -41,6 +40,7 @@ object GUI extends SimpleSwingApplication{
       }
     }
   }
+
   def SpieleranzahlEingeben(): Unit = {
     new BoxPanel(Orientation.Vertical){
       pa.contents += new Label("Wie viele Spieler spielen?")
@@ -61,6 +61,7 @@ object GUI extends SimpleSwingApplication{
       }
     }
   }
+
   def NamenEingeben(x: Int): Unit = {
     pa.contents.clear()
     model.dynamicGamedata.playerCount = x
@@ -70,6 +71,7 @@ object GUI extends SimpleSwingApplication{
     pa.revalidate()
     pa.repaint()
   }
+
   def NamenEingebenSeite(): Panel = {
     new BoxPanel(Orientation.Vertical) {
       preferredSize = new Dimension(1920, 1000)
@@ -87,6 +89,7 @@ object GUI extends SimpleSwingApplication{
       }
     }
   }
+
   def addPlayer(nr : Int): Panel = {
     Nr = nr+1
     model.dynamicGamedata.playerNameBuffer.clear()
@@ -102,17 +105,17 @@ object GUI extends SimpleSwingApplication{
       reactions += {
         case ButtonClicked(`buttonSave`) => if (!textField.text.isEmpty) {
           model.dynamicGamedata.playerNameBuffer += textField.text
-          model.gameDataFunc.initPlayer(model.dynamicGamedata.playerNameBuffer.toString())
+          model.dynamicGamedata.playerNameBuffer.toSeq.foreach((name: String) => model.gameDataFunc.initPlayer(name))
           model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer(Nr-1)
           println(model.dynamicGamedata.playingPlayer)
           contents -= buttonSave
           textField.editable = false
-          revalidate()
           mainFrame.repaint()
         }
       }
     }
   }
+
   def addPlayerViaTUI(Pname: String, nr: Int): Unit = {
     pa.contents += new Label(nr + ".")
     Nr += 1
@@ -125,17 +128,20 @@ object GUI extends SimpleSwingApplication{
     pa.repaint()
     mainFrame.repaint()
   }
+
   def SpielerRunde(): Panel = {
     var i = 0
     new BoxPanel(Orientation.Vertical) {
       preferredSize = new Dimension(1920, 1000)
       contents += new Label("Spieler Runde")
 
-      val playingPlayer = new Label("Spieler: " + model.dynamicGamedata.playingPlayer.playerName) {
+      val playerName: String = model.dynamicGamedata.playingPlayer.playerName
+      val playingPlayer = new Label(s"Spieler: $playerName") {
         font = new Font("Arial", 1, 36)
       }
       contents += playingPlayer
-      val coins = new Label(model.gamedata.coinsString + model.dynamicGamedata.playingPlayer.gold) {
+
+      val coins = new Label(model.gamedata.coinsString + ": " + model.dynamicGamedata.playingPlayer.gold) {
         font = new Font("Arial", 1, 24)
       }
       contents += coins
@@ -148,6 +154,7 @@ object GUI extends SimpleSwingApplication{
       contents += button
       val button2 = new Button("2")
       contents += button2
+      contents += fields
       listenTo(button)
       listenTo(button2)
       reactions += {
@@ -156,37 +163,33 @@ object GUI extends SimpleSwingApplication{
       }
     }
   }
+
   def plantBean(i: Int): Unit = {
     i match {
       case 0 => mainFrame.contents = SpielerRunde()
-        mainFrame.repaint()
-      case 1 => mainFrame.contents = plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(1).toString)
+      case 1 => fields.contents += plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(1).toString)
         controller.Utility.plantAllSelectedCards(1)
-      case 2 => mainFrame.contents = plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(1).toString)
-        plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(2).toString)
+      case 2 => fields.contents += plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(1).toString)
+        fields.contents += plantInPlantfield(model.dynamicGamedata.playingPlayer.playerHand(2).toString)
         controller.Utility.plantAllSelectedCards(2)
     }
-
   }
-
 
   def plantField(): Panel = {
     new BoxPanel(Orientation.Vertical) {
       border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
-      preferredSize = new Dimension(800, 1000)
-      var plantfield = new Label(model.gamedata.plantfield)
+      preferredSize = new Dimension(80, 100)
+      val plantfield = new Label(model.gamedata.plantfield)
       contents += plantfield
     }
   }
 
-  def plantInPlantfield(bean: String): Panel = {
+  def plantInPlantfield(bean: String): BoxPanel = {
     new BoxPanel(Orientation.Vertical) {
       contents += plantField()
-
       var plantedBean = new Label(bean)
     }
   }
-
 
   def PlayerHand: Panel = {
     new BoxPanel(Orientation.Vertical) {

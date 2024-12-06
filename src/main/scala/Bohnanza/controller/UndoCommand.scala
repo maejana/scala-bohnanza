@@ -62,9 +62,3 @@ object UndoCommand {
 
     }
   }
-
-
-// TODO: Reparieren, dann so dass man nur M als Buchstabe eingeben kann und sonst Fehler angezeigt wird
-
-
-
