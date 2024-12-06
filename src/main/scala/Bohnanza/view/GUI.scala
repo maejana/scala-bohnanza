@@ -219,7 +219,7 @@ object GUI extends SimpleSwingApplication{
       reactions += {
         case ButtonClicked(buttonNext) =>
           controller.playerState.handle(model.dynamicGamedata.playingPlayer)
-           drawAndPlantCards()
+          SpielerRunde()
       }
       mainFrame.repaint()
       revalidate()
