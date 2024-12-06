@@ -86,7 +86,8 @@ object GUI extends SimpleSwingApplication{
       contents += button
       listenTo(button)
       reactions += {
-        case ButtonClicked(`button`) => mainFrame.contents = SpielerRunde()
+        case ButtonClicked(`button`) => model.dynamicGamedata.NameReaderThread.interrupt()
+          mainFrame.contents = SpielerRunde()
           revalidate()
           pa.repaint()
           mainFrame.repaint()
@@ -108,7 +109,6 @@ object GUI extends SimpleSwingApplication{
       reactions += {
         case ButtonClicked(`buttonSave`) => if (!textField.text.isEmpty) {
           model.gameDataFunc.initPlayer(textField.text)
-          model.dynamicGamedata.NameReaderThread.interrupt()
           model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
           contents -= buttonSave
           textField.editable = false
@@ -121,7 +121,7 @@ object GUI extends SimpleSwingApplication{
 
 
   def addPlayerViaTUI(Pname: String, nr: Int): Unit = {
-    pa.contents += new Label(nr + ".")
+    //pa.contents += new Label(nr + ".")
     Nr += 1
     val textField = new TextField()
     textField.columns = 1

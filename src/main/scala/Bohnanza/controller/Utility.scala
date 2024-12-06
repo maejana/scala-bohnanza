@@ -19,13 +19,13 @@ object Utility {
   }
 
   def plantPreperation(player: model.player): String = {
-    var plantCard: model.card = null
+    var plantCard: model.card = card(model.gamedata.beans(2),model.gamedata.weights(0), model.gamedata.priceBlaue)
     if (model.dynamicGamedata.cardsToPlant.isEmpty) {
       plantCard = plantInfo()
      
     }
     val gameUpdateLog = new StringBuilder()
-    if (plantCard == null) {
+    if (plantCard.equals(card(model.gamedata.beans(2),model.gamedata.weights(0), model.gamedata.priceBlaue))) {
       ""
     }
     else if (isPlantable(player, plantCard) && player.playerHand.contains(plantCard)) {
@@ -45,7 +45,7 @@ object Utility {
         return model.gamedata.cards(i)
       }
     }
-    null
+    card(model.gamedata.beans(0),model.gamedata.weights(0), model.gamedata.priceBlaue)
   }
 
   def plantDrawnCard(player: model.player, card: model.card): Unit = {
@@ -75,7 +75,7 @@ object Utility {
         bool = true
       }
     }
-    null
+    card(model.gamedata.beans(2),model.gamedata.weights(0), model.gamedata.priceBlaue)
   }
 
   def findCardId(player: model.player, card: model.card): Int = {

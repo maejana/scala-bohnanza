@@ -42,7 +42,7 @@ object plantAmount {
   }
   def selectStrategy(): Strategy = {
     var validInput = false
-    var strategy: Strategy = null
+    var strategy: Strategy = StrategyRETRY()
     while (!validInput) {
       val nr = view.playerInput.keyListener() // Abfrage einer neuen Eingabe
       nr match {
