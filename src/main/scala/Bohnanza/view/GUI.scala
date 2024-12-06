@@ -194,14 +194,10 @@ object GUI extends SimpleSwingApplication{
           }
       }
       mainFrame.repaint()
-    } else {
-      println(s"Not enough cards in hand to plant $i beans.")
     }
   }
 
-
-
-
+    
   def plantField(): Panel = {
     new BoxPanel(Orientation.Vertical) {
       border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
