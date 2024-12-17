@@ -255,7 +255,19 @@ object FXGUi extends JFXApp3 {
             },
             new Label(model.gamedata.coinsString + ":" + model.dynamicGamedata.playingPlayer.gold) {
               font = Font.font("Arial", 24)
+            },
+            new VBox {
+              spacing = 10
+              alignment = Pos.CenterLeft
+              style = "-fx-boarder-color: black; -fx-boarder-width: 2;"
+              children = model.dynamicGamedata.playingPlayer.playerHand.map { card =>
+                new Label(card.toString) {
+                  font = Font.font("Arial", 24)
+
+                }
+              }
             }
+            
           )
         }
       )
