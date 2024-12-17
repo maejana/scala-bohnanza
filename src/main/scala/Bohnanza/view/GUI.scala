@@ -33,7 +33,12 @@ object GUI extends SimpleSwingApplication{
       minimumSize = new Dimension(1920, 1000)
       contents += new Label(model.gamedata.bohnanza)
       val button = new Button(model.gamedata.play)
-      contents += button
+      button.peer.setLocation(900, 500)
+      button.peer.setSize(10, 5)
+
+      contents += new BorderPanel {
+        add(button, BorderPanel.Position.North)
+      }
       listenTo(button)
       reactions += {
         case ButtonClicked(`button`) => mainFrame.contents = NamenEingebenSeite()

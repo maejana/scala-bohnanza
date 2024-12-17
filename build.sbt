@@ -16,6 +16,10 @@ libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14"
 libraryDependencies += "org.jline" % "jline" % "3.21.0"
 
 libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0"
+// ScalaFX Abhängigkeit
+libraryDependencies += "org.scalafx" %% "scalafx" % "20.0.0-R31"
+
+
 // Optionally, specify ScalaTest or another test framework for better integration
 coverageEnabled := true
 //fork:=true
