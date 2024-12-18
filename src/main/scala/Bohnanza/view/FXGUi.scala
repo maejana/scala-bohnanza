@@ -33,9 +33,9 @@ object FXGUi extends JFXApp3 {
   }
 
   def startScene(): VBox = new VBox {
-    spacing = 20
+    spacing = 2
     alignment = Pos.Center
-    padding = Insets(50)
+    padding = Insets(2)
 
     children = Seq(
       new Label("Willkommen zu Bohnanza!") {
@@ -53,8 +53,9 @@ object FXGUi extends JFXApp3 {
   }
 
   def spieleranzahlEingeben(): VBox = new VBox {
-    spacing = 10
+    spacing = 2
     alignment = Pos.Center
+    padding = Insets(2)
 
     val label = new Label("Wie viele Spieler spielen?")
     val dropdown = new ComboBox(Seq("2", "3", "4", "5")) {
@@ -73,16 +74,17 @@ object FXGUi extends JFXApp3 {
   }
 
   def namenEingebenSeite(): BorderPane = new BorderPane {
-    padding = Insets(10)
-    top = new Label("Bohnanza") {
+    padding = Insets(5)
+    top = new Label(model.gamedata.bohnanza) {
       font = Font.font("Arial", 36)
       alignmentInParent = Pos.Center
     }
-    center = spieleranzahlEingeben()
-    bottom = new VBox {
-      spacing = 5
+    center = new VBox {
+      spacing = 2
       alignment = Pos.Center
+      padding = Insets(2, 10, 0, 10) // Adjust padding to move elements closer to the top
       children = Seq(
+        spieleranzahlEingeben(),
         playerPanel,
         new Button(model.gamedata.continue) {
           onAction = _ => {
@@ -103,8 +105,8 @@ object FXGUi extends JFXApp3 {
   }
 
   def addPlayer(nr: Int): HBox = new HBox {
-    spacing = 10
-    alignment = Pos.CenterLeft
+    spacing = 5
+    alignment = Pos.Center
 
     val label = new Label(s"$nr.")
     val textField = new TextField {
@@ -160,7 +162,7 @@ object FXGUi extends JFXApp3 {
               onAction = _ => plantBean(2)
             },
             new Button("Zwei Karten ziehe und pflanzen"){
-              onAction = _ => drawAndPlantCards()
+              onAction = _ => stage.scene = new Scene (drawAndPlantCards())
             }
           )
         }
