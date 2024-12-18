@@ -161,7 +161,7 @@ class GUICards {
     vbox.setAlignment(Pos.CENTER)
     vbox.setPadding(new Insets(0))
     vbox.getChildren.addAll(
-      new Label(model.gamedata.beans(0)){
+      new Label(model.gamedata.beans(7)){
         setFont(Font.font("Arial", 24))
       },
       new Label(model.gamedata.priceGarten.mkString(", ")) {

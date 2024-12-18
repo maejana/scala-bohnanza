@@ -14,6 +14,7 @@ object gamelogic {
       case -1 => println("Kein Feld frei zum anpflanzen")
       case _ => // No available fields
     }
+    playerID.get.playerHand -= cards
   }
   def harvest(field: Int): String = {
     // angepflanze Bohnen erten und gegen Gold tauschen

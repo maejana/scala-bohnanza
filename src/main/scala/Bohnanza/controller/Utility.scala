@@ -11,7 +11,7 @@ object Utility {
   def plantInfo(): model.card = {
     val cardname = scala.io.StdIn.readLine()
     
-    var card: model.card = findCardWithName(cardname)
+    val card: model.card = findCardWithName(cardname)
     model.dynamicGamedata.cardsToPlant += card
     card
     
@@ -82,16 +82,14 @@ object Utility {
     player.playerHand.indexOf(card)
   }
 
-  def selectPlayer(): Option[player] = {
-    if (model.dynamicGamedata.playerCount < model.dynamicGamedata.playingPlayerID) {
+  def selectPlayer(): Unit = {
+    if (model.dynamicGamedata.playerCount <= model.dynamicGamedata.playingPlayerID) {
       model.dynamicGamedata.playingPlayerID = 0
-      model.dynamicGamedata.playingPlayer = Some(model.dynamicGamedata.players(0))
-      model.dynamicGamedata.playingPlayer
+      model.dynamicGamedata.playingPlayer = Some(model.dynamicGamedata.players(model.dynamicGamedata.playingPlayerID))
     }
     else {
       model.dynamicGamedata.playingPlayer = Some(model.dynamicGamedata.players(model.dynamicGamedata.playingPlayerID))
       model.dynamicGamedata.playingPlayerID += 1
-      model.dynamicGamedata.playingPlayer
     }
   }
   def isPlantable(player: Option[model.player], bean: model.card): Boolean = {

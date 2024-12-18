@@ -66,7 +66,6 @@ object FXGUi extends JFXApp3 {
       model.dynamicGamedata.readerThread.interrupt()
       namenEingeben(count)
     }
-
     children = Seq(label, dropdown, button)
   }
 
@@ -116,7 +115,6 @@ object FXGUi extends JFXApp3 {
 
     buttonSave.onAction = _ => {
       model.gameDataFunc.initPlayer(textField.text())
-      model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
       if (textField.text().nonEmpty) {
         println(s"Spieler $nr: ${textField.text()}")
         model.dynamicGamedata.NameReaderThread.interrupt()
@@ -187,11 +185,15 @@ object FXGUi extends JFXApp3 {
               playerOut(),
               plantInPlantfield(beanToPlant)
             )
+            model.dynamicGamedata.playingPlayer.get.playerHand -= model.dynamicGamedata.cardsToPlant(0)
+            model.dynamicGamedata.cardsToPlant.clear()
           }
         }
       case 2 =>
         model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(0)
         model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(1)
+        val beanToPlant1 = model.dynamicGamedata.cardsToPlant(0)
+        val beanToPlant2 = model.dynamicGamedata.cardsToPlant(1)
         controller.Utility.plantPreperation(model.dynamicGamedata.playingPlayer)
         stage.scene = new Scene {
           root = new VBox {
@@ -204,9 +206,9 @@ object FXGUi extends JFXApp3 {
                 alignment = Pos.Center
                 children = Seq(
                   playerOut(),
-                  plantInPlantfield(model.dynamicGamedata.cardsToPlant(0).toString),
+                  plantInPlantfield(model.dynamicGamedata.cardsToPlant(0).beanName),
                   if (model.dynamicGamedata.playingPlayer.get.playerHand.size > 1) {
-                    plantInPlantfield(model.dynamicGamedata.cardsToPlant(1).toString)
+                    plantInPlantfield(model.dynamicGamedata.cardsToPlant(1).beanName)
                   } else {
                     new Label("")
                   }
@@ -215,6 +217,9 @@ object FXGUi extends JFXApp3 {
             )
           }
         }
+        model.dynamicGamedata.playingPlayer.get.playerHand -= beanToPlant1
+        model.dynamicGamedata.playingPlayer.get.playerHand -= beanToPlant2
+        model.dynamicGamedata.cardsToPlant.clear()
     }
     stage.scene().getWindow.sizeToScene()
     stage.fullScreen = true
@@ -239,6 +244,7 @@ object FXGUi extends JFXApp3 {
           onAction = _ => {
             println(s"Next player: ${model.dynamicGamedata.playingPlayer.get.playerName}")
             controller.playerState.handle(model.dynamicGamedata.playingPlayer)
+            controller.Utility.selectPlayer()
             stage.scene = new Scene(spielerRunde())
             stage.fullScreen = true
           }
