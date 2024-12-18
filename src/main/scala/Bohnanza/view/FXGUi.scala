@@ -116,7 +116,7 @@ object FXGUi extends JFXApp3 {
 
     buttonSave.onAction = _ => {
       model.gameDataFunc.initPlayer(textField.text())
-      model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
+      controller.Utility.selectPlayer()
       if (textField.text().nonEmpty) {
         println(s"Spieler $nr: ${textField.text()}")
         model.dynamicGamedata.NameReaderThread.interrupt()
@@ -181,7 +181,7 @@ object FXGUi extends JFXApp3 {
           onAction = _ => {
             playerStep += 1
             stage.scene = new Scene(drawAndPlantCards())
-            model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
+            controller.Utility.selectPlayer()
             controller.playerState.handle(model.dynamicGamedata.playingPlayer)
             playerStep == 0
           }
