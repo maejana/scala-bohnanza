@@ -2,19 +2,19 @@ package Bohnanza.view
 
 import scalafx.application.{JFXApp3, Platform}
 import scalafx.scene.Scene
-import scalafx.scene.control.{Button, Label, ComboBox, TextField}
-import scalafx.scene.layout.{VBox, HBox, BorderPane}
+import scalafx.scene.control.{Button, ComboBox, Label, TextField}
+import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.text.Font
 import scalafx.scene.paint.Color
-
 import Bohnanza.model
 import Bohnanza.controller
 import Bohnanza.view.GUICards
 
+import scala.util.{Try, Failure, Success}
+
 
 object FXGUi extends JFXApp3 {
-
   val Nr: Int = 0
   val playerPanel: VBox = new VBox(10) {
     padding = Insets(10)
@@ -49,7 +49,6 @@ object FXGUi extends JFXApp3 {
     )
   }
 
-
   /** Spieleranzahl eingeben */
   def spieleranzahlEingeben(): VBox = new VBox {
     spacing = 10
@@ -63,6 +62,8 @@ object FXGUi extends JFXApp3 {
 
     button.onAction = _ => {
       val count = dropdown.value().toInt
+      model.dynamicGamedata.playerCount = count
+      model.dynamicGamedata.readerThread.interrupt()
       namenEingeben(count)
     }
 
@@ -118,6 +119,7 @@ object FXGUi extends JFXApp3 {
       model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
       if (textField.text().nonEmpty) {
         println(s"Spieler $nr: ${textField.text()}")
+        model.dynamicGamedata.NameReaderThread.interrupt()
         disableSaveButton(buttonSave, textField)
       }
     }

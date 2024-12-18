@@ -18,10 +18,7 @@ object playerInput {
     }
   }
   def playercount(): Unit={
-    val count = readConsoleThread()
-    if(model.dynamicGamedata.playerCount == 0) {
-      model.dynamicGamedata.playerCount = count
-    }
+    readConsoleThread()
     println(model.dynamicGamedata.playerCount)
   }
   def playername(): String = {
@@ -29,12 +26,10 @@ object playerInput {
     name
   }
 
-  def readConsoleThread(): Int = {
-    @volatile var input: Int = 0
-
+  def readConsoleThread(): Unit = {
     model.dynamicGamedata.readerThread = new Thread(() => {
-      input = Try(scala.io.StdIn.readInt()) match
-        case Success(value) => value
+      val input = Try(scala.io.StdIn.readInt()) match
+        case Success(value) => model.dynamicGamedata.playerCount = value
         case _ => -1
     })
       // Starte den Reader-Thread
@@ -44,7 +39,7 @@ object playerInput {
     model.dynamicGamedata.readerThread.join()
 
     // Gebe das Ergebnis zurück (oder einen Standardwert, falls keine Eingabe erfolgt ist)
-    input // -1 als Default, falls keine Eingabe erfolgte
+    // -1 als Default, falls keine Eingabe erfolgte
   }
 
 
