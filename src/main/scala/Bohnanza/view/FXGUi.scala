@@ -33,9 +33,9 @@ object FXGUi extends JFXApp3 {
   }
 
   def startScene(): VBox = new VBox {
-    spacing = 20
+    spacing = 2
     alignment = Pos.Center
-    padding = Insets(50)
+    padding = Insets(2)
 
     children = Seq(
       new Label("Willkommen zu Bohnanza!") {
@@ -53,8 +53,9 @@ object FXGUi extends JFXApp3 {
   }
 
   def spieleranzahlEingeben(): VBox = new VBox {
-    spacing = 10
+    spacing = 2
     alignment = Pos.Center
+    padding = Insets(2)
 
     val label = new Label("Wie viele Spieler spielen?")
     val dropdown = new ComboBox(Seq("2", "3", "4", "5")) {
@@ -73,16 +74,17 @@ object FXGUi extends JFXApp3 {
   }
 
   def namenEingebenSeite(): BorderPane = new BorderPane {
-    padding = Insets(10)
-    top = new Label("Bohnanza") {
+    padding = Insets(5)
+    top = new Label(model.gamedata.bohnanza) {
       font = Font.font("Arial", 36)
       alignmentInParent = Pos.Center
     }
-    center = spieleranzahlEingeben()
-    bottom = new VBox {
-      spacing = 5
+    center = new VBox {
+      spacing = 2
       alignment = Pos.Center
+      padding = Insets(2, 10, 0, 10) // Adjust padding to move elements closer to the top
       children = Seq(
+        spieleranzahlEingeben(),
         playerPanel,
         new Button(model.gamedata.continue) {
           onAction = _ => {
@@ -103,8 +105,8 @@ object FXGUi extends JFXApp3 {
   }
 
   def addPlayer(nr: Int): HBox = new HBox {
-    spacing = 10
-    alignment = Pos.CenterLeft
+    spacing = 5
+    alignment = Pos.Center
 
     val label = new Label(s"$nr.")
     val textField = new TextField {
@@ -162,7 +164,7 @@ object FXGUi extends JFXApp3 {
                 controller.Utility.plant1or2ThreadInterrupt()
             },
             new Button("Zwei Karten ziehe und pflanzen"){
-              onAction = _ => drawAndPlantCards()
+              onAction = _ => stage.scene = new Scene (drawAndPlantCards())
             }
           )
         }
@@ -199,6 +201,7 @@ object FXGUi extends JFXApp3 {
         val beanToPlant = model.gameDataFunc.playerFieldToString(model.dynamicGamedata.cardsToPlant)
         stage.scene = new Scene {
           root = new VBox {
+
             spacing = 1
             padding = Insets(1)
             alignment = Pos.Center
@@ -208,6 +211,7 @@ object FXGUi extends JFXApp3 {
             )
           }
         }
+        stage.fullScreen = true
       case 2 =>
         model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(0)
         model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(1)
@@ -234,6 +238,7 @@ object FXGUi extends JFXApp3 {
             )
           }
         }
+        stage.fullScreen = true
         println(s"Planted bean 1: ${model.dynamicGamedata.cardsToPlant(0).beanName}")
         if (model.dynamicGamedata.cardsToPlant.size > 1) {
           println(s"Planted bean 2: ${model.dynamicGamedata.cardsToPlant(1).beanName}")
