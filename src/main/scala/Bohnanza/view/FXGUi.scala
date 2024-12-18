@@ -172,7 +172,7 @@ object FXGUi extends JFXApp3 {
     textField.editable = false
   }
 
-  def plantBean (i: Int): Unit = {
+  def plantBean(i: Int): Unit = {
     i match {
       case 1 =>
         model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(0)
@@ -180,8 +180,8 @@ object FXGUi extends JFXApp3 {
         val beanToPlant = model.gameDataFunc.playerFieldToString(model.dynamicGamedata.cardsToPlant)
         stage.scene = new Scene {
           root = new VBox {
-            spacing = 10
-            padding = Insets(10)
+            spacing = 1
+            padding = Insets(1)
             alignment = Pos.Center
             children = Seq(
               playerOut(),
@@ -195,12 +195,12 @@ object FXGUi extends JFXApp3 {
         controller.Utility.plantPreperation(model.dynamicGamedata.playingPlayer)
         stage.scene = new Scene {
           root = new VBox {
-            spacing = 5
-            padding = Insets(10)
+            spacing = 1
+            padding = Insets(1)
             alignment = Pos.Center
             children = Seq(
               new HBox {
-                spacing = 0
+                spacing = 1
                 alignment = Pos.Center
                 children = Seq(
                   playerOut(),
@@ -215,18 +215,21 @@ object FXGUi extends JFXApp3 {
             )
           }
         }
+        println(s"Planted bean 1: ${model.dynamicGamedata.cardsToPlant(0).beanName}")
+        if (model.dynamicGamedata.cardsToPlant.size > 1) {
+          println(s"Planted bean 2: ${model.dynamicGamedata.cardsToPlant(1).beanName}")
+        }
+        stage.fullScreen = true
     }
-    stage.scene().getWindow.sizeToScene()
-    stage.fullScreen = true
   }
 
   def plantInPlantfield(bean: String): VBox = {
     new VBox {
-      spacing = 10
-      padding = Insets(10)
+      spacing = 5
+      padding = Insets(2)
       style = "-fx-border-color: black; -fx-border-width: 1;"
-      prefWidth = 1000
-      prefHeight = 200
+      prefWidth = 500
+      prefHeight = 100 // Set a valid double value
 
       children = Seq(
         new Label(model.gamedata.plantfield) {
@@ -237,7 +240,7 @@ object FXGUi extends JFXApp3 {
         },
         new Button(model.gamedata.continue) {
           onAction = _ => {
-            println(s"Next player: ${model.dynamicGamedata.playingPlayer.get.playerName}")
+            model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
             controller.playerState.handle(model.dynamicGamedata.playingPlayer)
             stage.scene = new Scene(spielerRunde())
             stage.fullScreen = true
@@ -246,21 +249,20 @@ object FXGUi extends JFXApp3 {
       )
     }
   }
-
   def playerOut(): VBox = {
     new VBox {
-      spacing = 10
+      spacing = 5
       padding = Insets(10)
       alignment = Pos.Center
 
       val playerName: String = model.dynamicGamedata.playingPlayer.get.playerName
       children = Seq(
         new VBox {
-          spacing = 10
+          spacing = 5
           alignment = Pos.Center
           children = Seq(
             new HBox {
-              spacing = 10
+              spacing = 5
               alignment = Pos.Center
               children = Seq(
                 new Label(s"Spieler: $playerName") {
@@ -273,7 +275,7 @@ object FXGUi extends JFXApp3 {
               )
             },
             new VBox {
-              spacing = 10
+              spacing = 0
               alignment = Pos.BottomRight
               style = "-fx-border-color: black; -fx-border-width: 2;"
               children = model.dynamicGamedata.playingPlayer.get.playerHand.map { card =>
@@ -286,4 +288,11 @@ object FXGUi extends JFXApp3 {
       )
     }
   }
+    /*
+    spacing: This property defines the amount of space between the children of a container. For example, in a VBox, it sets the vertical space between the child nodes.
+
+      alignment: This property specifies how the children of a container are aligned within the container. For example, Pos.CENTER aligns the children in the center of the container.
+    padding: This property sets the space between the container's border and its children. It is defined using Insets, which can specify different padding values for the top, right, bottom, and left sides.
+
+    */
 }
