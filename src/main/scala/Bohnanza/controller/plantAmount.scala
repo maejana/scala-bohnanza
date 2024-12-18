@@ -44,8 +44,9 @@ object plantAmount {
     var validInput = false
     var strategy: Strategy = StrategyRETRY()
     while (!validInput) {
-      val nr = view.playerInput.keyListener() // Abfrage einer neuen Eingabe
-      nr match {
+      view.playerInput.keyListener() // Abfrage einer neuen Eingabe
+      val nr = model.dynamicGamedata.plant1or2
+        nr match {
         case 0 =>
           strategy = new Strategy1
           validInput = true // Schleife wird beendet

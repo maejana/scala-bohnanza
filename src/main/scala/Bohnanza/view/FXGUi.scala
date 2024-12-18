@@ -155,9 +155,11 @@ object FXGUi extends JFXApp3 {
           children = Seq(
             new Button("1") {
               onAction = _ => plantBean(1)
+                controller.Utility.plant1or2ThreadInterrupt()
             },
             new Button("2") {
               onAction = _ => plantBean(2)
+                controller.Utility.plant1or2ThreadInterrupt()
             },
             new Button("Zwei Karten ziehe und pflanzen"){
               onAction = _ => drawAndPlantCards()
@@ -221,9 +223,9 @@ object FXGUi extends JFXApp3 {
                 alignment = Pos.Center
                 children = Seq(
                   playerOut(),
-                  plantInPlantfield(model.dynamicGamedata.cardsToPlant(0).toString),
+                  plantInPlantfield(model.dynamicGamedata.cardsToPlant(0).beanName),
                   if (model.dynamicGamedata.playingPlayer.get.playerHand.size > 1) {
-                    plantInPlantfield(model.dynamicGamedata.cardsToPlant(1).toString)
+                    plantInPlantfield(model.dynamicGamedata.cardsToPlant(1).beanName)
                   } else {
                     new Label("")
                   }

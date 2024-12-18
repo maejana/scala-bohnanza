@@ -119,11 +119,13 @@ object Utility {
   }
 
   def plant1or2(playingPlayer: Option[player]): Int = {
-    var Nr = view.playerInput.keyListener()
+    view.playerInput.keyListener()
+    var Nr = model.dynamicGamedata.plant1or2
     if(Nr == -1)
     if(Nr == 0) {
       println(model.gamedata.keineKorrekteNR)
-      Nr = view.playerInput.keyListener()
+      view.playerInput.keyListener()
+      Nr = model.dynamicGamedata.plant1or2
     }
     if(Nr < 1) Nr = 1
     if(Nr > 2) Nr = 2
@@ -142,5 +144,10 @@ object Utility {
         println(model.gamedata.keineKorrekteBohne)
       }
     }
+  }
+
+  def plant1or2ThreadInterrupt(): Unit = {
+    model.dynamicGamedata.readerThreadPlant1or2.interrupt()
+    model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer)
   }
 }
