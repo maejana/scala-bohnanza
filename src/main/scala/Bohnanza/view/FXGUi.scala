@@ -40,9 +40,17 @@ object FXGUi extends JFXApp3 {
         font = Font.font("Arial", 48)
         textFill = Color.DarkGreen
       },
-      new Button("Play") {
+      new Button(model.gamedata.play) {
         font = Font.font("Arial", 24)
-        onAction = _ => stage.scene = new Scene(namenEingebenSeite())
+        onAction = _ => {
+          val newStage = new JFXApp3.PrimaryStage {
+            fullScreen = true
+            scene = new Scene(namenEingebenSeite())
+          }
+          newStage.show()
+          stage.close()
+
+        }
       }
     )
   }
@@ -69,19 +77,20 @@ object FXGUi extends JFXApp3 {
 
   /** Namen der Spieler eingeben */
   def namenEingebenSeite(): BorderPane = new BorderPane {
-    padding = Insets(20)
+    padding = Insets(10)
     top = new Label("Bohnanza") {
       font = Font.font("Arial", 36)
       alignmentInParent = Pos.Center
     }
     center = spieleranzahlEingeben()
     bottom = new VBox {
-      spacing = 10
+      spacing = 5
       alignment = Pos.Center
       children = Seq(
         playerPanel,
         new Button(model.gamedata.continue) {
           onAction = _ => {
+            stage.fullScreen = true
             stage.scene = new Scene(spielerRunde())
           }
         }
@@ -188,16 +197,22 @@ object FXGUi extends JFXApp3 {
         controller.Utility.plantPreperation(model.dynamicGamedata.playingPlayer)
         stage.scene = new Scene {
           root = new VBox {
-            spacing = 10
+            spacing = 5
             padding = Insets(10)
             alignment = Pos.Center
             children = Seq(
-              playerOut(),
-              plantInPlantfield(model.dynamicGamedata.cardsToPlant(0).toString),
-              if (model.dynamicGamedata.playingPlayer.playerHand.size > 1) {
-                plantInPlantfield(model.dynamicGamedata.cardsToPlant(1).toString)
-              } else {
-                new Label("")
+              new HBox {
+                spacing = 0
+                alignment = Pos.Center
+                children = Seq(
+                  playerOut(),
+                  plantInPlantfield(model.dynamicGamedata.cardsToPlant(0).toString),
+                  if (model.dynamicGamedata.playingPlayer.playerHand.size > 1) {
+                    plantInPlantfield(model.dynamicGamedata.cardsToPlant(1).toString)
+                  } else {
+                    new Label("")
+                  }
+                )
               }
             )
           }
@@ -223,6 +238,7 @@ object FXGUi extends JFXApp3 {
         },
         new Button(model.gamedata.continue) {
           onAction = _ => {
+            stage.fullScreen = true
             model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
             controller.playerState.handle(model.dynamicGamedata.playingPlayer)
             stage.scene = new Scene(spielerRunde())
@@ -258,7 +274,7 @@ object FXGUi extends JFXApp3 {
             },
             new VBox {
               spacing = 10
-              alignment = Pos.CenterLeft
+              alignment = Pos.BottomRight
               style = "-fx-boarder-color: black; -fx-boarder-width: 2;"
               children = model.dynamicGamedata.playingPlayer.playerHand.map { card =>
                 new Label(card.toString) {
