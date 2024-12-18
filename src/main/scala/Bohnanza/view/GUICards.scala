@@ -1,13 +1,14 @@
 package Bohnanza.view
 
 import Bohnanza.model
+import javafx.geometry.{Insets, Pos}
+import javafx.scene.layout.{HBox, VBox}
+import javafx.scene.control.Label
+import javafx.scene.paint.Color
+import javafx.scene.shape.Rectangle
 
-import scala.swing._
-import javax.swing.BorderFactory
-
-
-class GUICards () {
-  def getCardPanel(card: model.card): Panel = {
+class GUICards {
+  def getCardPanel(card: model.card): VBox = {
     card.beanName match {
       case "Blaue" => BlueCard
       case "Feuer" => FireCard
@@ -20,89 +21,123 @@ class GUICards () {
     }
   }
 
-  def BlueCard: Panel = {
-    new BoxPanel(Orientation.Horizontal) {
-      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
-      preferredSize = new Dimension(1920, 1000)
-      contents += new Label(model.gamedata.beans(0))
-      contents += new Label(model.gamedata.priceBlaue.mkString(", ", ", ", ", "))
-
-    }
-
+  def BlueCard: VBox = {
+    val vbox = new VBox()
+    vbox.setSpacing(5)
+    vbox.setAlignment(Pos.CENTER)
+    vbox.setPadding(new Insets(0))
+    vbox.getChildren.addAll(
+      new Label(model.gamedata.beans(0)),
+      new Label(model.gamedata.priceBlaue.mkString(", "))
+    )
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setPrefWidth(1920)
+    vbox.setPrefHeight(1000)
+    vbox
   }
 
-  def FireCard: Panel = {
-    new BoxPanel(Orientation.Horizontal) {
-      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
-      preferredSize = new Dimension(1920, 1000)
-      contents += new Label(model.gamedata.beans(1))
-      contents += new Label(model.gamedata.priceFeuer.mkString(", ", ", ", ", "))
-
-    }
-
+  def FireCard: VBox = {
+    val vbox = new VBox()
+    vbox.setSpacing(5)
+    vbox.setAlignment(Pos.CENTER)
+    vbox.setPadding(new Insets(0))
+    vbox.getChildren.addAll(
+      new Label(model.gamedata.beans(1)),
+      new Label(model.gamedata.priceFeuer.mkString(", "))
+    )
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setPrefWidth(1920)
+    vbox.setPrefHeight(1000)
+    vbox
   }
 
-  def PigCard: Panel = {
-    new BoxPanel(Orientation.Horizontal) {
-      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
-      preferredSize = new Dimension(1920, 1000)
-      contents += new Label(model.gamedata.beans(2))
-      contents += new Label(model.gamedata.priceSau.mkString(", ", ", ", ", "))
-
-    }
-
+  def PigCard: VBox = {
+    val vbox = new VBox()
+    vbox.setSpacing(5)
+    vbox.setAlignment(Pos.CENTER)
+    vbox.setPadding(new Insets(0))
+    vbox.getChildren.addAll(
+      new Label(model.gamedata.beans(2)),
+      new Label(model.gamedata.priceSau.mkString(", "))
+    )
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setPrefWidth(1920)
+    vbox.setPrefHeight(1000)
+    vbox
   }
 
-  def VomitCard: Panel = {
-    new BoxPanel(Orientation.Horizontal) {
-      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
-      preferredSize = new Dimension(1920, 1000)
-      contents += new Label(model.gamedata.beans(3))
-      contents += new Label(model.gamedata.priceBrech.mkString(", ", ", ", ", "))
-
-    }
+  def VomitCard: VBox = {
+    val vbox = new VBox()
+    vbox.setSpacing(5)
+    vbox.setAlignment(Pos.CENTER)
+    vbox.setPadding(new Insets(0))
+    vbox.getChildren.addAll(
+      new Label(model.gamedata.beans(3)),
+      new Label(model.gamedata.priceBrech.mkString(", "))
+    )
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setPrefWidth(1920)
+    vbox.setPrefHeight(1000)
+    vbox
   }
 
-  def SoyesCard: Panel = {
-    new BoxPanel(Orientation.Horizontal) {
-      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
-      preferredSize = new Dimension(1920, 1000)
-      contents += new Label(model.gamedata.beans(4))
-      contents += new Label(model.gamedata.priceSoja.mkString(", ", ", ", ", "))
-
-    }
-
+  def SoyesCard: VBox = {
+    val vbox = new VBox()
+    vbox.setSpacing(5)
+    vbox.setAlignment(Pos.CENTER)
+    vbox.setPadding(new Insets(0))
+    vbox.getChildren.addAll(
+      new Label(model.gamedata.beans(4)),
+      new Label(model.gamedata.priceSoja.mkString(", "))
+    )
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setPrefWidth(1920)
+    vbox.setPrefHeight(1000)
+    vbox
   }
 
-  def EyesCard: Panel = {
-    new BoxPanel(Orientation.Horizontal) {
-      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
-      preferredSize = new Dimension(1920, 1000)
-      contents += new Label(model.gamedata.beans(5))
-      contents += new Label(model.gamedata.priceAugen.mkString(", ", ", ", ", "))
-
-    }
-
+  def EyesCard: VBox = {
+    val vbox = new VBox()
+    vbox.setSpacing(5)
+    vbox.setAlignment(Pos.CENTER)
+    vbox.setPadding(new Insets(0))
+    vbox.getChildren.addAll(
+      new Label(model.gamedata.beans(5)),
+      new Label(model.gamedata.priceAugen.mkString(", "))
+    )
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setPrefWidth(1920)
+    vbox.setPrefHeight(1000)
+    vbox
   }
 
-  def RedCard: Panel = {
-    new BoxPanel(Orientation.Horizontal) {
-      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
-      preferredSize = new Dimension(1920, 1000)
-      contents += new Label(model.gamedata.beans(6))
-      contents += new Label(model.gamedata.priceRote.mkString(", ", ", ", ", "))
-
-    }
+  def RedCard: VBox = {
+    val vbox = new VBox()
+    vbox.setSpacing(5)
+    vbox.setAlignment(Pos.CENTER)
+    vbox.setPadding(new Insets(0))
+    vbox.getChildren.addAll(
+      new Label(model.gamedata.beans(6)),
+      new Label(model.gamedata.priceRote.mkString(", "))
+    )
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setPrefWidth(1920)
+    vbox.setPrefHeight(1000)
+    vbox
   }
 
-  def GartenCard: Panel = {
-    new BoxPanel(Orientation.Horizontal) {
-      border = BorderFactory.createLineBorder(java.awt.Color.BLACK)
-      preferredSize = new Dimension(1920, 1000)
-      contents += new Label(model.gamedata.beans(0))
-      contents += new Label(model.gamedata.priceGarten.mkString(", "))
-
-    }
-
+  def GartenCard: VBox = {
+    val vbox = new VBox()
+    vbox.setSpacing(5)
+    vbox.setAlignment(Pos.CENTER)
+    vbox.setPadding(new Insets(0))
+    vbox.getChildren.addAll(
+      new Label(model.gamedata.beans(0)),
+      new Label(model.gamedata.priceGarten.mkString(", "))
+    )
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setPrefWidth(1920)
+    vbox.setPrefHeight(1000)
+    vbox
   }
 }

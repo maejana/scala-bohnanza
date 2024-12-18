@@ -10,6 +10,7 @@ import scalafx.scene.paint.Color
 
 import Bohnanza.model
 import Bohnanza.controller
+import Bohnanza.view.GUICards
 
 
 object FXGUi extends JFXApp3 {
@@ -269,7 +270,7 @@ object FXGUi extends JFXApp3 {
               alignment = Pos.BottomRight
               style = "-fx-boarder-color: black; -fx-boarder-width: 2;"
               children = model.dynamicGamedata.playingPlayer.get.playerHand.map { card =>
-                new Label(view.GUICards( {
+                new Label(GUICards().getCardPanel(card).toString) {
                   font = Font.font("Arial", 24)
 
                 }
