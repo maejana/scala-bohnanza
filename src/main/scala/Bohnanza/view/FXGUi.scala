@@ -1,7 +1,7 @@
 package Bohnanza.view
 
 import scalafx.application.{JFXApp3, Platform}
-import scalafx.scene.{Node, Scene}
+import scalafx.scene.Scene
 import scalafx.scene.control.{Button, ComboBox, Label, TextField}
 import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.geometry.{Insets, Pos}
@@ -9,10 +9,7 @@ import scalafx.scene.text.Font
 import scalafx.scene.paint.Color
 import Bohnanza.model
 import Bohnanza.controller
-import Bohnanza.view.GUICards
 import scalafx.scene.Node
-
-import scala.util.{Failure, Success, Try}
 
 object FXGUi extends JFXApp3 {
 
