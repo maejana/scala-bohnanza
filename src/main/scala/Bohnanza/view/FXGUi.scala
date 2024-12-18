@@ -27,6 +27,7 @@ object FXGUi extends JFXApp3 {
       scene = new Scene(startScene())
 
     }
+    stage.fullScreen = true
 
   }
 
@@ -40,16 +41,10 @@ object FXGUi extends JFXApp3 {
         font = Font.font("Arial", 48)
         textFill = Color.DarkGreen
       },
-      new Button(model.gamedata.play) {
+      new Button("Play") {
         font = Font.font("Arial", 24)
         onAction = _ => {
-          val newStage = new JFXApp3.PrimaryStage {
-            fullScreen = true
-            scene = new Scene(namenEingebenSeite())
-          }
-          newStage.show()
-          stage.close()
-
+          stage.scene = new Scene(namenEingebenSeite())
         }
       }
     )
@@ -90,7 +85,6 @@ object FXGUi extends JFXApp3 {
         playerPanel,
         new Button(model.gamedata.continue) {
           onAction = _ => {
-            stage.fullScreen = true
             stage.scene = new Scene(spielerRunde())
           }
         }
@@ -238,7 +232,6 @@ object FXGUi extends JFXApp3 {
         },
         new Button(model.gamedata.continue) {
           onAction = _ => {
-            stage.fullScreen = true
             model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
             controller.playerState.handle(model.dynamicGamedata.playingPlayer)
             stage.scene = new Scene(spielerRunde())
