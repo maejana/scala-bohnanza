@@ -43,6 +43,7 @@ object FXGUi extends JFXApp3 {
         font = Font.font("Arial", 24)
         onAction = _ => {
           stage.scene = new Scene(namenEingebenSeite())
+          stage.fullScreen = true
         }
       }
     )
@@ -84,6 +85,7 @@ object FXGUi extends JFXApp3 {
         new Button(model.gamedata.continue) {
           onAction = _ => {
             stage.scene = new Scene(spielerRunde())
+            stage.fullScreen = true
           }
         }
       )
@@ -213,6 +215,7 @@ object FXGUi extends JFXApp3 {
         }
     }
     stage.scene().getWindow.sizeToScene()
+    stage.fullScreen = true
   }
 
   def plantInPlantfield(bean: String): VBox = {
@@ -232,9 +235,10 @@ object FXGUi extends JFXApp3 {
         },
         new Button(model.gamedata.continue) {
           onAction = _ => {
-            model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
+            println(s"Next player: ${model.dynamicGamedata.playingPlayer.get.playerName}")
             controller.playerState.handle(model.dynamicGamedata.playingPlayer)
             stage.scene = new Scene(spielerRunde())
+            stage.fullScreen = true
           }
         }
       )
@@ -249,40 +253,35 @@ object FXGUi extends JFXApp3 {
 
       val playerName: String = model.dynamicGamedata.playingPlayer.get.playerName
       children = Seq(
-        new HBox {
+        new VBox {
           spacing = 10
           alignment = Pos.Center
           children = Seq(
-            new Label ("Spieler Runde") {
-              font = Font.font("Arial", 36)
-              textFill = Color.Green
-            },
-
-            new Label(s"Spieler: $playerName") {
-              font = Font.font("Arial", 24)
-              textFill = Color.DarkGreen
-            },
-            new Label(model.gamedata.coinsString + ":" + model.dynamicGamedata.playingPlayer.get.gold) {
-              font = Font.font("Arial", 24)
+            new HBox {
+              spacing = 10
+              alignment = Pos.Center
+              children = Seq(
+                new Label(s"Spieler: $playerName") {
+                  font = Font.font("Arial", 24)
+                  textFill = Color.DarkGreen
+                },
+                new Label(model.gamedata.coinsString + ":" + model.dynamicGamedata.playingPlayer.get.gold) {
+                  font = Font.font("Arial", 24)
+                }
+              )
             },
             new VBox {
               spacing = 10
               alignment = Pos.BottomRight
-              style = "-fx-boarder-color: black; -fx-boarder-width: 2;"
+              style = "-fx-border-color: black; -fx-border-width: 2;"
               children = model.dynamicGamedata.playingPlayer.get.playerHand.map { card =>
-                new Label(GUICards().getCardPanel(card).toString) {
-                  font = Font.font("Arial", 24)
-
+                new VBox(GUICards().getCardPanel(card)) {
                 }
               }
             }
-            
           )
         }
       )
     }
-
   }
-
-
 }
