@@ -197,6 +197,7 @@ object FXGUi extends JFXApp3 {
         val beanToPlant = model.gameDataFunc.playerFieldToString(model.dynamicGamedata.cardsToPlant)
         stage.scene = new Scene {
           root = new VBox {
+
             spacing = 1
             padding = Insets(1)
             alignment = Pos.Center
@@ -206,6 +207,7 @@ object FXGUi extends JFXApp3 {
             )
           }
         }
+        stage.fullScreen = true
       case 2 =>
         model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(0)
         model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(1)
@@ -232,6 +234,7 @@ object FXGUi extends JFXApp3 {
             )
           }
         }
+        stage.fullScreen = true
         println(s"Planted bean 1: ${model.dynamicGamedata.cardsToPlant(0).beanName}")
         if (model.dynamicGamedata.cardsToPlant.size > 1) {
           println(s"Planted bean 2: ${model.dynamicGamedata.cardsToPlant(1).beanName}")
