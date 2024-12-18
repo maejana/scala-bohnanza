@@ -1,7 +1,7 @@
 package Bohnanza.view
 
 import scalafx.application.{JFXApp3, Platform}
-import scalafx.scene.Scene
+import scalafx.scene.{Node, Scene}
 import scalafx.scene.control.{Button, ComboBox, Label, TextField}
 import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.geometry.{Insets, Pos}
@@ -10,12 +10,15 @@ import scalafx.scene.paint.Color
 import Bohnanza.model
 import Bohnanza.controller
 import Bohnanza.view.GUICards
+import scalafx.scene.Node
 
-import scala.util.{Try, Failure, Success}
-
+import scala.util.{Failure, Success, Try}
 
 object FXGUi extends JFXApp3 {
-  var playerStep = 0
+
+  var playerStep: Int = 0
+  val childrenBuffer: scala.collection.mutable.Buffer[javafx.scene.Node] = scala.collection.mutable.Buffer()
+
   val Nr: Int = 0
   val playerPanel: VBox = new VBox(10) {
     padding = Insets(10)
@@ -27,7 +30,6 @@ object FXGUi extends JFXApp3 {
       scene = new Scene(startScene())
       fullScreen = true
     }
-
   }
 
   def startScene(): VBox = new VBox {
@@ -50,7 +52,6 @@ object FXGUi extends JFXApp3 {
     )
   }
 
-  /** Spieleranzahl eingeben */
   def spieleranzahlEingeben(): VBox = new VBox {
     spacing = 10
     alignment = Pos.Center
@@ -71,7 +72,6 @@ object FXGUi extends JFXApp3 {
     children = Seq(label, dropdown, button)
   }
 
-  /** Namen der Spieler eingeben */
   def namenEingebenSeite(): BorderPane = new BorderPane {
     padding = Insets(10)
     top = new Label("Bohnanza") {
@@ -100,10 +100,8 @@ object FXGUi extends JFXApp3 {
     for (i <- 1 to anzahl) {
       playerPanel.children.add(addPlayer(i))
     }
-
   }
 
-  /** Eingabefeld für jeden Spieler */
   def addPlayer(nr: Int): HBox = new HBox {
     spacing = 10
     alignment = Pos.CenterLeft
@@ -143,7 +141,7 @@ object FXGUi extends JFXApp3 {
             new VBox {
               spacing = 10
               alignment = Pos.Center
-             // children = fields // Rechter Bereich
+              // children = fields // Rechter Bereich
             }
           )
         },
@@ -166,9 +164,7 @@ object FXGUi extends JFXApp3 {
             }
           )
         }
-
       )
-      }
 
       if (playerStep == 1) {
         childrenBuffer += new Button("Draw and Plant Cards") {
@@ -177,17 +173,13 @@ object FXGUi extends JFXApp3 {
             stage.scene = new Scene(drawAndPlantCards())
             controller.Utility.selectPlayer()
             controller.playerState.handle(model.dynamicGamedata.playingPlayer)
-            playerStep == 0
+            playerStep = 0
           }
-
         }
-
       }
 
-      children = childrenBuffer.toSeq
     }
   }
-
 
   def disableSaveButton(button: Button, textField: TextField): Unit = {
     button.disable = true
@@ -198,7 +190,7 @@ object FXGUi extends JFXApp3 {
     i match {
       case 0 =>
         model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
-        controller.playerState.handle(  model.dynamicGamedata.playingPlayer)
+        controller.playerState.handle(model.dynamicGamedata.playingPlayer)
       case 1 =>
         model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(0)
         controller.Utility.plantPreperation(model.dynamicGamedata.playingPlayer)
@@ -249,15 +241,12 @@ object FXGUi extends JFXApp3 {
   }
 
   def plantInPlantfield(bean: String): VBox = {
-    if(playerStep == 1) {
-
-    }
     new VBox {
       spacing = 5
       padding = Insets(2)
       style = "-fx-border-color: black; -fx-border-width: 1;"
       prefWidth = 500
-      prefHeight = 100 // Set a valid double value
+      prefHeight = 100
 
       children = Seq(
         new Label(model.gamedata.plantfield) {
@@ -266,20 +255,18 @@ object FXGUi extends JFXApp3 {
         new Label(bean) {
           font = Font.font("Arial", 24)
         },
-
         new Button(model.gamedata.continue) {
           onAction = _ => {
-              model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
-              controller.playerState.handle(model.dynamicGamedata.playingPlayer)
-              stage.scene = new Scene(spielerRunde())
-            }
+            model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
+            controller.playerState.handle(model.dynamicGamedata.playingPlayer)
+            stage.scene = new Scene(spielerRunde())
             stage.fullScreen = true
           }
-    
-        
+        }
       )
     }
   }
+
   def playerOut(): VBox = {
     new VBox {
       spacing = 5
@@ -321,7 +308,6 @@ object FXGUi extends JFXApp3 {
   }
 
   def drawAndPlantCards(): VBox = {
-    playerStep = 1
     val card1 = controller.UIlogic.weightedRandom()
     val card2 = controller.UIlogic.weightedRandom()
     model.dynamicGamedata.cardsToPlant = scala.collection.mutable.ArrayBuffer(card1, card2)
@@ -365,11 +351,4 @@ object FXGUi extends JFXApp3 {
       )
     }
   }
-    /*
-    spacing: This property defines the amount of space between the children of a container. For example, in a VBox, it sets the vertical space between the child nodes.
-
-      alignment: This property specifies how the children of a container are aligned within the container. For example, Pos.CENTER aligns the children in the center of the container.
-    padding: This property sets the space between the container's border and its children. It is defined using Insets, which can specify different padding values for the top, right, bottom, and left sides.
-
-    */
 }
