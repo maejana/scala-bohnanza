@@ -10,12 +10,14 @@ import scalafx.scene.paint.Color
 import Bohnanza.model
 import Bohnanza.controller
 import Bohnanza.view.GUICards
+import scala.collection.mutable.ListBuffer
 
 import scala.util.{Try, Failure, Success}
 
 
 object FXGUi extends JFXApp3 {
   val Nr: Int = 0
+  var playerStep = 0
   val playerPanel: VBox = new VBox(10) {
     padding = Insets(10)
   }
@@ -49,7 +51,6 @@ object FXGUi extends JFXApp3 {
     )
   }
 
-  /** Spieleranzahl eingeben */
   def spieleranzahlEingeben(): VBox = new VBox {
     spacing = 10
     alignment = Pos.Center
@@ -66,10 +67,10 @@ object FXGUi extends JFXApp3 {
       model.dynamicGamedata.readerThread.interrupt()
       namenEingeben(count)
     }
+
     children = Seq(label, dropdown, button)
   }
 
-  /** Namen der Spieler eingeben */
   def namenEingebenSeite(): BorderPane = new BorderPane {
     padding = Insets(10)
     top = new Label("Bohnanza") {
@@ -101,7 +102,7 @@ object FXGUi extends JFXApp3 {
 
   }
 
-  /** Eingabefeld für jeden Spieler */
+
   def addPlayer(nr: Int): HBox = new HBox {
     spacing = 10
     alignment = Pos.CenterLeft
@@ -115,6 +116,7 @@ object FXGUi extends JFXApp3 {
 
     buttonSave.onAction = _ => {
       model.gameDataFunc.initPlayer(textField.text())
+      model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
       if (textField.text().nonEmpty) {
         println(s"Spieler $nr: ${textField.text()}")
         model.dynamicGamedata.NameReaderThread.interrupt()
@@ -131,36 +133,64 @@ object FXGUi extends JFXApp3 {
       padding = Insets(10)
       alignment = Pos.Center
 
-      children = Seq(
-        new HBox {
-          spacing = 10
-          alignment = Pos.Center
-          children = Seq(
-            playerOut(), // Linker Bereich
-            new VBox {
-              spacing = 10
-              alignment = Pos.Center
-             // children = fields // Rechter Bereich
-            }
-          )
-        },
-        new Label(model.gamedata.plantAmountQuestion) {
+      val childrenBuffer = ListBuffer[scalafx.scene.Node]()
+
+      childrenBuffer += new HBox {
+        spacing = 10
+        alignment = Pos.Center
+        children = Seq(
+          playerOut(), // Left section
+          new VBox {
+            spacing = 10
+            alignment = Pos.Center
+            // children = fields // Right section
+          }
+        )
+      }
+
+      if (playerStep == 0) {
+        childrenBuffer += new Label(model.gamedata.plantAmountQuestion) {
           font = Font.font("Arial", 24)
           textFill = Color.Black
-        },
-        new HBox {
+        }
+        childrenBuffer += new HBox {
           spacing = 10
           alignment = Pos.Center
           children = Seq(
             new Button("1") {
-              onAction = _ => plantBean(1)
+              onAction = _ => {
+                plantBean(model.dynamicGamedata.playingPlayer.get.playerHand(0))
+                playerStep += 1
+                stage.scene = new Scene(spielerRunde())
+              }
             },
             new Button("2") {
-              onAction = _ => plantBean(2)
+              onAction = _ => {
+                plantBean(model.dynamicGamedata.playingPlayer.get.playerHand(0))
+                plantBean(model.dynamicGamedata.playingPlayer.get.playerHand(1))
+                playerStep += 1
+                stage.scene = new Scene(spielerRunde())
+              }
             }
           )
         }
-      )
+      }
+
+      if (playerStep == 1) {
+        childrenBuffer += new Button("Draw and Plant Cards") {
+          onAction = _ => {
+            playerStep += 1
+            stage.scene = new Scene(drawAndPlantCards())
+            model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
+            controller.playerState.handle(model.dynamicGamedata.playingPlayer)
+            playerStep == 0
+          }
+
+        }
+
+      }
+
+      children = childrenBuffer.toSeq
     }
   }
 
@@ -170,68 +200,34 @@ object FXGUi extends JFXApp3 {
     textField.editable = false
   }
 
-  def plantBean (i: Int): Unit = {
-    i match {
-      case 1 =>
-        model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(0)
-        controller.Utility.plantPreperation(model.dynamicGamedata.playingPlayer)
-        val beanToPlant = model.gameDataFunc.playerFieldToString(model.dynamicGamedata.cardsToPlant)
-        stage.scene = new Scene {
-          root = new VBox {
-            spacing = 10
-            padding = Insets(10)
-            alignment = Pos.Center
-            children = Seq(
-              playerOut(),
-              plantInPlantfield(beanToPlant)
-            )
-            model.dynamicGamedata.playingPlayer.get.playerHand -= model.dynamicGamedata.cardsToPlant(0)
-            model.dynamicGamedata.cardsToPlant.clear()
-          }
+  def plantBean(bean: model.card): Unit = {
+    model.dynamicGamedata.cardsToPlant += bean
+    controller.Utility.plantPreperation(model.dynamicGamedata.playingPlayer)
+    val beanToPlant = model.gameDataFunc.playerFieldToString(model.dynamicGamedata.cardsToPlant)
+    Platform.runLater {
+      stage.scene = new Scene {
+        root = new VBox {
+          spacing = 1
+          padding = Insets(1)
+          alignment = Pos.Center
+          children = Seq(
+            playerOut(),
+            plantInPlantfield(beanToPlant)
+          )
         }
-      case 2 =>
-        model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(0)
-        model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(1)
-        val beanToPlant1 = model.dynamicGamedata.cardsToPlant(0)
-        val beanToPlant2 = model.dynamicGamedata.cardsToPlant(1)
-        controller.Utility.plantPreperation(model.dynamicGamedata.playingPlayer)
-        stage.scene = new Scene {
-          root = new VBox {
-            spacing = 5
-            padding = Insets(10)
-            alignment = Pos.Center
-            children = Seq(
-              new HBox {
-                spacing = 0
-                alignment = Pos.Center
-                children = Seq(
-                  playerOut(),
-                  plantInPlantfield(model.dynamicGamedata.cardsToPlant(0).beanName),
-                  if (model.dynamicGamedata.playingPlayer.get.playerHand.size > 1) {
-                    plantInPlantfield(model.dynamicGamedata.cardsToPlant(1).beanName)
-                  } else {
-                    new Label("")
-                  }
-                )
-              }
-            )
-          }
-        }
-        model.dynamicGamedata.playingPlayer.get.playerHand -= beanToPlant1
-        model.dynamicGamedata.playingPlayer.get.playerHand -= beanToPlant2
-        model.dynamicGamedata.cardsToPlant.clear()
+      }
+      stage.fullScreen = true
     }
-    stage.scene().getWindow.sizeToScene()
-    stage.fullScreen = true
+    println(s"Planted bean: ${bean.beanName}")
   }
 
   def plantInPlantfield(bean: String): VBox = {
     new VBox {
-      spacing = 10
-      padding = Insets(10)
+      spacing = 5
+      padding = Insets(2)
       style = "-fx-border-color: black; -fx-border-width: 1;"
-      prefWidth = 1000
-      prefHeight = 200
+      prefWidth = 500
+      prefHeight = 100 // Set a valid double value
 
       children = Seq(
         new Label(model.gamedata.plantfield) {
@@ -243,9 +239,6 @@ object FXGUi extends JFXApp3 {
 
         new Button(model.gamedata.continue) {
           onAction = _ => {
-            println(s"Next player: ${model.dynamicGamedata.playingPlayer.get.playerName}")
-            controller.playerState.handle(model.dynamicGamedata.playingPlayer)
-            controller.Utility.selectPlayer()
             stage.scene = new Scene(spielerRunde())
             stage.fullScreen = true
           }
@@ -253,21 +246,20 @@ object FXGUi extends JFXApp3 {
       )
     }
   }
-
   def playerOut(): VBox = {
     new VBox {
-      spacing = 10
+      spacing = 5
       padding = Insets(10)
       alignment = Pos.Center
 
       val playerName: String = model.dynamicGamedata.playingPlayer.get.playerName
       children = Seq(
         new VBox {
-          spacing = 10
+          spacing = 5
           alignment = Pos.Center
           children = Seq(
             new HBox {
-              spacing = 10
+              spacing = 5
               alignment = Pos.Center
               children = Seq(
                 new Label(s"Spieler: $playerName") {
@@ -280,7 +272,7 @@ object FXGUi extends JFXApp3 {
               )
             },
             new VBox {
-              spacing = 10
+              spacing = 0
               alignment = Pos.BottomRight
               style = "-fx-border-color: black; -fx-border-width: 2;"
               children = model.dynamicGamedata.playingPlayer.get.playerHand.map { card =>
@@ -293,4 +285,62 @@ object FXGUi extends JFXApp3 {
       )
     }
   }
+
+  def drawAndPlantCards(): VBox = {
+    val card1 = controller.UIlogic.weightedRandom()
+    val card2 = controller.UIlogic.weightedRandom()
+    new VBox {
+      spacing = 10
+      padding = Insets(10)
+      alignment = Pos.Center
+
+      children = Seq(
+        new Label("Drawn Cards") {
+          font = Font.font("Arial", 24)
+          textFill = Color.Black
+        },
+        new HBox {
+          spacing = 10
+          alignment = Pos.Center
+          children = Seq(
+            new Label(card1.toString) {
+              font = Font.font("Arial", 18)
+            },
+            new Label(card2.toString) {
+              font = Font.font("Arial", 18)
+            }
+          )
+        },
+        new HBox {
+          spacing = 10
+          alignment = Pos.Center
+          children = Seq(
+            new Button("Plant 0") {
+              onAction = _ => stage.scene = new Scene(spielerRunde())
+            },
+            new Button("Plant 1") {
+              onAction = _ => {
+                plantBean(card1)
+                stage.scene = new Scene(spielerRunde())
+              }
+            },
+            new Button("Plant Both") {
+              onAction = _ => {
+                plantBean(card1)
+                plantBean(card2)
+                stage.scene = new Scene(spielerRunde())
+              }
+            }
+          )
+        }
+      )
+    }
+  }
+    /*
+    spacing: This property defines the amount of space between the children of a container. For example, in a VBox, it sets the vertical space between the child nodes.
+
+      alignment: This property specifies how the children of a container are aligned within the container. For example, Pos.CENTER aligns the children in the center of the container.
+    padding: This property sets the space between the container's border and its children. It is defined using Insets, which can specify different padding values for the top, right, bottom, and left sides.
+
+    */
 }
