@@ -35,7 +35,7 @@ class GUICards {
         setFont(Font.font("Arial", 24))
       }
     )
-    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-background-color: lightblue;-fx-border-radius: 10;")
     vbox.setPrefWidth(200)
     vbox.setPrefHeight(100)
     vbox
@@ -54,7 +54,7 @@ class GUICards {
         setFont(Font.font("Arial", 24))
       }
     )
-    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-background-color: orange;-fx-border-radius: 10;")
     vbox.setPrefWidth(200)
     vbox.setPrefHeight(100)
     vbox
@@ -73,7 +73,7 @@ class GUICards {
         setFont(Font.font("Arial", 24))
       }
     )
-    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-background-color: lightpink;-fx-border-radius: 10;")
     vbox.setPrefWidth(200)
     vbox.setPrefHeight(100)
     vbox
@@ -92,7 +92,7 @@ class GUICards {
         setFont(Font.font("Arial", 24))
       }
     )
-    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-background-color: brown;-fx-border-radius: 10;")
     vbox.setPrefWidth(200)
     vbox.setPrefHeight(100)
     vbox
@@ -111,7 +111,7 @@ class GUICards {
         setFont(Font.font("Arial", 24))
       }
     )
-    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-background-color: beige;-fx-border-radius: 10;")
     vbox.setPrefWidth(200)
     vbox.setPrefHeight(100)
     vbox
@@ -130,7 +130,7 @@ class GUICards {
         setFont(Font.font("Arial", 24))
       }
     )
-    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-background-color: blue;-fx-border-radius: 10;")
     vbox.setPrefWidth(200)
     vbox.setPrefHeight(100)
     vbox
@@ -149,7 +149,7 @@ class GUICards {
         setFont(Font.font("Arial", 24))
       }
     )
-    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-background-color: red;-fx-border-radius: 10;")
     vbox.setPrefWidth(200)
     vbox.setPrefHeight(100)
     vbox
@@ -168,7 +168,7 @@ class GUICards {
         setFont(Font.font("Arial", 24))
       }
         )
-    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1;")
+    vbox.setStyle("-fx-border-color: black; -fx-border-width: 1; -fx-background-color: green;-fx-border-radius: 10;")
     vbox.setPrefWidth(200)
     vbox.setPrefHeight(100)
     vbox
