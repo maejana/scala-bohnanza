@@ -54,7 +54,7 @@ object gameDataFunc {
       println("Namen eingeben:")
       for (i <- 1 to dynamicGamedata.playerCount-model.dynamicGamedata.players.length) {
         playernames(i-1) = view.playerInput.playername()
-        view.GUI.addPlayerViaTUI(playernames(i-1), i)
+        //view.GUI.addPlayerViaTUI(playernames(i-1), i)
         str += initPlayer(playernames(i-1))
       }
     }
@@ -65,9 +65,9 @@ object gameDataFunc {
     field.foreach(card => s += card.beanName + " ")
     s
   }
-  def takeNewCard(player: player, plantCard: card): Unit = {
-    val index = player.playerHand.indexOf(plantCard)
-    player.playerHand(index) = controller.UIlogic.weightedRandom()
+  def takeNewCard(player: Option[player], plantCard: card): Unit = {
+    val index = player.get.playerHand.indexOf(plantCard)
+    player.get.playerHand(index) = controller.UIlogic.weightedRandom()
   }
   def playerHandToString(hand: ArrayBuffer[card]): String = {
     var s = ""

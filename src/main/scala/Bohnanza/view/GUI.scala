@@ -1,3 +1,5 @@
+/*
+
 package Bohnanza.view
 
 import Bohnanza.{controller, model, view}
@@ -269,3 +271,6 @@ object GUI extends SimpleSwingApplication{
 
 
 }
+
+
+ */

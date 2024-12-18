@@ -8,7 +8,7 @@ import Bohnanza.model
 import Bohnanza.view.playerInput.keyListener
 
 object handleInput {
-  def handleInputF(player: player): Unit = {
+  def handleInputF(player: Option[player]): Unit = {
     TUI.displayMenu()
     val input = scala.io.StdIn.readLine().strip()
     input match {

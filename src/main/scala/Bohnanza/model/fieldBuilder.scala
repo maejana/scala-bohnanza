@@ -4,16 +4,16 @@ import Bohnanza.model.{Builder, gameDataFunc, player}
 
 
 object fieldBuilder extends Builder {
-  override def buildGrowingFieldStr(playingPlayer: player): String = {
+  override def buildGrowingFieldStr(playingPlayer: Option[player]): String = {
     val growingFieldText: String =
       s"""
-                                   ${playingPlayer.playerName}:
+                                   ${playingPlayer.get.playerName}:
                                       Field 1:
-                                   ${gameDataFunc.playerFieldToString(playingPlayer.plantfield1)}
+                                   ${gameDataFunc.playerFieldToString(playingPlayer.get.plantfield1)}
                                       Field 2:
-                                   ${gameDataFunc.playerFieldToString(playingPlayer.plantfield2)}
+                                   ${gameDataFunc.playerFieldToString(playingPlayer.get.plantfield2)}
                                       Field 3:
-                                   ${gameDataFunc.playerFieldToString(playingPlayer.plantfield3)}
+                                   ${gameDataFunc.playerFieldToString(playingPlayer.get.plantfield3)}
 
                                    """
     growingFieldText

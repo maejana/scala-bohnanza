@@ -10,32 +10,32 @@ import scala.collection.mutable.ArrayBuffer
 
 object plantAmount {
   trait Strategy {
-    def execute(cards: ArrayBuffer[model.card], player: model.player): Boolean
+    def execute(cards: ArrayBuffer[model.card], player: Option[model.player]): Boolean
   }
 
   class Strategy1 extends Strategy {
-    override def execute(cards: ArrayBuffer[model.card], player: model.player): Boolean = {
+    override def execute(cards: ArrayBuffer[model.card], player: Option[model.player]): Boolean = {
       true
     }
   }
 
   class Strategy2 extends Strategy {
-    override def execute(cards: ArrayBuffer[model.card], player: model.player): Boolean = {
+    override def execute(cards: ArrayBuffer[model.card], player: Option[model.player]): Boolean = {
       println(model.gamedata.drawnCardName)
-      Utility.plantDrawnCard(player, Utility.selectCardToPlant(cards, player))
+      Utility.plantDrawnCard(player, Utility.selectCardToPlant(cards))
       true
     }
   }
 
   class Strategy3 extends Strategy {
-    override def execute(cards: ArrayBuffer[model.card], player: model.player): Boolean = {
+    override def execute(cards: ArrayBuffer[model.card], player: Option[model.player]): Boolean = {
       Utility.plantDrawnCard(player, cards(0))
       Utility.plantDrawnCard(player, cards(1))
       true
     }
   }
   private class StrategyRETRY extends Strategy{
-    override def execute(cards: ArrayBuffer[card], player: player): Boolean = {
+    override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = {
       view.handleInput.handleInputF(player)
       false
     }

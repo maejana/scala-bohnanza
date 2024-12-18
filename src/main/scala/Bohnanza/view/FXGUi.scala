@@ -171,7 +171,7 @@ object FXGUi extends JFXApp3 {
   def plantBean (i: Int): Unit = {
     i match {
       case 1 =>
-        model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.playerHand(0)
+        model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(0)
         controller.Utility.plantPreperation(model.dynamicGamedata.playingPlayer)
         val beanToPlant = model.gameDataFunc.playerFieldToString(model.dynamicGamedata.cardsToPlant)
         stage.scene = new Scene {
@@ -186,8 +186,8 @@ object FXGUi extends JFXApp3 {
           }
         }
       case 2 =>
-        model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.playerHand(0)
-        model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.playerHand(1)
+        model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(0)
+        model.dynamicGamedata.cardsToPlant += model.dynamicGamedata.playingPlayer.get.playerHand(1)
         controller.Utility.plantPreperation(model.dynamicGamedata.playingPlayer)
         stage.scene = new Scene {
           root = new VBox {
@@ -201,7 +201,7 @@ object FXGUi extends JFXApp3 {
                 children = Seq(
                   playerOut(),
                   plantInPlantfield(model.dynamicGamedata.cardsToPlant(0).toString),
-                  if (model.dynamicGamedata.playingPlayer.playerHand.size > 1) {
+                  if (model.dynamicGamedata.playingPlayer.get.playerHand.size > 1) {
                     plantInPlantfield(model.dynamicGamedata.cardsToPlant(1).toString)
                   } else {
                     new Label("")
@@ -247,7 +247,7 @@ object FXGUi extends JFXApp3 {
       padding = Insets(10)
       alignment = Pos.Center
 
-      val playerName: String = model.dynamicGamedata.playingPlayer.playerName
+      val playerName: String = model.dynamicGamedata.playingPlayer.get.playerName
       children = Seq(
         new HBox {
           spacing = 10
@@ -262,14 +262,14 @@ object FXGUi extends JFXApp3 {
               font = Font.font("Arial", 24)
               textFill = Color.DarkGreen
             },
-            new Label(model.gamedata.coinsString + ":" + model.dynamicGamedata.playingPlayer.gold) {
+            new Label(model.gamedata.coinsString + ":" + model.dynamicGamedata.playingPlayer.get.gold) {
               font = Font.font("Arial", 24)
             },
             new VBox {
               spacing = 10
               alignment = Pos.BottomRight
               style = "-fx-boarder-color: black; -fx-boarder-width: 2;"
-              children = model.dynamicGamedata.playingPlayer.playerHand.map { card =>
+              children = model.dynamicGamedata.playingPlayer.get.playerHand.map { card =>
                 new Label(card.toString) {
                   font = Font.font("Arial", 24)
 

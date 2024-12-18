@@ -1,5 +1,5 @@
 package Bohnanza.model
 
 trait Builder {
-  def buildGrowingFieldStr(playingplayer : player): String
+  def buildGrowingFieldStr(playingplayer : Option[player]): String
 }

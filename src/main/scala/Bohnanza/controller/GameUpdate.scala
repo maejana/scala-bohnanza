@@ -14,10 +14,10 @@ object GameUpdate {
     while (round <= 5) {
       //Start of Round
       model.dynamicGamedata.playingPlayer = Utility.selectPlayer()
-      println(model.dynamicGamedata.playingPlayer.playerName)
+      println(model.dynamicGamedata.playingPlayer.get.playerName)
       playerState.handle(model.dynamicGamedata.playingPlayer)
       println(model.gamedata.plantAmountQuestion)
-      println(model.gameDataFunc.playerHandToString(model.dynamicGamedata.playingPlayer.playerHand))
+      println(model.gameDataFunc.playerHandToString(model.dynamicGamedata.playingPlayer.get.playerHand))
       model.dynamicGamedata.plantCount = Utility.plant1or2(model.dynamicGamedata.playingPlayer)
       UndoCommand.PlantBeanCommand.doStep(model.dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
       //planting

@@ -5,12 +5,12 @@ import Bohnanza.model
 
 object gamelogic {
 
-  def plant(cards: model.card, playerID: model.player): Unit = {
+  def plant(cards: model.card, playerID: Option[model.player]): Unit = {
     val fieldNr = Utility.chooseOrEmpty(playerID, cards)
     fieldNr match {
-      case 1 => playerID.plantfield1.addOne(cards)
-      case 2 => playerID.plantfield2.addOne(cards)
-      case 3 => playerID.plantfield3.addOne(cards)
+      case 1 => playerID.get.plantfield1.addOne(cards)
+      case 2 => playerID.get.plantfield2.addOne(cards)
+      case 3 => playerID.get.plantfield3.addOne(cards)
       case -1 => println("Kein Feld frei zum anpflanzen")
       case _ => // No available fields
     }
