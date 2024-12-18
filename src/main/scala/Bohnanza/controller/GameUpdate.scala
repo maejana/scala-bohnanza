@@ -11,8 +11,6 @@ object GameUpdate {
     val playerCount = model.dynamicGamedata.playerCount
     while (round <= 5) {
       //Start of Round
-      println(model.dynamicGamedata.players(0))
-      println(model.dynamicGamedata.players(1))
       Utility.selectPlayer()
       println(model.dynamicGamedata.playingPlayer.get.playerName)
       playerState.handle(model.dynamicGamedata.playingPlayer)
