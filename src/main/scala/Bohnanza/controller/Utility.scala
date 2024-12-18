@@ -82,14 +82,16 @@ object Utility {
     player.playerHand.indexOf(card)
   }
 
-  def selectPlayer(): Unit = {
+  def selectPlayer(): Option[Bohnanza.model.player] = {
     if (model.dynamicGamedata.playerCount <= model.dynamicGamedata.playingPlayerID) {
       model.dynamicGamedata.playingPlayerID = 0
       model.dynamicGamedata.playingPlayer = Some(model.dynamicGamedata.players(model.dynamicGamedata.playingPlayerID))
+      model.dynamicGamedata.playingPlayer
     }
     else {
       model.dynamicGamedata.playingPlayer = Some(model.dynamicGamedata.players(model.dynamicGamedata.playingPlayerID))
       model.dynamicGamedata.playingPlayerID += 1
+      model.dynamicGamedata.playingPlayer
     }
   }
   def isPlantable(player: Option[model.player], bean: model.card): Boolean = {
