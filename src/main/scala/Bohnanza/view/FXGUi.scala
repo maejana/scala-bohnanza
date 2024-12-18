@@ -158,10 +158,12 @@ object FXGUi extends JFXApp3 {
             new Button("1") {
               onAction = _ => plantBean(1)
                 controller.Utility.plant1or2ThreadInterrupt()
+                println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
             },
             new Button("2") {
               onAction = _ => plantBean(2)
                 controller.Utility.plant1or2ThreadInterrupt()
+                println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
             },
             new Button("Zwei Karten ziehe und pflanzen"){
               onAction = _ => stage.scene = new Scene (drawAndPlantCards())
@@ -193,7 +195,7 @@ object FXGUi extends JFXApp3 {
   def plantBean(i: Int): Unit = {
     i match {
       case 0 =>
-        model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
+        controller.Utility.selectPlayer()
         controller.playerState.handle(model.dynamicGamedata.playingPlayer)
         stage.scene = new Scene(spielerRunde())
       case 1 =>

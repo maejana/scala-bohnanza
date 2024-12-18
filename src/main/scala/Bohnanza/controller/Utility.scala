@@ -9,7 +9,8 @@ import scala.collection.mutable.ArrayBuffer
 object Utility {
 
   def plantInfo(): model.card = {
-    val cardname = scala.io.StdIn.readLine()
+    val cardname = model.dynamicGamedata.cardsToPlant(0).beanName
+    model.dynamicGamedata.cardsToPlant -= Utility.findCardWithName(cardname)
     
     val card: model.card = findCardWithName(cardname)
     model.dynamicGamedata.cardsToPlant += card
@@ -20,9 +21,8 @@ object Utility {
 
   def plantPreperation(player: Option[model.player]): String = {
     var plantCard: model.card = card(model.gamedata.beans(2),model.gamedata.weights(0), model.gamedata.priceBlaue)
-    if (model.dynamicGamedata.cardsToPlant.isEmpty) {
+    if (!model.dynamicGamedata.cardsToPlant.isEmpty) {
       plantCard = plantInfo()
-     
     }
     val gameUpdateLog = new StringBuilder()
     if (plantCard.equals(card(model.gamedata.beans(2),model.gamedata.weights(0), model.gamedata.priceBlaue))) {
@@ -127,8 +127,21 @@ object Utility {
       view.playerInput.keyListener()
       Nr = model.dynamicGamedata.plant1or2
     }
-    if(Nr < 1) Nr = 1
-    if(Nr > 2) Nr = 2
+    if(Nr <= 1) {
+      model.dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(0)
+      gamelogic.plant(model.dynamicGamedata.cardsToPlant(0),model.dynamicGamedata.playingPlayer)
+      model.gameDataFunc.takeNewCard(playingPlayer, model.dynamicGamedata.cardsToPlant(0))
+      Nr = 1
+    }
+    if(Nr >= 2){
+      model.dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(0)
+      model.dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(1)
+      gamelogic.plant(model.dynamicGamedata.cardsToPlant(0),model.dynamicGamedata.playingPlayer)
+      gamelogic.plant(model.dynamicGamedata.cardsToPlant(1),model.dynamicGamedata.playingPlayer)
+      model.gameDataFunc.takeNewCard(playingPlayer, model.dynamicGamedata.cardsToPlant(0))
+      model.gameDataFunc.takeNewCard(playingPlayer, model.dynamicGamedata.cardsToPlant(1))
+
+      Nr = 2}
     println(UIlogic.plantSelectString(playingPlayer))
     playingPlayer.get.lastMethodUsed = "plant1or2"
     Nr
@@ -137,12 +150,8 @@ object Utility {
   def plantAllSelectedCards(plantCount : Integer): Unit = {
     var i = 0
     while (i < plantCount) {
-      if (!Utility.plantPreperation(model.dynamicGamedata.playingPlayer).equals("")) {
-        i += 1
-      }
-      else {
-        println(model.gamedata.keineKorrekteBohne)
-      }
+      Utility.plantPreperation(model.dynamicGamedata.playingPlayer)
+      i += 1
     }
   }
 
