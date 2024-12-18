@@ -9,25 +9,25 @@ import scala.collection.mutable
 import scala.collection.mutable.Stack
 object UndoCommand {
   trait Command {
-    def doStep(player: player): Unit
+    def doStep(player: Option[player]): Unit
 
-    def undoStep(player: player): Unit
+    def undoStep(player: Option[player]): Unit
 
-    def redoStep(player: player): Unit
+    def redoStep(player: Option[player]): Unit
   }
 
   object PlantBeanCommand extends Command {
     private val stateStack: mutable.Stack[model.player] = mutable.Stack()
     private val redoStack: mutable.Stack[model.player] = mutable.Stack()
 
-    override def doStep(player: player): Unit = {
-      stateStack.push(player.copyState()) // Capture the entire state
+    override def doStep(player: Option[player]): Unit = {
+      stateStack.push(player.get.copyState()) // Capture the entire state
     }
 
-    override def undoStep(player: player): Unit = {
+    override def undoStep(player: Option[player]): Unit = {
       if (!stateStack.isEmpty) {
         redoStack.push(stateStack.pop())
-        player.restore(stateStack.pop()) // Restore the entire state
+        player.get.restore(stateStack.pop()) // Restore the entire state
       }
       println(model.fieldBuilder.buildGrowingFieldStr(player))
       println(model.gamedata.undoSuccessful)
@@ -35,9 +35,9 @@ object UndoCommand {
     }
 
     def matchState(): Unit = {
-      model.dynamicGamedata.playingPlayer.lastMethodUsed match {
+      model.dynamicGamedata.playingPlayer.get.lastMethodUsed match {
         case "plant1or2" => println(model.gamedata.plantAmountQuestion)
-          println(model.gameDataFunc.playerHandToString(model.dynamicGamedata.playingPlayer.playerHand))
+          println(model.gameDataFunc.playerHandToString(model.dynamicGamedata.playingPlayer.get.playerHand))
           model.dynamicGamedata.plantCount = Utility.plant1or2(model.dynamicGamedata.playingPlayer)
           Utility.plantAllSelectedCards(model.dynamicGamedata.plantCount)
           UndoCommand.PlantBeanCommand.doStep(model.dynamicGamedata.playingPlayer)
@@ -50,10 +50,10 @@ object UndoCommand {
     }
 
 
-      override def redoStep(player: player): Unit = {
+      override def redoStep(player: Option[player]): Unit = {
         if (redoStack.nonEmpty) {
-          stateStack.push(player.copyState())
-          player.restore(redoStack.pop())
+          stateStack.push(player.get.copyState())
+          player.get.restore(redoStack.pop())
         }
         println(model.fieldBuilder.buildGrowingFieldStr(player))
         println(model.gamedata.redoSuccessful)

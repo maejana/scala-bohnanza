@@ -8,7 +8,7 @@ import scala.collection.mutable.ArrayBuffer
 object dynamicGamedata extends SubjectTrait {
   var players = ArrayBuffer[player]()
   var drawnCards: ArrayBuffer[card] = ArrayBuffer[card]()
-  var playingPlayer: player = new player("", ArrayBuffer[card](card(model.gamedata.beans(2),model.gamedata.weights(0), model.gamedata.priceBlaue)))
+  var playingPlayer: Option[player] = None
   var plantCount = 0
   var playerNameBuffer = ArrayBuffer[String]()
   var playerCount = 0

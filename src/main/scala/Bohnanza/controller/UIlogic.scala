@@ -34,10 +34,10 @@ object UIlogic{
     allcards(rand)
     
   }
-  def plantSelectString(player: model.player): String = {
+  def plantSelectString(player: Option[model.player]): String = {
     var s: String = ""
     s += model.gamedata.selectPlantCard
-    s += model.gameDataFunc.playerHandToString(player.playerHand)
+    s += model.gameDataFunc.playerHandToString(player.get.playerHand)
     s
   }
 }
