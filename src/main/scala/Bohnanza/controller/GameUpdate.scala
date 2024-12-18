@@ -1,8 +1,6 @@
 package Bohnanza.controller
 
 import Bohnanza.model
-import Bohnanza.view.TUI
-import Bohnanza.view
 
 object GameUpdate {
   def gameUpdate(): String = {
@@ -13,7 +11,9 @@ object GameUpdate {
     val playerCount = model.dynamicGamedata.playerCount
     while (round <= 5) {
       //Start of Round
-      model.dynamicGamedata.playingPlayer = Utility.selectPlayer()
+      println(model.dynamicGamedata.players(0))
+      println(model.dynamicGamedata.players(1))
+      Utility.selectPlayer()
       println(model.dynamicGamedata.playingPlayer.get.playerName)
       playerState.handle(model.dynamicGamedata.playingPlayer)
       println(model.gamedata.plantAmountQuestion)
