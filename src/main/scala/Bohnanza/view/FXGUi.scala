@@ -22,12 +22,9 @@ object FXGUi extends JFXApp3 {
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
       title = "Bohnanza"
-      width = 800
-      height = 600
       scene = new Scene(startScene())
-
+      fullScreen = true
     }
-    stage.fullScreen = true
 
   }
 
@@ -114,6 +111,8 @@ object FXGUi extends JFXApp3 {
     val buttonSave = new Button("Speichern")
 
     buttonSave.onAction = _ => {
+      model.gameDataFunc.initPlayer(textField.text())
+      model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
       if (textField.text().nonEmpty) {
         println(s"Spieler $nr: ${textField.text()}")
         disableSaveButton(buttonSave, textField)
@@ -270,7 +269,7 @@ object FXGUi extends JFXApp3 {
               alignment = Pos.BottomRight
               style = "-fx-boarder-color: black; -fx-boarder-width: 2;"
               children = model.dynamicGamedata.playingPlayer.get.playerHand.map { card =>
-                new Label(card.toString) {
+                new Label(view.GUICards( {
                   font = Font.font("Arial", 24)
 
                 }
