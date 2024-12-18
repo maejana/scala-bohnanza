@@ -130,7 +130,7 @@ object Utility {
     if(Nr <= 1) {
       model.dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(0)
       gamelogic.plant(model.dynamicGamedata.cardsToPlant(0),model.dynamicGamedata.playingPlayer)
-      model.gameDataFunc.takeNewCard(playingPlayer, model.dynamicGamedata.cardsToPlant(0))
+      model.gameDataFunc.takeNewCard(playingPlayer, playingPlayer.get.playerHand(0))
       Nr = 1
     }
     if(Nr >= 2){
@@ -138,8 +138,8 @@ object Utility {
       model.dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(1)
       gamelogic.plant(model.dynamicGamedata.cardsToPlant(0),model.dynamicGamedata.playingPlayer)
       gamelogic.plant(model.dynamicGamedata.cardsToPlant(1),model.dynamicGamedata.playingPlayer)
-      model.gameDataFunc.takeNewCard(playingPlayer, model.dynamicGamedata.cardsToPlant(0))
-      model.gameDataFunc.takeNewCard(playingPlayer, model.dynamicGamedata.cardsToPlant(1))
+      model.gameDataFunc.takeNewCard(playingPlayer, playingPlayer.get.playerHand(0))
+      model.gameDataFunc.takeNewCard(playingPlayer, playingPlayer.get.playerHand(1))
 
       Nr = 2}
     println(UIlogic.plantSelectString(playingPlayer))
