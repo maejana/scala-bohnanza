@@ -240,6 +240,7 @@ object FXGUi extends JFXApp3 {
         new Label(bean) {
           font = Font.font("Arial", 24)
         },
+
         new Button(model.gamedata.continue) {
           onAction = _ => {
             println(s"Next player: ${model.dynamicGamedata.playingPlayer.get.playerName}")
