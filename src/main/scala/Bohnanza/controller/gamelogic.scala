@@ -16,15 +16,18 @@ object gamelogic {
     }
     playerID.get.playerHand -= cards
   }
-  def harvest(field: Int): String = {
-    // angepflanze Bohnen erten und gegen Gold tauschen
-    ""
-  }
-  def bohnometer(card: model.card): Int = {
-    // gibt für jede Karte an, wie viel Geld sie Wert ist
 
-    0
+  def harvest(field: Int): Unit = {
+    field match{
+      case 1 =>  model.dynamicGamedata.playingPlayer.get.gold += Utility.returnGoldValue(model.dynamicGamedata.playingPlayer.get.plantfield1)
+        model.dynamicGamedata.playingPlayer.get.plantfield1.clear()
+      case 2 =>   model.dynamicGamedata.playingPlayer.get.gold += Utility.returnGoldValue(model.dynamicGamedata.playingPlayer.get.plantfield2)
+        model.dynamicGamedata.playingPlayer.get.plantfield2.clear()
+      case 3 => model.dynamicGamedata.playingPlayer.get.gold += Utility.returnGoldValue(model.dynamicGamedata.playingPlayer.get.plantfield3)
+        model.dynamicGamedata.playingPlayer.get.plantfield3.clear()
+    }
   }
+
   def trade(playingPlayer : model.player, tradePartner : model.player, card1: model.card, card2: model.card): Unit ={
     val playerCard = playingPlayer.playerHand(Utility.findCardId(playingPlayer,card1))
     val traderCard = tradePartner.playerHand(Utility.findCardId(tradePartner,card2))

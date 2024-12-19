@@ -94,6 +94,7 @@ object Utility {
       model.dynamicGamedata.playingPlayer
     }
   }
+
   def isPlantable(player: Option[model.player], bean: model.card): Boolean = {
     if (player.get.plantfield1.contains(bean.beanName) || player.get.plantfield2.contains(bean.beanName) || player.get.plantfield3.contains(bean.beanName)) {
       return true
@@ -158,5 +159,20 @@ object Utility {
   def plant1or2ThreadInterrupt(): Unit = {
     model.dynamicGamedata.readerThreadPlant1or2.interrupt()
     model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer)
+  }
+
+  def returnGoldValue(plantfield : ArrayBuffer[model.card]): Int = {
+    if(!plantfield.isEmpty){
+      checkPlantAmount(plantfield(0),plantfield)
+    }
+    0
+  }
+
+  def checkPlantAmount(card: model.card, plantfield : ArrayBuffer[model.card]): Int = {
+    var cardSteps = 1
+    while(plantfield.size >= card.price(cardSteps)){
+      cardSteps += 1
+    }
+    card.price(cardSteps)
   }
 }
