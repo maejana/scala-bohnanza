@@ -140,9 +140,7 @@ object FXGUi extends JFXApp3 {
           spacing = 10
           alignment = Pos.Center
           children = Seq(
-            new VBox {
-              playerOut()
-            },
+            playerOut(),
             new VBox {
               spacing = 10
               alignment = Pos.Center
@@ -227,6 +225,7 @@ object FXGUi extends JFXApp3 {
         }
     }
     stage.scene = new Scene(playerOut())
+    stage.fullScreen = true
   }
 
   def plantInPlantfield(bean: String): VBox = {
