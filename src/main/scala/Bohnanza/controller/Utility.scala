@@ -27,11 +27,13 @@ object Utility {
     val gameUpdateLog = new StringBuilder()
     if (plantCard.equals(card(model.gamedata.beans(2),model.gamedata.weights(0), model.gamedata.priceBlaue))) {
       ""
-    }
-    else if (isPlantable(player, plantCard) && player.get.playerHand.contains(plantCard)) {
+    } else if (isPlantable(player, plantCard) && player.exists(_.playerHand.contains(plantCard))) {
       gamelogic.plant(plantCard, player)
-      model.gameDataFunc.takeNewCard(player, plantCard)
-      gameUpdateLog.append(s"${player.get.name} pflanzt $plantCard\n")
+      val cardIndex = player.get.playerHand.indexOf(plantCard)
+      if (cardIndex >= 0 && cardIndex < player.get.playerHand.size) {
+        model.gameDataFunc.takeNewCard(player, plantCard)
+        gameUpdateLog.append(s"${player.get.name} pflanzt $plantCard\n")
+      }
       gameUpdateLog.toString
     } else {
       ""

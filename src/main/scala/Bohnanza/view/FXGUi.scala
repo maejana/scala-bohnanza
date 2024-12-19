@@ -10,6 +10,7 @@ import scalafx.scene.paint.Color
 import Bohnanza.model
 import Bohnanza.controller
 import scalafx.scene.Node
+import Bohnanza.view
 
 
 import scala.util.{Failure, Success, Try}
@@ -139,7 +140,9 @@ object FXGUi extends JFXApp3 {
           spacing = 10
           alignment = Pos.Center
           children = Seq(
-            playerOut(), // Linker Bereich
+            new VBox {
+              playerOut()
+            },
             new VBox {
               spacing = 10
               alignment = Pos.Center
@@ -184,6 +187,7 @@ object FXGUi extends JFXApp3 {
         }
       }
 
+
     }
   }
 
@@ -199,14 +203,15 @@ object FXGUi extends JFXApp3 {
         controller.playerState.handle(model.dynamicGamedata.playingPlayer)
         stage.scene = new Scene(spielerRunde())
       case 1 =>
-        val cardToPlant = model.dynamicGamedata.playingPlayer.get.playerHand(0)
-        if (controller.Utility.isPlantable(model.dynamicGamedata.playingPlayer, cardToPlant)) {
-          controller.Utility.plantDrawnCard(model.dynamicGamedata.playingPlayer, cardToPlant)
-          stage.scene = new Scene(spielerRunde())
-          stage.fullScreen = true
-        } else {
-          println("Cannot plant this bean in the current fields.")
-        }
+        val cardToPlant: model.card = model.dynamicGamedata.playingPlayer.get.playerHand(0)
+        controller.Utility.isPlantable(model.dynamicGamedata.playingPlayer, cardToPlant)
+        //controller.Utility.plantDrawnCard(model.dynamicGamedata.playingPlayer, card)
+        stage.scene = new Scene(spielerRunde())
+        stage.fullScreen = true
+//        else {
+//          println("Cannot plant this bean in the current fields.")
+//        }
+
       case 2 =>
         val cardToPlant1 = model.dynamicGamedata.playingPlayer.get.playerHand(0)
         val cardToPlant2 = model.dynamicGamedata.playingPlayer.get.playerHand(1)
@@ -220,7 +225,7 @@ object FXGUi extends JFXApp3 {
           println("Cannot plant these beans in the current fields.")
         }
     }
-    playerOut()
+    stage.scene = new Scene(playerOut())
   }
 
   def plantInPlantfield(bean: String): VBox = {
@@ -258,86 +263,10 @@ object FXGUi extends JFXApp3 {
   }
 
   def playerOut(): VBox = {
-    new VBox {
-      spacing = 5
-      padding = Insets(10)
-      alignment = Pos.TopLeft
+    new PlayerOutClass().playerScene
 
-      val playerName: String = model.dynamicGamedata.playingPlayer.get.playerName
-      children = Seq(
-        new VBox {
-          spacing = 5
-          alignment = Pos.Center
-          children = Seq(
-            new HBox {
-              spacing = 5
-              alignment = Pos.Center
-              children = Seq(
-                new Label(s"Spieler: $playerName") {
-                  font = Font.font("Arial", 24)
-                  textFill = Color.DarkGreen
-                },
-                new Label(model.gamedata.coinsString + model.dynamicGamedata.playingPlayer.get.gold) {
-                  font = Font.font("Arial", 24)
-                }
-              )
-            },
-            new VBox {
-              spacing = 0
-              alignment = Pos.BottomRight
-              style = "-fx-border-color: black; -fx-border-width: 2;"
-              children = model.dynamicGamedata.playingPlayer.get.playerHand.map { card =>
-                new VBox(GUICards().getCardPanel(card)) {
-                }
-              }
-            },
-            if (model.dynamicGamedata.playingPlayer.get.plantfield1.nonEmpty) {
-              new VBox {
-                spacing = 5
-                alignment = Pos.Center
-                children = Seq(
-                  new Label("Plant Field 1") {
-                    font = Font.font("Arial", 18)
-                  },
-                  plantInPlantfield(model.dynamicGamedata.playingPlayer.get.plantfield1.headOption.map(_.beanName).getOrElse(""))
-                )
-              }
-            } else {
-              new Label("")
-            },
-            if (model.dynamicGamedata.playingPlayer.get.plantfield2.nonEmpty) {
-              new VBox {
-                spacing = 5
-                alignment = Pos.Center
-                children = Seq(
-                  new Label("Plant Field 2") {
-                    font = Font.font("Arial", 18)
-                  },
-                  plantInPlantfield(model.dynamicGamedata.playingPlayer.get.plantfield2.headOption.map(_.beanName).getOrElse(""))
-                )
-              }
-            } else {
-              new Label("")
-            },
-            if (model.dynamicGamedata.playingPlayer.get.plantfield3.nonEmpty) {
-              new VBox {
-                spacing = 5
-                alignment = Pos.Center
-                children = Seq(
-                  new Label("Plant Field 3") {
-                    font = Font.font("Arial", 18)
-                  },
-                  plantInPlantfield(model.dynamicGamedata.playingPlayer.get.plantfield3.headOption.map(_.beanName).getOrElse(""))
-                )
-              }
-            } else {
-              new Label("")
-            }
-          )
-        }
-      )
-    }
   }
+
 
   def drawAndPlantCards(): VBox = {
     val card1 = controller.UIlogic.weightedRandom()
