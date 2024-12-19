@@ -13,9 +13,9 @@ import scalafx.scene.Node
 import Bohnanza.view
 
 
+
 import scala.util.{Failure, Success, Try}
 object FXGUi extends JFXApp3 {
-
   var playerStep: Int = 0
   val childrenBuffer: scala.collection.mutable.Buffer[javafx.scene.Node] = scala.collection.mutable.Buffer()
 
@@ -27,8 +27,13 @@ object FXGUi extends JFXApp3 {
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
       title = "Bohnanza"
+      resizable = false
+      maximized = true
       scene = new Scene(startScene())
-      fullScreen = true
+      onCloseRequest = _ => {
+        Platform.exit()
+        System.exit(0)
+      }
     }
   }
 
@@ -43,10 +48,10 @@ object FXGUi extends JFXApp3 {
         textFill = Color.Green
       },
       new Button("Play") {
-        font = Font.font("Arial", 24)
+        font = Font.font("Arial", 18)
         onAction = _ => {
           stage.scene = new Scene(namenEingebenSeite())
-          stage.fullScreen = true
+          stage.maximized = true
         }
       }
     )
@@ -61,13 +66,16 @@ object FXGUi extends JFXApp3 {
     val dropdown = new ComboBox(Seq("2", "3", "4", "5")) {
       prefWidth = 100
     }
-    val button = new Button("Hinzufügen")
+    val button: Button = new Button("Hinzufügen") {
+      font = Font.font("Arial", 18)
+    }
 
     button.onAction = _ => {
       val count = dropdown.value().toInt
       model.dynamicGamedata.playerCount = count
       model.dynamicGamedata.readerThread.interrupt()
       namenEingeben(count)
+      stage.maximized = true
     }
 
     children = Seq(label, dropdown, button)
@@ -88,9 +96,11 @@ object FXGUi extends JFXApp3 {
         spieleranzahlEingeben(),
         playerPanel,
         new Button(model.gamedata.continue) {
+          font = Font.font("Arial", 18)
+
           onAction = _ => {
             stage.scene = new Scene(spielerRunde())
-            stage.fullScreen = true
+            stage.maximized  = true
           }
         }
       )
@@ -114,7 +124,9 @@ object FXGUi extends JFXApp3 {
       prefWidth = 200
       promptText = "Spielername eingeben"
     }
-    val buttonSave = new Button("Speichern")
+    val buttonSave = new Button("Speichern") {
+      font = Font.font("Arial", 18)
+    }
 
     buttonSave.onAction = _ => {
       if (textField.text().nonEmpty) {
@@ -157,18 +169,24 @@ object FXGUi extends JFXApp3 {
           alignment = Pos.Center
           children = Seq(
             new Button("1") {
+              font = Font.font("Arial", 18)
               onAction = _ => plantBean(1)
                 controller.Utility.plant1or2ThreadInterrupt()
                // println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
             },
             new Button("2") {
+              font = Font.font("Arial", 18)
               onAction = _ => plantBean(2)
                 controller.Utility.plant1or2ThreadInterrupt()
                 controller.Utility.plant1or2ThreadInterrupt()
                 //println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
             },
             new Button("Zwei Karten ziehe und pflanzen"){
-              onAction = _ => stage.scene = new Scene (drawAndPlantCards())
+              font = Font.font("Arial", 18)
+              onAction = _ => {
+                stage.scene = new Scene (drawAndPlantCards())
+                stage.maximized = true
+              }
             }
           )
         }
@@ -176,9 +194,11 @@ object FXGUi extends JFXApp3 {
 
       if (playerStep == 1) {
         childrenBuffer += new Button("Draw and Plant Cards") {
+          font = Font.font("Arial", 18)
           onAction = _ => {
             playerStep += 1
             stage.scene = new Scene(drawAndPlantCards())
+            stage.maximized = true
             controller.Utility.selectPlayer()
             controller.playerState.handle(model.dynamicGamedata.playingPlayer)
             playerStep = 0
@@ -191,41 +211,15 @@ object FXGUi extends JFXApp3 {
   }
 
   def disableSaveButton(button: Button, textField: TextField): Unit = {
+    button.font = Font.font("Arial", 24)
     button.disable = true
     textField.editable = false
   }
 
   def plantBean(i: Int): Unit = {
-    i match {
-      case 0 =>
-        controller.Utility.selectPlayer()
-        controller.playerState.handle(model.dynamicGamedata.playingPlayer)
-        stage.scene = new Scene(spielerRunde())
-      case 1 =>
-        val cardToPlant: model.card = model.dynamicGamedata.playingPlayer.get.playerHand(0)
-        controller.Utility.isPlantable(model.dynamicGamedata.playingPlayer, cardToPlant)
-        //controller.Utility.plantDrawnCard(model.dynamicGamedata.playingPlayer, card)
-        stage.scene = new Scene(spielerRunde())
-        stage.fullScreen = true
-//        else {
-//          println("Cannot plant this bean in the current fields.")
-//        }
-
-      case 2 =>
-        val cardToPlant1 = model.dynamicGamedata.playingPlayer.get.playerHand(0)
-        val cardToPlant2 = model.dynamicGamedata.playingPlayer.get.playerHand(1)
-        if (controller.Utility.isPlantable(model.dynamicGamedata.playingPlayer, cardToPlant1) &&
-          controller.Utility.isPlantable(model.dynamicGamedata.playingPlayer, cardToPlant2)) {
-          controller.Utility.plantDrawnCard(model.dynamicGamedata.playingPlayer, cardToPlant1)
-          controller.Utility.plantDrawnCard(model.dynamicGamedata.playingPlayer, cardToPlant2)
-          stage.scene = new Scene(spielerRunde())
-          stage.fullScreen = true
-        } else {
-          println("Cannot plant these beans in the current fields.")
-        }
-    }
+    view.PlantBeanC.plantBean(i)
     stage.scene = new Scene(playerOut())
-    stage.fullScreen = true
+    stage.maximized = true
   }
 
   def plantInPlantfield(bean: String): VBox = {
@@ -252,10 +246,11 @@ object FXGUi extends JFXApp3 {
         },
         new Button(model.gamedata.continue) {
           onAction = _ => {
+            font = Font.font("Arial", 24)
             model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
             controller.playerState.handle(model.dynamicGamedata.playingPlayer)
             stage.scene = new Scene(spielerRunde())
-            stage.fullScreen = true
+            stage.maximized = true
           }
         }
       )
@@ -299,13 +294,26 @@ object FXGUi extends JFXApp3 {
           alignment = Pos.Center
           children = Seq(
             new Button("Plant 0") {
-              onAction = _ => plantBean(0)
+              font = Font.font("Arial", 24)
+              onAction = _ => {
+                plantBean(0)
+                stage.maximized = true
+              }
+
             },
             new Button("Plant 1") {
-              onAction = _ => plantBean(1)
+              font = Font.font("Arial", 24)
+              onAction = _ => {
+                plantBean(1)
+                stage.maximized = true
+              }
             },
             new Button("Plant Both") {
-              onAction = _ => plantBean(2)
+              font = Font.font("Arial", 24)
+              onAction = _ => {
+                plantBean(2)
+                stage.maximized = true
+              }
             }
           )
         }
