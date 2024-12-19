@@ -7,7 +7,7 @@ object gameDataFunc {
   def drawCards(): ArrayBuffer[card] = {
     val cardArray = ArrayBuffer[card]()
     for (i <- 1 to 2) {
-      cardArray.addOne(controller.UIlogic.weightedRandom())
+      cardArray.addOne(controller.Utility.weightedRandom())
     }
     cardArray
   }
@@ -28,11 +28,11 @@ object gameDataFunc {
     val weights = gamedata.weights
     val hand: ArrayBuffer[card] = ArrayBuffer()
     for (i <- 1 to 4) {
-      hand.addOne(controller.UIlogic.weightedRandom())
+      hand.addOne(controller.Utility.weightedRandom())
       growingFieldText += hand(i - 1).beanName + ", "
     }
     
-    hand.addOne(controller.UIlogic.weightedRandom())
+    hand.addOne(controller.Utility.weightedRandom())
     val newPlayer = FactoryP.PlayerFactory().createPlayer(playerName, hand) // Factory Pattern um Player zu erstellen
     growingFieldText += hand(4).beanName
     if(!dynamicGamedata.players.isEmpty) {
@@ -42,7 +42,7 @@ object gameDataFunc {
         })
     }
     else dynamicGamedata.players += newPlayer
-
+    println("PLAYERS: " + model.dynamicGamedata.players.size)
     growingFieldText
   }
   def initGame: String = {
@@ -55,7 +55,7 @@ object gameDataFunc {
       for (i <- 1 to dynamicGamedata.playerCount-model.dynamicGamedata.players.length) {
         playernames(i-1) = view.playerInput.playername()
         //view.GUI.addPlayerViaTUI(playernames(i-1), i)
-        str += initPlayer(playernames(i-1))
+        if(playernames(i-1)!= "") str += initPlayer(playernames(i-1))
       }
     }
     str
@@ -65,9 +65,8 @@ object gameDataFunc {
     field.foreach(card => s += card.beanName + " ")
     s
   }
-  def takeNewCard(player: Option[player], plantCard: card): Unit = {
-    val index = player.get.playerHand.indexOf(plantCard)
-    player.get.playerHand(index) = controller.UIlogic.weightedRandom()
+  def takeNewCard(player: Option[player]): Unit = {
+    player.get.playerHand += controller.Utility.weightedRandom()
   }
   def playerHandToString(hand: ArrayBuffer[card]): String = {
     var s = ""
