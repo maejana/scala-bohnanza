@@ -10,7 +10,6 @@ import Bohnanza.model._
 import Bohnanza.model.player
 import Bohnanza.controller.Utility
 import Bohnanza.controller
-import Bohnanza.controller.UIlogic
 import scala.collection.mutable.ArrayBuffer
 
 class GameLogicTest extends AnyWordSpec with Matchers {

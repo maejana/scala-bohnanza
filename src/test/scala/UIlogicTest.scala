@@ -4,7 +4,6 @@ import Bohnanza.controller.GameUpdate
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.matchers.should.Matchers.regex
-import Bohnanza.controller.UIlogic
 import Bohnanza.model
 import Bohnanza.model.player
 import Bohnanza.view

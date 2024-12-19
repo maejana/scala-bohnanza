@@ -116,11 +116,11 @@ object FXGUi extends JFXApp3 {
     val buttonSave = new Button("Speichern")
 
     buttonSave.onAction = _ => {
-      model.gameDataFunc.initPlayer(textField.text())
-      controller.Utility.selectPlayer()
       if (textField.text().nonEmpty) {
-        println(s"Spieler $nr: ${textField.text()}")
         model.dynamicGamedata.NameReaderThread.interrupt()
+        model.gameDataFunc.initPlayer(textField.text())
+        controller.Utility.selectPlayer()
+        println(s"Spieler $nr: ${textField.text()}")
         disableSaveButton(buttonSave, textField)
       }
     }
@@ -158,12 +158,13 @@ object FXGUi extends JFXApp3 {
             new Button("1") {
               onAction = _ => plantBean(1)
                 controller.Utility.plant1or2ThreadInterrupt()
-                println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
+               // println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
             },
             new Button("2") {
               onAction = _ => plantBean(2)
                 controller.Utility.plant1or2ThreadInterrupt()
-                println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
+                controller.Utility.plant1or2ThreadInterrupt()
+                //println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
             },
             new Button("Zwei Karten ziehe und pflanzen"){
               onAction = _ => stage.scene = new Scene (drawAndPlantCards())
@@ -340,8 +341,8 @@ object FXGUi extends JFXApp3 {
   }
 
   def drawAndPlantCards(): VBox = {
-    val card1 = controller.UIlogic.weightedRandom()
-    val card2 = controller.UIlogic.weightedRandom()
+    val card1 = controller.Utility.weightedRandom()
+    val card2 = controller.Utility.weightedRandom()
     model.dynamicGamedata.cardsToPlant = scala.collection.mutable.ArrayBuffer(card1, card2)
     new VBox {
       spacing = 10

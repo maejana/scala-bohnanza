@@ -3,11 +3,13 @@ package Bohnanza.controller
 import Bohnanza.view
 import Bohnanza.model
 import Bohnanza.model.{card, player}
-
+import scala.util.Random
 import scala.collection.mutable.ArrayBuffer
+import model.ObserverData
+import model.CardObserver
 
-object Utility {
-
+object Utility extends ControllerComponent {
+  ObserverData.addObserver(CardObserver)
   def plantInfo(): model.card = {
     val cardname = model.dynamicGamedata.cardsToPlant(0).beanName
     model.dynamicGamedata.cardsToPlant -= Utility.findCardWithName(cardname)
@@ -30,7 +32,7 @@ object Utility {
     }
     else if (isPlantable(player, plantCard) && player.get.playerHand.contains(plantCard)) {
       gamelogic.plant(plantCard, player)
-      model.gameDataFunc.takeNewCard(player, plantCard)
+      model.gameDataFunc.takeNewCard(player)
       gameUpdateLog.append(s"${player.get.name} pflanzt $plantCard\n")
       gameUpdateLog.toString
     } else {
@@ -83,7 +85,7 @@ object Utility {
   }
 
   def selectPlayer(): Option[Bohnanza.model.player] = {
-    if (model.dynamicGamedata.playerCount <= model.dynamicGamedata.playingPlayerID) {
+    if (model.dynamicGamedata.playerCount <= model.dynamicGamedata.playingPlayerID-1) {
       model.dynamicGamedata.playingPlayerID = 0
       model.dynamicGamedata.playingPlayer = Some(model.dynamicGamedata.players(model.dynamicGamedata.playingPlayerID))
       model.dynamicGamedata.playingPlayer
@@ -131,7 +133,7 @@ object Utility {
     if(Nr <= 1) {
       model.dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(0)
       gamelogic.plant(model.dynamicGamedata.cardsToPlant(0),model.dynamicGamedata.playingPlayer)
-      model.gameDataFunc.takeNewCard(playingPlayer, playingPlayer.get.playerHand(0))
+      model.gameDataFunc.takeNewCard(playingPlayer)
       Nr = 1
     }
     if(Nr >= 2){
@@ -139,11 +141,11 @@ object Utility {
       model.dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(1)
       gamelogic.plant(model.dynamicGamedata.cardsToPlant(0),model.dynamicGamedata.playingPlayer)
       gamelogic.plant(model.dynamicGamedata.cardsToPlant(1),model.dynamicGamedata.playingPlayer)
-      model.gameDataFunc.takeNewCard(playingPlayer, playingPlayer.get.playerHand(0))
-      model.gameDataFunc.takeNewCard(playingPlayer, playingPlayer.get.playerHand(1))
+      model.gameDataFunc.takeNewCard(playingPlayer)
+      model.gameDataFunc.takeNewCard(playingPlayer)
 
       Nr = 2}
-    println(UIlogic.plantSelectString(playingPlayer))
+    println(plantSelectString(playingPlayer))
     playingPlayer.get.lastMethodUsed = "plant1or2"
     Nr
   }
@@ -174,5 +176,34 @@ object Utility {
       cardSteps += 1
     }
     card.price(cardSteps)
+  }
+
+  def weightedRandom(): model.card = {
+    val allcards = ArrayBuffer[model.card]()
+    for (i <- 1 to model.gamedata.cards.size) {
+      for (h <- 1 to model.gamedata.cards(i - 1).weightCount)
+        allcards.addOne(model.gamedata.cards(i - 1))
+    }
+    val rand = Random.nextInt(allcards.size)
+    allcards(rand).beanName match {
+      case "Blaue" => model.gamedata.cards(0).weightCount -= 1
+      case "Feuer" => model.gamedata.cards(1).weightCount -= 1
+      case "Sau" => model.gamedata.cards(2).weightCount -= 1
+      case "Brech" => model.gamedata.cards(3).weightCount -= 1
+      case "Soja" => model.gamedata.cards(4).weightCount -= 1
+      case "Augen" => model.gamedata.cards(5).weightCount -= 1
+      case "Rote" => model.gamedata.cards(6).weightCount -= 1
+      case "Garten" => model.gamedata.cards(7).weightCount -= 1
+    }
+    ObserverData.updateCards()
+    allcards(rand)
+
+  }
+
+  def plantSelectString(player: Option[model.player]): String = {
+    var s: String = ""
+    s += model.gamedata.selectPlantCard
+    s += model.gameDataFunc.playerHandToString(player.get.playerHand)
+    s
   }
 }
