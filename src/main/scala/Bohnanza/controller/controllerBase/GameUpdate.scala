@@ -18,7 +18,7 @@ object GameUpdate {
       println(modelBase.dynamicGamedata.playingPlayer.get.playerName)
       playerState.handle(modelBase.dynamicGamedata.playingPlayer)
       println(gamedata.plantAmountQuestion)
-      println(modelTrait.playerHandToString(modelBase.dynamicGamedata.playingPlayer.get.playerHand))
+      println(gameDataFunc.playerHandToString(modelBase.dynamicGamedata.playingPlayer.get.playerHand))
       modelBase.dynamicGamedata.plantCount = Utility.plant1or2(modelBase.dynamicGamedata.playingPlayer)
       UndoCommand.PlantBeanCommand.doStep(modelBase.dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
       //planting

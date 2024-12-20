@@ -7,10 +7,11 @@ import Bohnanza.model.modelBase
 import Bohnanza.view.viewBase
 import Bohnanza.view.viewBase.playerInput
 import Bohnanza.{controller, model, view}
+import Bohnanza.model.modelTrait
 
 import java.io.{ByteArrayInputStream, InputStream}
 import scala.collection.mutable.ArrayBuffer
-object gameDataFunc {
+object gameDataFunc extends modelTrait{
   def drawCards(): ArrayBuffer[card] = {
     val cardArray = ArrayBuffer[card]()
     for (i <- 1 to 2) {
