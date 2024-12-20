@@ -209,4 +209,13 @@ object Utility extends ControllerComponent {
     s += modelBase.gameDataFunc.playerHandToString(player.get.playerHand)
     s
   }
+
+  def deletePlayerBecauseBug(): Unit = {
+    if(model.modelBase.dynamicGamedata.players.size != model.modelBase.dynamicGamedata.playerCount){
+      for(i <- 1 to model.modelBase.dynamicGamedata.players.size-model.modelBase.dynamicGamedata.playerCount){
+        model.modelBase.dynamicGamedata.players.remove(model.modelBase.dynamicGamedata.players.size-1)
+      }
+      println(model.modelBase.dynamicGamedata.players.size)
+    }
+  }
 }

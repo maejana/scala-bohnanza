@@ -19,7 +19,9 @@ object PlantBeanC {
   case class PlantOne() extends PlantBeanInView {
     override def plantBean(): Unit = {
       val cardToPlant: card = modelBase.dynamicGamedata.playingPlayer.get.playerHand(0)
-      controllerBase.Utility.isPlantable(modelBase.dynamicGamedata.playingPlayer, cardToPlant)
+      if(controllerBase.Utility.isPlantable(modelBase.dynamicGamedata.playingPlayer, cardToPlant)){
+        controllerBase.Utility.plant(cardToPlant, modelBase.dynamicGamedata.playingPlayer)
+      }
       FXGUi.stage.scene = new scalafx.scene.Scene(FXGUi.spielerRunde())
       FXGUi.stage.maximized = true
     }
@@ -31,8 +33,8 @@ object PlantBeanC {
       val cardToPlant2 = modelBase.dynamicGamedata.playingPlayer.get.playerHand(1)
       if (controllerBase.Utility.isPlantable(modelBase.dynamicGamedata.playingPlayer, cardToPlant1) &&
         controllerBase.Utility.isPlantable(modelBase.dynamicGamedata.playingPlayer, cardToPlant2)) {
-        controllerBase.Utility.plantDrawnCard(modelBase.dynamicGamedata.playingPlayer, cardToPlant1)
-        controllerBase.Utility.plantDrawnCard(modelBase.dynamicGamedata.playingPlayer, cardToPlant2)
+        controllerBase.Utility.plant(cardToPlant1, modelBase.dynamicGamedata.playingPlayer)
+        controllerBase.Utility.plant(cardToPlant2, modelBase.dynamicGamedata.playingPlayer)
         FXGUi.stage.scene = new scalafx.scene.Scene(FXGUi.spielerRunde())
         FXGUi.stage.maximized = true
       } else {

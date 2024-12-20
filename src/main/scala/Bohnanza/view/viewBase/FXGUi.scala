@@ -98,6 +98,7 @@ object FXGUi extends JFXApp3 {
           font = Font.font("Arial", 18)
 
           onAction = _ => {
+            controller.controllerBase.Utility.deletePlayerBecauseBug()
             stage.scene = new Scene(spielerRunde())
             stage.fullScreen = true 
           }
@@ -177,7 +178,7 @@ object FXGUi extends JFXApp3 {
               font = Font.font("Arial", 18)
               onAction = _ => plantBean(2)
                 controllerBase.Utility.plant1or2ThreadInterrupt()
-                controllerBase.Utility.plant1or2ThreadInterrupt()
+                //controllerBase.Utility.plant1or2ThreadInterrupt()
                 //println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
             },
             new Button("Zwei Karten ziehe und pflanzen"){
@@ -246,7 +247,7 @@ object FXGUi extends JFXApp3 {
         new Button(modelBase.gamedata.continue) {
           onAction = _ => {
             font = Font.font("Arial", 24)
-            modelBase.dynamicGamedata.playingPlayer = controllerBase.Utility.selectPlayer()
+            controllerBase.Utility.selectPlayer()
             controllerBase.playerState.handle(modelBase.dynamicGamedata.playingPlayer)
             stage.scene = new Scene(spielerRunde())
             stage.fullScreen = true
