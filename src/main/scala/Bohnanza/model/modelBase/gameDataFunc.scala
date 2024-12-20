@@ -51,6 +51,7 @@ object gameDataFunc {
     else dynamicGamedata.players += newPlayer
     growingFieldText
   }
+
   def initGame: String = {
     var str = ""
     playerInput.playercount()
@@ -66,14 +67,17 @@ object gameDataFunc {
     }
     str
   }
+
   def playerFieldToString(field: ArrayBuffer[card]): String = {
     var s = ""
     field.foreach(card => s += card.beanName + " ")
     s
   }
+
   def takeNewCard(player: Option[player]): Unit = {
     player.get.playerHand += controllerBase.Utility.weightedRandom()
   }
+
   def playerHandToString(hand: ArrayBuffer[card]): String = {
     var s = ""
     hand.foreach(card => s += card.beanName + " ")
