@@ -2,7 +2,7 @@ package Bohnanza.controller.controllerBase
 
 import Bohnanza.controller.ControllerComponent
 import Bohnanza.model
-import Bohnanza.model.modelBase
+import Bohnanza.model.modelTrait
 import Bohnanza.model.modelBase.{card, dynamicGamedata, player}
 
 
