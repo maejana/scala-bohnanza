@@ -6,8 +6,7 @@ import org.mockito.Mockito.*
 import org.mockito.ArgumentMatchers.*
 import org.mockito.MockitoAnnotations
 import Bohnanza.model
-import Bohnanza.model.card
-import Bohnanza.model.player
+import Bohnanza.model.modelBase.{card, player}
 
 import scala.collection.mutable.ArrayBuffer
 

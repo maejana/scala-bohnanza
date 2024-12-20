@@ -1,3 +1,5 @@
+package Bohnanza.view.viewBase
+
 /*
 
 package Bohnanza.view

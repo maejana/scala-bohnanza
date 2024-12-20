@@ -1,4 +1,5 @@
-package Bohnanza.model
+package Bohnanza.model.modelBase
+
 import Bohnanza.controller.ObserverTrait
 
 object CardObserver extends ObserverTrait {

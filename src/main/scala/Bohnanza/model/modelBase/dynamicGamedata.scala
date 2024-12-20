@@ -1,7 +1,8 @@
-package Bohnanza.model
+package Bohnanza.model.modelBase
 
 import Bohnanza.controller.SubjectTrait
 import Bohnanza.model
+import Bohnanza.model.modelBase.card
 
 import scala.collection.mutable.ArrayBuffer
 

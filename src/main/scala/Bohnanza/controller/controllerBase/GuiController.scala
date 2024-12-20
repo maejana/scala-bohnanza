@@ -1,4 +1,4 @@
-package Bohnanza.controller
+package Bohnanza.controller.controllerBase
 
 import scala.swing.Publisher
 

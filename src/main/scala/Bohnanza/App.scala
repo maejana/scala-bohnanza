@@ -1,7 +1,8 @@
 package Bohnanza
 
-import Bohnanza.view.FXGUi
-import Bohnanza.view.FXGUi.start
+import Bohnanza.view.viewBase
+import Bohnanza.view.viewBase.FXGUi.start
+import Bohnanza.view.viewBase.{FXGUi, TUI}
 import scalafx.application.Platform
 
 object App {
@@ -9,8 +10,8 @@ object App {
     new Thread(() => {
       FXGUi.main(Array.empty)
     }).start()
-    view.TUI.setUpTUI()
-    view.TUI.startGame()
+    TUI.setUpTUI()
+    viewBase.TUI.startGame()
   }
 
 }

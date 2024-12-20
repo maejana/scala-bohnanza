@@ -1,34 +1,32 @@
-package Bohnanza.controller
+package Bohnanza.controller.controllerBase
 
-import Bohnanza.model
-import Bohnanza.controller
-import Bohnanza.model.{card, player}
-import Bohnanza.view
-
+import Bohnanza.model.modelBase.{card, dynamicGamedata, gamedata, player}
+import Bohnanza.view.viewBase.{handleInput, playerInput}
+import Bohnanza.{controller, model, view}
 
 import scala.collection.mutable.ArrayBuffer
 
 object plantAmount {
   trait Strategy {
-    def execute(cards: ArrayBuffer[model.card], player: Option[model.player]): Boolean
+    def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean
   }
 
   class Strategy1 extends Strategy {
-    override def execute(cards: ArrayBuffer[model.card], player: Option[model.player]): Boolean = {
+    override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = {
       true
     }
   }
 
   class Strategy2 extends Strategy {
-    override def execute(cards: ArrayBuffer[model.card], player: Option[model.player]): Boolean = {
-      println(model.gamedata.drawnCardName)
+    override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = {
+      println(gamedata.drawnCardName)
       Utility.plantDrawnCard(player, Utility.selectCardToPlant(cards))
       true
     }
   }
 
   class Strategy3 extends Strategy {
-    override def execute(cards: ArrayBuffer[model.card], player: Option[model.player]): Boolean = {
+    override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = {
       Utility.plantDrawnCard(player, cards(0))
       Utility.plantDrawnCard(player, cards(1))
       true
@@ -36,7 +34,7 @@ object plantAmount {
   }
   private class StrategyRETRY extends Strategy{
     override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = {
-      view.handleInput.handleInputF(player)
+      handleInput.handleInputF(player)
       false
     }
   }
@@ -44,8 +42,8 @@ object plantAmount {
     var validInput = false
     var strategy: Strategy = StrategyRETRY()
     while (!validInput) {
-      view.playerInput.keyListener() // Abfrage einer neuen Eingabe
-      val nr = model.dynamicGamedata.plant1or2
+      playerInput.keyListener() // Abfrage einer neuen Eingabe
+      val nr = dynamicGamedata.plant1or2
         nr match {
         case 0 =>
           strategy = new Strategy1

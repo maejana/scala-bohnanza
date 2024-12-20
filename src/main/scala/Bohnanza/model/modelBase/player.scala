@@ -1,8 +1,10 @@
-package Bohnanza.model
+package Bohnanza.model.modelBase
+
+import Bohnanza.controller.controllerBase.playerState
+import Bohnanza.controller.State
+import Bohnanza.model.modelBase.card
 
 import scala.collection.mutable.ArrayBuffer
-import Bohnanza.controller.playerState
-import Bohnanza.controller.playerState.State
 
 case class player(name: String, hand: ArrayBuffer[card]) {
   var playerName: String = name

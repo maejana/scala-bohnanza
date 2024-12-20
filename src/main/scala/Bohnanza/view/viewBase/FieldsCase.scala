@@ -1,10 +1,10 @@
-package Bohnanza.view
-
-import Bohnanza.view.Fields
-
+package Bohnanza.view.viewBase
 
 import Bohnanza.model
-import Bohnanza.view.FXGUi.plantInPlantfield
+import Bohnanza.model.modelBase
+import Bohnanza.model.modelBase.dynamicGamedata
+import FXGUi.plantInPlantfield
+import Bohnanza.view.Fields
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.control.Label
 import scalafx.scene.layout.{HBox, VBox}
@@ -23,7 +23,7 @@ object FieldsCase {
           new Label("Plant Field 1") {
             font = Font.font("Arial", 18)
           },
-          plantInPlantfield(model.dynamicGamedata.playingPlayer.get.plantfield1.headOption.map(_.beanName).getOrElse(""))
+          plantInPlantfield(dynamicGamedata.playingPlayer.get.plantfield1.headOption.map(_.beanName).getOrElse(""))
         )
       }
     }
@@ -41,7 +41,7 @@ object FieldsCase {
               new Label("Plant Field 1") {
                 font = Font.font("Arial", 18)
               },
-              plantInPlantfield(model.dynamicGamedata.playingPlayer.get.plantfield1.headOption.map(_.beanName).getOrElse(""))
+              plantInPlantfield(modelBase.dynamicGamedata.playingPlayer.get.plantfield1.headOption.map(_.beanName).getOrElse(""))
             )
           },
           new VBox {
@@ -51,7 +51,7 @@ object FieldsCase {
               new Label("Plant Field 2") {
                 font = Font.font("Arial", 18)
               },
-              plantInPlantfield(model.dynamicGamedata.playingPlayer.get.plantfield2.headOption.map(_.beanName).getOrElse(""))
+              plantInPlantfield(modelBase.dynamicGamedata.playingPlayer.get.plantfield2.headOption.map(_.beanName).getOrElse(""))
             )
           }
         )
@@ -70,7 +70,7 @@ object FieldsCase {
               new Label("Plant Field 1") {
                 font = Font.font("Arial", 18)
               },
-              plantInPlantfield(model.dynamicGamedata.playingPlayer.get.plantfield1.headOption.map(_.beanName).getOrElse(""))
+              plantInPlantfield(modelBase.dynamicGamedata.playingPlayer.get.plantfield1.headOption.map(_.beanName).getOrElse(""))
             )
           },
           new VBox {
@@ -80,7 +80,7 @@ object FieldsCase {
               new Label("Plant Field 2") {
                 font = Font.font("Arial", 18)
               },
-              plantInPlantfield(model.dynamicGamedata.playingPlayer.get.plantfield2.headOption.map(_.beanName).getOrElse(""))
+              plantInPlantfield(modelBase.dynamicGamedata.playingPlayer.get.plantfield2.headOption.map(_.beanName).getOrElse(""))
             )
           },
           new VBox {
@@ -90,7 +90,7 @@ object FieldsCase {
               new Label("Plant Field 3") {
                 font = Font.font("Arial", 18)
               },
-              plantInPlantfield(model.dynamicGamedata.playingPlayer.get.plantfield3.headOption.map(_.beanName).getOrElse(""))
+              plantInPlantfield(modelBase.dynamicGamedata.playingPlayer.get.plantfield3.headOption.map(_.beanName).getOrElse(""))
             )
           }
         )

@@ -1,6 +1,6 @@
-package Bohnanza.model
+package Bohnanza.model.modelBase
 
-import Bohnanza.model.{Builder, gameDataFunc, player}
+import Bohnanza.model.Builder
 
 
 object fieldBuilder extends Builder {

@@ -1,4 +1,4 @@
-package Bohnanza.model
+package Bohnanza.model.modelBase
 
 import Bohnanza.controller.{ObserverTrait, SubjectTrait}
 

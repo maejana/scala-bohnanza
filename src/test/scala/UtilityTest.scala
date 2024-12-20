@@ -2,10 +2,12 @@ package test
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
-import Bohnanza.model.{player, *}
+import Bohnanza.model.{modelBase, *}
 import Bohnanza.controller.*
-import Bohnanza.controller.Utility.selectPlayer
+import Bohnanza.controller.controllerBase.Utility
+import Bohnanza.controller.controllerBase.Utility.selectPlayer
 import Bohnanza.model
+import Bohnanza.model.modelBase.{card, player}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -51,7 +53,7 @@ class UtilityTest extends AnyWordSpec with Matchers {
     "select player correctly" when {
       "return the correct player when given a valid index" in {
         // Setup test data
-        model.gamedata.players = ArrayBuffer(player("TestPlayer",ArrayBuffer(testCard)), player("Bob",ArrayBuffer(testCard)))
+        modelBase.gamedata.players = ArrayBuffer(player("TestPlayer",ArrayBuffer(testCard)), player("Bob",ArrayBuffer(testCard)))
 
         // Test selecting a valid index
         val selectedPlayer = selectPlayer(1)

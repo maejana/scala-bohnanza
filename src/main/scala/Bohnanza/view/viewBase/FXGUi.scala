@@ -1,18 +1,17 @@
-package Bohnanza.view
+package Bohnanza.view.viewBase
 
+import Bohnanza.controller.controllerBase
+import Bohnanza.controller.controllerBase.{Utility, playerState}
+import Bohnanza.model.modelBase
+import Bohnanza.model.modelBase.{dynamicGamedata, gameDataFunc, gamedata}
+import Bohnanza.{controller, model, view}
 import scalafx.application.{JFXApp3, Platform}
-import scalafx.scene.Scene
+import scalafx.geometry.{Insets, Pos}
+import scalafx.scene.{Node, Scene}
 import scalafx.scene.control.{Button, ComboBox, Label, TextField}
 import scalafx.scene.layout.{BorderPane, HBox, VBox}
-import scalafx.geometry.{Insets, Pos}
-import scalafx.scene.text.Font
 import scalafx.scene.paint.Color
-import Bohnanza.model
-import Bohnanza.controller
-import scalafx.scene.Node
-import Bohnanza.view
-
-
+import scalafx.scene.text.Font
 
 import scala.util.{Failure, Success, Try}
 object FXGUi extends JFXApp3 {
@@ -72,8 +71,8 @@ object FXGUi extends JFXApp3 {
 
     button.onAction = _ => {
       val count = dropdown.value().toInt
-      model.dynamicGamedata.playerCount = count
-      model.dynamicGamedata.readerThread.interrupt()
+      dynamicGamedata.playerCount = count
+      modelBase.dynamicGamedata.readerThread.interrupt()
       namenEingeben(count)
       stage.maximized = true
     }
@@ -83,7 +82,7 @@ object FXGUi extends JFXApp3 {
 
   def namenEingebenSeite(): BorderPane = new BorderPane {
     padding = Insets(5)
-    top = new Label(model.gamedata.bohnanza) {
+    top = new Label(gamedata.bohnanza) {
       font = Font.font("Arial", 36)
       alignmentInParent = Pos.Center
       textFill = Color.Green
@@ -95,7 +94,7 @@ object FXGUi extends JFXApp3 {
       children = Seq(
         spieleranzahlEingeben(),
         playerPanel,
-        new Button(model.gamedata.continue) {
+        new Button(modelBase.gamedata.continue) {
           font = Font.font("Arial", 18)
 
           onAction = _ => {
@@ -130,9 +129,9 @@ object FXGUi extends JFXApp3 {
 
     buttonSave.onAction = _ => {
       if (textField.text().nonEmpty) {
-        model.dynamicGamedata.NameReaderThread.interrupt()
-        model.gameDataFunc.initPlayer(textField.text())
-        controller.Utility.selectPlayer()
+        modelBase.dynamicGamedata.NameReaderThread.interrupt()
+        gameDataFunc.initPlayer(textField.text())
+        Utility.selectPlayer()
         println(s"Spieler $nr: ${textField.text()}")
         disableSaveButton(buttonSave, textField)
       }
@@ -160,7 +159,7 @@ object FXGUi extends JFXApp3 {
             }
           )
         },
-        new Label(model.gamedata.plantAmountQuestion) {
+        new Label(modelBase.gamedata.plantAmountQuestion) {
           font = Font.font("Arial", 24)
           textFill = Color.DarkGreen
         },
@@ -171,14 +170,14 @@ object FXGUi extends JFXApp3 {
             new Button("1") {
               font = Font.font("Arial", 18)
               onAction = _ => plantBean(1)
-                controller.Utility.plant1or2ThreadInterrupt()
+                controllerBase.Utility.plant1or2ThreadInterrupt()
                // println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
             },
             new Button("2") {
               font = Font.font("Arial", 18)
               onAction = _ => plantBean(2)
-                controller.Utility.plant1or2ThreadInterrupt()
-                controller.Utility.plant1or2ThreadInterrupt()
+                controllerBase.Utility.plant1or2ThreadInterrupt()
+                controllerBase.Utility.plant1or2ThreadInterrupt()
                 //println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
             },
             new Button("Zwei Karten ziehe und pflanzen"){
@@ -199,8 +198,8 @@ object FXGUi extends JFXApp3 {
             playerStep += 1
             stage.scene = new Scene(drawAndPlantCards())
             stage.maximized = true
-            controller.Utility.selectPlayer()
-            controller.playerState.handle(model.dynamicGamedata.playingPlayer)
+            controllerBase.Utility.selectPlayer()
+            playerState.handle(modelBase.dynamicGamedata.playingPlayer)
             playerStep = 0
           }
         }
@@ -217,7 +216,7 @@ object FXGUi extends JFXApp3 {
   }
 
   def plantBean(i: Int): Unit = {
-    view.PlantBeanC.plantBean(i)
+    PlantBeanC.plantBean(i)
     stage.scene = new Scene(playerOut())
     stage.maximized = true
   }
@@ -234,7 +233,7 @@ object FXGUi extends JFXApp3 {
           prefWidth = 500
           prefHeight = 100
           children = Seq(
-            new Label(model.gamedata.plantfield) {
+            new Label(modelBase.gamedata.plantfield) {
               font = Font.font("Arial", 24)
               textFill = Color.DarkGreen
             },
@@ -244,11 +243,11 @@ object FXGUi extends JFXApp3 {
             }
           )
         },
-        new Button(model.gamedata.continue) {
+        new Button(modelBase.gamedata.continue) {
           onAction = _ => {
             font = Font.font("Arial", 24)
-            model.dynamicGamedata.playingPlayer = controller.Utility.selectPlayer()
-            controller.playerState.handle(model.dynamicGamedata.playingPlayer)
+            modelBase.dynamicGamedata.playingPlayer = controllerBase.Utility.selectPlayer()
+            controllerBase.playerState.handle(modelBase.dynamicGamedata.playingPlayer)
             stage.scene = new Scene(spielerRunde())
             stage.maximized = true
           }
@@ -264,16 +263,16 @@ object FXGUi extends JFXApp3 {
 
 
   def drawAndPlantCards(): VBox = {
-    val card1 = controller.Utility.weightedRandom()
-    val card2 = controller.Utility.weightedRandom()
-    model.dynamicGamedata.cardsToPlant = scala.collection.mutable.ArrayBuffer(card1, card2)
+    val card1 = controllerBase.Utility.weightedRandom()
+    val card2 = controllerBase.Utility.weightedRandom()
+    modelBase.dynamicGamedata.cardsToPlant = scala.collection.mutable.ArrayBuffer(card1, card2)
     new VBox {
       spacing = 10
       padding = Insets(10)
       alignment = Pos.Center
 
       children = Seq(
-        new Label(model.dynamicGamedata.playingPlayer.get.playerName) {
+        new Label(modelBase.dynamicGamedata.playingPlayer.get.playerName) {
           font = Font.font("Arial", 24)
           textFill = Color.Green
         },

@@ -1,15 +1,17 @@
-package Bohnanza.view
+package Bohnanza.view.viewBase
 
 import Bohnanza.model
+import Bohnanza.model.modelBase
+import Bohnanza.model.modelBase.{card, gamedata}
 import javafx.geometry.{Insets, Pos}
-import javafx.scene.layout.{HBox, VBox}
 import javafx.scene.control.Label
+import javafx.scene.layout.{HBox, VBox}
 import javafx.scene.paint.Color
 import javafx.scene.shape.Rectangle
 import scalafx.scene.text.Font
 
 class GUICards {
-  def getCardPanel(card: model.card): VBox = {
+  def getCardPanel(card: card): VBox = {
     card.beanName match {
       case "Blaue" => BlueCard
       case "Feuer" => FireCard
@@ -28,10 +30,10 @@ class GUICards {
     vbox.setAlignment(Pos.CENTER)
     vbox.setPadding(new Insets(0))
     vbox.getChildren.addAll(
-      new Label(model.gamedata.beans(0)) {
+      new Label(gamedata.beans(0)) {
         setFont(Font.font("Arial", 24))
       },
-      new Label(model.gamedata.priceBlaue.mkString(", ")) {
+      new Label(modelBase.gamedata.priceBlaue.mkString(", ")) {
         setFont(Font.font("Arial", 24))
       }
     )
@@ -47,10 +49,10 @@ class GUICards {
     vbox.setAlignment(Pos.CENTER)
     vbox.setPadding(new Insets(0))
     vbox.getChildren.addAll(
-      new Label(model.gamedata.beans(1)) {
+      new Label(modelBase.gamedata.beans(1)) {
         setFont(Font.font("Arial", 24))
       },
-      new Label(model.gamedata.priceFeuer.mkString(", ")) {
+      new Label(modelBase.gamedata.priceFeuer.mkString(", ")) {
         setFont(Font.font("Arial", 24))
       }
     )
@@ -66,10 +68,10 @@ class GUICards {
     vbox.setAlignment(Pos.CENTER)
     vbox.setPadding(new Insets(0))
     vbox.getChildren.addAll(
-      new Label(model.gamedata.beans(2)) {
+      new Label(modelBase.gamedata.beans(2)) {
         setFont(Font.font("Arial", 24))
       },
-      new Label(model.gamedata.priceSau.mkString(", ")) {
+      new Label(modelBase.gamedata.priceSau.mkString(", ")) {
         setFont(Font.font("Arial", 24))
       }
     )
@@ -85,10 +87,10 @@ class GUICards {
     vbox.setAlignment(Pos.CENTER)
     vbox.setPadding(new Insets(0))
     vbox.getChildren.addAll(
-      new Label(model.gamedata.beans(3)) {
+      new Label(modelBase.gamedata.beans(3)) {
         setFont(Font.font("Arial", 24))
       },
-      new Label(model.gamedata.priceBrech.mkString(", ")) {
+      new Label(modelBase.gamedata.priceBrech.mkString(", ")) {
         setFont(Font.font("Arial", 24))
       }
     )
@@ -104,10 +106,10 @@ class GUICards {
     vbox.setAlignment(Pos.CENTER)
     vbox.setPadding(new Insets(0))
     vbox.getChildren.addAll(
-      new Label(model.gamedata.beans(4)) {
+      new Label(modelBase.gamedata.beans(4)) {
         setFont(Font.font("Arial", 24))
       },
-      new Label(model.gamedata.priceSoja.mkString(", ")) {
+      new Label(modelBase.gamedata.priceSoja.mkString(", ")) {
         setFont(Font.font("Arial", 24))
       }
     )
@@ -123,10 +125,10 @@ class GUICards {
     vbox.setAlignment(Pos.CENTER)
     vbox.setPadding(new Insets(0))
     vbox.getChildren.addAll(
-      new Label(model.gamedata.beans(5)) {
+      new Label(modelBase.gamedata.beans(5)) {
         setFont(Font.font("Arial", 24))
       },
-      new Label(model.gamedata.priceAugen.mkString(", ")) {
+      new Label(modelBase.gamedata.priceAugen.mkString(", ")) {
         setFont(Font.font("Arial", 24))
       }
     )
@@ -142,10 +144,10 @@ class GUICards {
     vbox.setAlignment(Pos.CENTER)
     vbox.setPadding(new Insets(0))
     vbox.getChildren.addAll(
-      new Label(model.gamedata.beans(6)) {
+      new Label(modelBase.gamedata.beans(6)) {
         setFont(Font.font("Arial", 24))
       },
-      new Label(model.gamedata.priceRote.mkString(", ")) {
+      new Label(modelBase.gamedata.priceRote.mkString(", ")) {
         setFont(Font.font("Arial", 24))
       }
     )
@@ -161,10 +163,10 @@ class GUICards {
     vbox.setAlignment(Pos.CENTER)
     vbox.setPadding(new Insets(0))
     vbox.getChildren.addAll(
-      new Label(model.gamedata.beans(7)){
+      new Label(modelBase.gamedata.beans(7)){
         setFont(Font.font("Arial", 24))
       },
-      new Label(model.gamedata.priceGarten.mkString(", ")) {
+      new Label(modelBase.gamedata.priceGarten.mkString(", ")) {
         setFont(Font.font("Arial", 24))
       }
         )

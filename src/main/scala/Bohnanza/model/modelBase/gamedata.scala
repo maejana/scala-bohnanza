@@ -1,4 +1,6 @@
-package Bohnanza.model
+package Bohnanza.model.modelBase
+
+import Bohnanza.model.modelBase.card
 
 import scala.collection.mutable.{ArrayBuffer, ArrayStack}
 

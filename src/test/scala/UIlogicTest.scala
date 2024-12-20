@@ -1,11 +1,12 @@
 package Bohnanza
 
-import Bohnanza.controller.GameUpdate
+import Bohnanza.controller.controllerBase.GameUpdate
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.matchers.should.Matchers.regex
 import Bohnanza.model
-import Bohnanza.model.player
+import Bohnanza.model.modelBase.{card, gameDataFunc, gamedata, player}
+import Bohnanza.model.modelBase
 import Bohnanza.view
 import org.scalactic.Prettifier.default
 
@@ -17,7 +18,7 @@ class UIlogicTest extends AnyWordSpec with Matchers {
   "UIlogic" should {
     "initPlayer" in {
       val playerName = "TestPlayer"
-      val result = model.gameDataFunc.initPlayer(playerName)
+      val result = gameDataFunc.initPlayer(playerName)
       result should include(playerName)
       result should include regex ("((?:Blaue|Feuer|Sau|Brech|Soja|Augen|Rote|Garten),\\s){4}(Blaue|Feuer|Sau|Brech|Soja|Augen|Rote|Garten)")
     }
@@ -25,7 +26,7 @@ class UIlogicTest extends AnyWordSpec with Matchers {
     "initGame" in {
       val input = new java.io.ByteArrayInputStream("2\nPlayer1\nPlayer2\n".getBytes)
       Console.withIn(input) {
-        val result = model.gameDataFunc.initGame
+        val result = modelBase.gameDataFunc.initGame
         result should include("Player1")
         result should include("Player2")
       }
@@ -48,7 +49,7 @@ class UIlogicTest extends AnyWordSpec with Matchers {
       // Call the method
       val result = UIlogic.weightedRandom()
 
-      model.gamedata.cards should contain(result)
+      gamedata.cards should contain(result)
     }
     "keyListener" in{
       val mock = 0
@@ -59,14 +60,14 @@ class UIlogicTest extends AnyWordSpec with Matchers {
       val mockPlayer = player(
         name = "TestPlayer",
         hand = ArrayBuffer(
-          model.card("Bean1", 1, ArrayBuffer(1)),
-          model.card("Bean2", 1, ArrayBuffer(1)),
-          model.card("Bean3", 1, ArrayBuffer(1))
+          card("Bean1", 1, ArrayBuffer(1)),
+          card("Bean2", 1, ArrayBuffer(1)),
+          card("Bean3", 1, ArrayBuffer(1))
         )
       )
 
       // Call the method
-      val result = model.gameDataFunc.buildGrowingFieldStr(mockPlayer)
+      val result = modelBase.gameDataFunc.buildGrowingFieldStr(mockPlayer)
 
       // Expected result
       val expected =

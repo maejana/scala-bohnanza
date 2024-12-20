@@ -1,7 +1,7 @@
 package Bohnanza.view
 
 import Bohnanza.model
-import Bohnanza.view.FXGUi.plantInPlantfield
+import Bohnanza.view.viewBase.FXGUi.plantInPlantfield
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.control.Label
 import scalafx.scene.layout.{HBox, VBox}
