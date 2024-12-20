@@ -6,7 +6,7 @@ import Bohnanza.model.modelBase
 import Bohnanza.model.modelBase.{dynamicGamedata, fieldBuilder, gameDataFunc, gamedata}
 
 object GameUpdate {
-  def gameUpdate(): String = {
+  def gameUpdate(interface: modelTrait): String = {
     var z = false
     var i = 0
     var round = 1
@@ -18,7 +18,7 @@ object GameUpdate {
       println(modelBase.dynamicGamedata.playingPlayer.get.playerName)
       playerState.handle(modelBase.dynamicGamedata.playingPlayer)
       println(gamedata.plantAmountQuestion)
-      println(modelTrait.playerHandToString(modelBase.dynamicGamedata.playingPlayer.get.playerHand))
+      println(interface.playerHandToString(modelBase.dynamicGamedata.playingPlayer.get.playerHand))
       modelBase.dynamicGamedata.plantCount = Utility.plant1or2(modelBase.dynamicGamedata.playingPlayer)
       UndoCommand.PlantBeanCommand.doStep(modelBase.dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
       //planting
@@ -26,7 +26,7 @@ object GameUpdate {
       UndoCommand.PlantBeanCommand.doStep(modelBase.dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
       println(fieldBuilder.buildGrowingFieldStr(modelBase.dynamicGamedata.playingPlayer))
       //Trade or plant 2 Cards
-      modelBase.dynamicGamedata.drawnCards = modelBase.gameDataFunc.drawCards()
+      modelBase.dynamicGamedata.drawnCards = interface.drawCards()
       modelBase.dynamicGamedata.drawnCards.foreach(card => println(card.beanName))
       println(modelBase.gamedata.drawCardText)
       plantAmount.selectStrategy().execute(modelBase.dynamicGamedata.drawnCards, modelBase.dynamicGamedata.playingPlayer)
@@ -48,10 +48,10 @@ object GameUpdate {
     s.append(modelBase.gamedata.playerCountQuestion)
     s.toString()
   }
-  def gameStart(): String = {
+  def gameStart(interface: modelTrait): String = {
     val s = new StringBuilder()
     model.modelBase.dynamicGamedata.plant1or2 = 0
-    s.append(modelBase.gameDataFunc.initGame)
+    s.append(interface.initGame)
     s.append("\n\n")
     s.toString()
   }

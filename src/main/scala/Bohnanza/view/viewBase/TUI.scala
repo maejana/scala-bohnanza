@@ -14,9 +14,9 @@ object TUI {
   }
   def setUpTUI(): Unit = {
     println(GameUpdate.gameSetup())
-    println(controllerBase.GameUpdate.gameStart())
+    println(controllerBase.GameUpdate.gameStart(modelBase.gameDataFunc()))
   }
   def startGame(): Unit ={
-    println(controllerBase.GameUpdate.gameUpdate())
+    println(controllerBase.GameUpdate.gameUpdate(modelBase.gameDataFunc))
   }
 }
