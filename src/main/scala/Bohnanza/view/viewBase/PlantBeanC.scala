@@ -21,7 +21,9 @@ object PlantBeanC {
       val cardToPlant: card = modelBase.dynamicGamedata.playingPlayer.get.playerHand(0)
       if(controllerBase.Utility.isPlantable(modelBase.dynamicGamedata.playingPlayer, cardToPlant)){
         controllerBase.Utility.plant(cardToPlant, modelBase.dynamicGamedata.playingPlayer)
+        controllerBase.Utility.plantPreperation(model.modelBase.dynamicGamedata.playingPlayer)
       }
+    
       FXGUi.stage.scene = new scalafx.scene.Scene(FXGUi.spielerRunde())
       FXGUi.stage.maximized = true
     }
