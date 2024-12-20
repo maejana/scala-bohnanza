@@ -26,7 +26,7 @@ object FXGUi extends JFXApp3 {
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
       title = "Bohnanza"
-      resizable = false
+      resizable = true
       maximized = true
       scene = new Scene(startScene())
       onCloseRequest = _ => {
@@ -50,7 +50,7 @@ object FXGUi extends JFXApp3 {
         font = Font.font("Arial", 18)
         onAction = _ => {
           stage.scene = new Scene(namenEingebenSeite())
-          stage.maximized = true
+          stage.fullScreen = true
         }
       }
     )
@@ -74,7 +74,7 @@ object FXGUi extends JFXApp3 {
       dynamicGamedata.playerCount = count
       modelBase.dynamicGamedata.readerThread.interrupt()
       namenEingeben(count)
-      stage.maximized = true
+      stage.fullScreen = true
     }
 
     children = Seq(label, dropdown, button)
@@ -99,7 +99,7 @@ object FXGUi extends JFXApp3 {
 
           onAction = _ => {
             stage.scene = new Scene(spielerRunde())
-            stage.maximized  = true
+            stage.fullScreen = true 
           }
         }
       )
@@ -184,7 +184,7 @@ object FXGUi extends JFXApp3 {
               font = Font.font("Arial", 18)
               onAction = _ => {
                 stage.scene = new Scene (drawAndPlantCards())
-                stage.maximized = true
+                stage.fullScreen = true 
               }
             }
           )
@@ -218,7 +218,7 @@ object FXGUi extends JFXApp3 {
   def plantBean(i: Int): Unit = {
     PlantBeanC.plantBean(i)
     stage.scene = new Scene(playerOut())
-    stage.maximized = true
+    stage.fullScreen = true 
   }
 
   def plantInPlantfield(bean: String): VBox = {
@@ -249,7 +249,7 @@ object FXGUi extends JFXApp3 {
             modelBase.dynamicGamedata.playingPlayer = controllerBase.Utility.selectPlayer()
             controllerBase.playerState.handle(modelBase.dynamicGamedata.playingPlayer)
             stage.scene = new Scene(spielerRunde())
-            stage.maximized = true
+            stage.fullScreen = true
           }
         }
       )
