@@ -20,15 +20,13 @@ object Utility extends ControllerComponent {
     val card: card = findCardWithName(cardname)
     modelBase.dynamicGamedata.cardsToPlant += card
     card
-    
-    
   }
 
   def plantPreperation(player: Option[player]): String = {
-    var plantCard: card = card(gamedata.beans(2),modelBase.gamedata.weights(0), modelBase.gamedata.priceBlaue)
-    if (!modelBase.dynamicGamedata.cardsToPlant.isEmpty) {
-      plantCard = plantInfo()
-    }
+    //var plantCard: card = card(gamedata.beans(2),modelBase.gamedata.weights(0), modelBase.gamedata.priceBlaue)
+    //if (!modelBase.dynamicGamedata.cardsToPlant.isEmpty) {
+    val plantCard = plantInfo()
+    //}
     val gameUpdateLog = new StringBuilder()
     if (plantCard.equals(card(modelBase.gamedata.beans(2),modelBase.gamedata.weights(0), modelBase.gamedata.priceBlaue))) {
       ""
@@ -88,7 +86,7 @@ object Utility extends ControllerComponent {
   }
 
   def selectPlayer(): Option[player] = {
-    if (modelBase.dynamicGamedata.playerCount <= modelBase.dynamicGamedata.playingPlayerID-1) {
+    if (modelBase.dynamicGamedata.playerCount <= modelBase.dynamicGamedata.playingPlayerID) {
       modelBase.dynamicGamedata.playingPlayerID = 0
       modelBase.dynamicGamedata.playingPlayer = Some(modelBase.dynamicGamedata.players(modelBase.dynamicGamedata.playingPlayerID))
       modelBase.dynamicGamedata.playingPlayer
@@ -133,13 +131,13 @@ object Utility extends ControllerComponent {
       viewBase.playerInput.keyListener()
       Nr = modelBase.dynamicGamedata.plant1or2
     }
-    if(Nr <= 1) {
+    if(Nr == 1) {
       modelBase.dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(0)
       gamelogic.plant(modelBase.dynamicGamedata.cardsToPlant(0),modelBase.dynamicGamedata.playingPlayer)
       modelBase.gameDataFunc.takeNewCard(playingPlayer)
       Nr = 1
     }
-    if(Nr >= 2){
+    if(Nr == 2){
       modelBase.dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(0)
       modelBase.dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(1)
       gamelogic.plant(modelBase.dynamicGamedata.cardsToPlant(0),modelBase.dynamicGamedata.playingPlayer)

@@ -49,6 +49,7 @@ object GameUpdate {
   }
   def gameStart(): String = {
     val s = new StringBuilder()
+    model.modelBase.dynamicGamedata.plant1or2 = 0
     s.append(modelBase.gameDataFunc.initGame)
     s.append("\n\n")
     s.toString()

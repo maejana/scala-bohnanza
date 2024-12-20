@@ -99,6 +99,7 @@ object FXGUi extends JFXApp3 {
 
           onAction = _ => {
             controller.controllerBase.Utility.deletePlayerBecauseBug()
+            Utility.selectPlayer()
             stage.scene = new Scene(spielerRunde())
             stage.fullScreen = true 
           }
@@ -132,7 +133,6 @@ object FXGUi extends JFXApp3 {
       if (textField.text().nonEmpty) {
         modelBase.dynamicGamedata.NameReaderThread.interrupt()
         gameDataFunc.initPlayer(textField.text())
-        Utility.selectPlayer()
         println(s"Spieler $nr: ${textField.text()}")
         disableSaveButton(buttonSave, textField)
       }
@@ -199,7 +199,7 @@ object FXGUi extends JFXApp3 {
             playerStep += 1
             stage.scene = new Scene(drawAndPlantCards())
             stage.maximized = true
-            controllerBase.Utility.selectPlayer()
+            //controllerBase.Utility.selectPlayer()
             playerState.handle(modelBase.dynamicGamedata.playingPlayer)
             playerStep = 0
           }
@@ -247,7 +247,7 @@ object FXGUi extends JFXApp3 {
         new Button(modelBase.gamedata.continue) {
           onAction = _ => {
             font = Font.font("Arial", 24)
-            controllerBase.Utility.selectPlayer()
+            //controllerBase.Utility.selectPlayer()
             controllerBase.playerState.handle(modelBase.dynamicGamedata.playingPlayer)
             stage.scene = new Scene(spielerRunde())
             stage.fullScreen = true

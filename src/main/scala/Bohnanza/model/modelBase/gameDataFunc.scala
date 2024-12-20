@@ -38,10 +38,10 @@ object gameDataFunc {
       hand.addOne(controllerBase.Utility.weightedRandom())
       growingFieldText += hand(i - 1).beanName + ", "
     }
-    
     hand.addOne(controllerBase.Utility.weightedRandom())
+
     val newPlayer = FactoryP.PlayerFactory().createPlayer(playerName, hand) // Factory Pattern um Player zu erstellen
-    growingFieldText += hand(4).beanName
+    //growingFieldText += hand(4).beanName
     if(!dynamicGamedata.players.isEmpty) {
       dynamicGamedata.players.toList.foreach((p: player) =>
         if (!p.playerName.equals(newPlayer.playerName)) {
@@ -49,7 +49,6 @@ object gameDataFunc {
         })
     }
     else dynamicGamedata.players += newPlayer
-    println("PLAYERS: " + dynamicGamedata.players.size)
     growingFieldText
   }
   def initGame: String = {
