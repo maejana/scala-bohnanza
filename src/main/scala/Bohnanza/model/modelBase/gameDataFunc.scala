@@ -8,12 +8,11 @@ import Bohnanza.view.viewBase
 import Bohnanza.view.viewBase.playerInput
 import Bohnanza.{controller, model, view}
 import Bohnanza.model.modelTrait
+
 import java.io.{ByteArrayInputStream, InputStream}
 import scala.collection.mutable.ArrayBuffer
-
-
-class gameDataFunc extends modelTrait{
-  override def drawCards(): ArrayBuffer[card] = {
+object gameDataFunc extends modelTrait{
+  def drawCards(): ArrayBuffer[card] = {
     val cardArray = ArrayBuffer[card]()
     for (i <- 1 to 2) {
       cardArray.addOne(Utility.weightedRandom())
@@ -21,7 +20,7 @@ class gameDataFunc extends modelTrait{
     cardArray
   }
   
-  override def initPlayer(name: String): String = {
+  def initPlayer(name: String): String = {
     val playerName = name
     var growingFieldText: String =
       s"""
@@ -53,7 +52,7 @@ class gameDataFunc extends modelTrait{
     else dynamicGamedata.players += newPlayer
     growingFieldText
   }
-  override def initGame: String = {
+  def initGame: String = {
     var str = ""
     playerInput.playercount()
 
@@ -68,15 +67,15 @@ class gameDataFunc extends modelTrait{
     }
     str
   }
-  override def playerFieldToString(field: ArrayBuffer[card]): String = {
+  def playerFieldToString(field: ArrayBuffer[card]): String = {
     var s = ""
     field.foreach(card => s += card.beanName + " ")
     s
   }
-  override def takeNewCard(player: Option[player]): Unit = {
+  def takeNewCard(player: Option[player]): Unit = {
     player.get.playerHand += controllerBase.Utility.weightedRandom()
   }
-  override def playerHandToString(hand: ArrayBuffer[card]): String = {
+  def playerHandToString(hand: ArrayBuffer[card]): String = {
     var s = ""
     hand.foreach(card => s += card.beanName + " ")
     s
