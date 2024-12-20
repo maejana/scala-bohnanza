@@ -1,6 +1,7 @@
 package Bohnanza.controller.controllerBase
 
 import Bohnanza.model
+import Bohnanza.model.modelTrait
 import Bohnanza.model.modelBase
 import Bohnanza.model.modelBase.{dynamicGamedata, fieldBuilder, gameDataFunc, gamedata}
 
@@ -17,7 +18,7 @@ object GameUpdate {
       println(modelBase.dynamicGamedata.playingPlayer.get.playerName)
       playerState.handle(modelBase.dynamicGamedata.playingPlayer)
       println(gamedata.plantAmountQuestion)
-      println(gameDataFunc.playerHandToString(modelBase.dynamicGamedata.playingPlayer.get.playerHand))
+      println(modelTrait.playerHandToString(modelBase.dynamicGamedata.playingPlayer.get.playerHand))
       modelBase.dynamicGamedata.plantCount = Utility.plant1or2(modelBase.dynamicGamedata.playingPlayer)
       UndoCommand.PlantBeanCommand.doStep(modelBase.dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
       //planting
