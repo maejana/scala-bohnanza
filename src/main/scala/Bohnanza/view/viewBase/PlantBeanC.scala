@@ -6,7 +6,6 @@ import Bohnanza.model.modelBase
 import Bohnanza.model.modelBase.{card, dynamicGamedata}
 import Bohnanza.{controller, model}
 import Bohnanza.view.PlantBeanInView
-import Bohnanza.view.viewBase.FXGUi
 
 object PlantBeanC {
   case class PlantNone() extends PlantBeanInView{

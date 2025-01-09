@@ -4,6 +4,7 @@ import Bohnanza.controller.ControllerComponent
 import Bohnanza.model
 import Bohnanza.model.modelTrait
 import Bohnanza.model.modelBase.{card, dynamicGamedata, player}
+import Bohnanza.model.modelBase
 
 
 object gamelogic extends ControllerComponent {
