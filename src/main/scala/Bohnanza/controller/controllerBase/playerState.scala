@@ -3,6 +3,7 @@ package Bohnanza.controller.controllerBase
 import Bohnanza.model
 import Bohnanza.model.modelBase.{dynamicGamedata, player}
 import Bohnanza.controller.State
+import Bohnanza.controller.playerStateComponent
 
 class playerState(dynamicGamedata: dynamicGamedataComponent) {
 
@@ -24,7 +25,7 @@ class playerState(dynamicGamedata: dynamicGamedataComponent) {
 
   var state: State = Plays() // Initial state
 
-  def handle(player: Option[player]): Unit = {
+  override def handle(player: Option[player]): Unit = {
     state = state.handle(player)
     dynamicGamedata.playingPlayer.get.lastMethodUsed = "handle"
   }

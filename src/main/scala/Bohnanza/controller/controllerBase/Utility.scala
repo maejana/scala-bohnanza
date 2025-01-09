@@ -13,6 +13,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
   ObserverData.addObserver(CardObserver)
   
   def plantInfo(): card = {
+
     val cardname = dynamicGamedata.cardsToPlant(0).beanName
     dynamicGamedata.cardsToPlant -= findCardWithName(cardname)
     val card: card = findCardWithName(cardname)
@@ -20,7 +21,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
     card
   }
 
-  def plantPreperation(player: Option[player]): String = {
+  override def plantPreperation(player: Option[player]): String = {
     //var plantCard: card = card(gamedata.beans(2),modelBase.gamedata.weights(0), modelBase.gamedata.priceBlaue)
     //if (!modelBase.dynamicGamedata.cardsToPlant.isEmpty) {
     val plantCard = plantInfo()
@@ -39,7 +40,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
     }
   }
 
-  def findCardWithName(name: String): card = {
+  override def findCardWithName(name: String): card = {
     var i = 0
     for (i <- 0 until gamedata.cards.length) {
       if (gamedata.cards(i).beanName == name) {
@@ -49,13 +50,13 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
     card(gamedata.beans(0),gamedata.weights(0), gamedata.priceBlaue)
   }
 
-  def plantDrawnCard(player: Option[player], card: card): Unit = {
+  override def plantDrawnCard(player: Option[player], card: card): Unit = {
     if (isPlantable(player, card)) {
       gamelogic.plant(card, player)
     }
   }
 
-  def emptyPlantfieldNr(player: Option[player]): Int = {
+  override def emptyPlantfieldNr(player: Option[player]): Int = {
     if (player.get.plantfield1.isEmpty) {
       return 1
     } else if (player.get.plantfield2.isEmpty) {
@@ -65,7 +66,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
     } else return -1
   }
 
-  def selectCardToPlant(cards: ArrayBuffer[card]): card = {
+  override def selectCardToPlant(cards: ArrayBuffer[card]): card = {
     var bool = true
     while (bool) {
       val cardToPlant = plantInfo()
@@ -79,7 +80,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
     card(gamedata.beans(2),gamedata.weights(0), gamedata.priceBlaue)
   }
 
-  def findCardId(player: player, card: card): Int = {
+  override def findCardId(player: player, card: card): Int = {
     player.playerHand.indexOf(card)
   }
 
@@ -88,6 +89,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
       dynamicGamedata.playingPlayerID = 0
       dynamicGamedata.playingPlayer = Some(dynamicGamedata.players(dynamicGamedata.playingPlayerID))
       dynamicGamedata.playingPlayer
+
     }
     else {
       dynamicGamedata.playingPlayer = Some(dynamicGamedata.players(dynamicGamedata.playingPlayerID))
@@ -96,7 +98,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
     }
   }
 
-  def isPlantable(player: Option[player], bean: card): Boolean = {
+  override def isPlantable(player: Option[player], bean: card): Boolean = {
     if (player.get.plantfield1.contains(bean.beanName) || player.get.plantfield2.contains(bean.beanName) || player.get.plantfield3.contains(bean.beanName)) {
       return true
     }
@@ -108,7 +110,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
     }
   }
 
-  def chooseOrEmpty(playerID: Option[player], card: card): Int = {
+  override def chooseOrEmpty(playerID: Option[player], card: card): Int = {
     if (playerID.get.plantfield1.contains(card)) {
       return 1
     } else if (playerID.get.plantfield2.contains(card)) {
@@ -120,7 +122,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
     }
   }
 
-  def plant1or2(playingPlayer: Option[player]): Int = {
+  override def plant1or2(playingPlayer: Option[player]): Int = {
     playerInput.keyListener()
     var Nr = dynamicGamedata.plant1or2
     if(Nr == -1)
@@ -149,7 +151,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
     Nr
   }
 
-  def plantAllSelectedCards(plantCount : Integer): Unit = {
+  override def plantAllSelectedCards(plantCount : Integer): Unit = {
     var i = 0
     while (i < plantCount) {
       plantPreperation(dynamicGamedata.playingPlayer)
@@ -157,19 +159,21 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
     }
   }
 
+
   def plant1or2ThreadInterrupt(): Unit = {
     dynamicGamedata.readerThreadPlant1or2.interrupt()
     fieldBuilder.buildGrowingFieldStr(dynamicGamedata.playingPlayer)
+
   }
 
-  def returnGoldValue(plantfield : ArrayBuffer[card]): Int = {
+  override def returnGoldValue(plantfield : ArrayBuffer[card]): Int = {
     if(!plantfield.isEmpty){
       checkPlantAmount(plantfield(0),plantfield)
     }
     0
   }
 
-  def checkPlantAmount(card: card, plantfield : ArrayBuffer[card]): Int = {
+  override def checkPlantAmount(card: card, plantfield : ArrayBuffer[card]): Int = {
     var cardSteps = 1
     while(plantfield.size >= card.price(cardSteps)){
       cardSteps += 1
@@ -177,7 +181,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
     card.price(cardSteps)
   }
 
-  def weightedRandom(): card = {
+  override def weightedRandom(): card = {
     val allcards = ArrayBuffer[card]()
     for (i <- 1 to gamedata.cards.size) {
       for (h <- 1 to gamedata.cards(i - 1).weightCount)
@@ -199,7 +203,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
 
   }
 
-  def plantSelectString(player: Option[player]): String = {
+  override def plantSelectString(player: Option[player]): String = {
     var s: String = ""
     s += gamedata.selectPlantCard
     s += gameDataFunc.playerHandToString(player.get.playerHand)
@@ -210,6 +214,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
     if(dynamicGamedata.players.size != dynamicGamedata.playerCount){
       for(i <- 1 to dynamicGamedata.players.size-dynamicGamedata.playerCount){
         dynamicGamedata.players.remove(dynamicGamedata.players.size-1)
+
       }
       println(dynamicGamedata.players.size)
     }

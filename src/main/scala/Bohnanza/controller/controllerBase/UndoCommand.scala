@@ -7,7 +7,9 @@
 
  import scala.collection.mutable
  import scala.collection.mutable.Stack
+
 class UndoCommand(fieldBuilder: fieldBuilderComponent, gamedata: gamedataComponent, utility: UtilityComponent, dynamicGamedata: dynamicGamedataComponent, gameDataFunc: gameDataFuncComponent, plantAmount: plantAmountController, playerState: playerStateComponent) {
+
   trait Command {
     def doStep(player: Option[player]): Unit
 
@@ -16,7 +18,7 @@ class UndoCommand(fieldBuilder: fieldBuilderComponent, gamedata: gamedataCompone
     def redoStep(player: Option[player]): Unit
   }
 
-  object PlantBeanCommand extends Command {
+  object PlantBeanCommand extends Command, UndoCommantComponent {
     private val stateStack: mutable.Stack[player] = mutable.Stack()
     private val redoStack: mutable.Stack[player] = mutable.Stack()
 
@@ -34,7 +36,7 @@ class UndoCommand(fieldBuilder: fieldBuilderComponent, gamedata: gamedataCompone
       matchState()
     }
 
-    def matchState(): Unit = {
+    override def matchState(): Unit = {
       dynamicGamedata.playingPlayer.get.lastMethodUsed match {
         case "plant1or2" => println(gamedata.plantAmountQuestion)
           println(gameDataFunc.playerHandToString(dynamicGamedata.playingPlayer.get.playerHand))

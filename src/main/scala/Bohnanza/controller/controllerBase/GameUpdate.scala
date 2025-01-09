@@ -1,6 +1,7 @@
 package Bohnanza.controller.controllerBase
 
 import Bohnanza.model
+import Bohnanza.controller.GameUpdateComponent
 import Bohnanza.model.modelTrait
 import Bohnanza.model.modelBase
 import Bohnanza.model.modelBase.gameDataFunc.{drawCards, initGame, playerHandToString}
@@ -8,6 +9,7 @@ import Bohnanza.model.modelBase.{dynamicGamedata, fieldBuilder, gameDataFunc, ga
 
 class GameUpdate(dynamicGamedata: dynamicGamedataComponent, UndoCommand: UndoCommandComponent, utility: UtilityComponent, plantAmount: PlantAmountComponent, playerState: PlayerStateComponent, gamedata: gamedataComponent) {
   def gameUpdate(): String = {
+
     var z = false
     var i = 0
     var round = 1
@@ -41,7 +43,7 @@ class GameUpdate(dynamicGamedata: dynamicGamedataComponent, UndoCommand: UndoCom
     }
     gameUpdateLog.toString // Gibt das gesamte Log als String zurück
   }
-  def gameSetup(): String = {
+  override def gameSetup(): String = {
     val s = new StringBuilder()
     s.append(gamedata.welcome)
     s.append(gamedata.menu)
@@ -49,7 +51,7 @@ class GameUpdate(dynamicGamedata: dynamicGamedataComponent, UndoCommand: UndoCom
     s.append(gamedata.playerCountQuestion)
     s.toString()
   }
-  def gameStart(): String = {
+  override def gameStart(): String = {
     val s = new StringBuilder()
     dynamicGamedata.plant1or2 = 0
     s.append(initGame)

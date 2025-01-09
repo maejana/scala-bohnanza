@@ -20,6 +20,10 @@ libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0"
 libraryDependencies += "org.scalafx" %% "scalafx" % "20.0.0-R31"
 
 
+libraryDependencies += "com.google.inject" % "guice" % "4.1.0"
+
+libraryDependencies += "net.codingwell" %% "scala-guice" % "7.0.0"
+
 // Optionally, specify ScalaTest or another test framework for better integration
 coverageEnabled := true
 //fork:=true
