@@ -6,7 +6,7 @@ import Bohnanza.model.modelBase.card
 
 import scala.collection.mutable.ArrayBuffer
 
-object dynamicGamedata extends SubjectTrait {
+class dynamicGamedata extends SubjectTrait {
   var players = ArrayBuffer[player]()
   var drawnCards: ArrayBuffer[card] = ArrayBuffer[card]()
   var playingPlayer: Option[player] = None

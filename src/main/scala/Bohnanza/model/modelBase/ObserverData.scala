@@ -2,7 +2,7 @@ package Bohnanza.model.modelBase
 
 import Bohnanza.controller.{ObserverTrait, SubjectTrait}
 
-object ObserverData extends SubjectTrait {
+class ObserverData extends SubjectTrait {
   var observers = List[ObserverTrait]()
   def updateCards(): Unit = {
     notifyObservers()

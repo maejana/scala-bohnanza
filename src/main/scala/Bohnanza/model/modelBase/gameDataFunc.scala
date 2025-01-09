@@ -11,11 +11,11 @@ import Bohnanza.model.modelTrait
 
 import java.io.{ByteArrayInputStream, InputStream}
 import scala.collection.mutable.ArrayBuffer
-object gameDataFunc extends modelTrait{
+class gameDataFunc(utility: UtilityComponent, gamedata: gamedataComponent, FactoryP: FactoryPComponent, dynamicGamedata: dynamicGamedataComponent) extends modelTrait{
   def drawCards(): ArrayBuffer[card] = {
     val cardArray = ArrayBuffer[card]()
     for (i <- 1 to 2) {
-      cardArray.addOne(Utility.weightedRandom())
+      cardArray.addOne(utility.weightedRandom())
     }
     cardArray
   }
@@ -36,10 +36,10 @@ object gameDataFunc extends modelTrait{
     val weights = gamedata.weights
     val hand: ArrayBuffer[card] = ArrayBuffer()
     for (i <- 1 to 4) {
-      hand.addOne(controllerBase.Utility.weightedRandom())
+      hand.addOne(utility.weightedRandom())
       growingFieldText += hand(i - 1).beanName + ", "
     }
-    hand.addOne(controllerBase.Utility.weightedRandom())
+    hand.addOne(utility.weightedRandom())
 
     val newPlayer = FactoryP.PlayerFactory().createPlayer(playerName, hand) // Factory Pattern um Player zu erstellen
     //growingFieldText += hand(4).beanName
@@ -56,10 +56,10 @@ object gameDataFunc extends modelTrait{
     var str = ""
     playerInput.playercount()
 
-    if(modelBase.dynamicGamedata.players.length != modelBase.dynamicGamedata.playerCount){
+    if(dynamicGamedata.players.length != dynamicGamedata.playerCount){
       val playernames: Array[String] = new Array[String](dynamicGamedata.playerCount)
       println("Namen eingeben:")
-      for (i <- 1 to dynamicGamedata.playerCount-modelBase.dynamicGamedata.players.length) {
+      for (i <- 1 to dynamicGamedata.playerCount-dynamicGamedata.players.length) {
         playernames(i-1) = viewBase.playerInput.playername()
         //view.GUI.addPlayerViaTUI(playernames(i-1), i)
         if(playernames(i-1)!= "") str += initPlayer(playernames(i-1))
@@ -73,7 +73,7 @@ object gameDataFunc extends modelTrait{
     s
   }
   def takeNewCard(player: Option[player]): Unit = {
-    player.get.playerHand += controllerBase.Utility.weightedRandom()
+    player.get.playerHand += utility.weightedRandom()
   }
   def playerHandToString(hand: ArrayBuffer[card]): String = {
     var s = ""

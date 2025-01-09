@@ -3,7 +3,7 @@ package Bohnanza.model.modelBase
 import Bohnanza.model.Builder
 
 
-object fieldBuilder extends Builder {
+class fieldBuilder(gameDataFunc: gameDataFuncComponent) extends Builder {
   override def buildGrowingFieldStr(playingPlayer: Option[player]): String = {
     val growingFieldText: String =
       s"""

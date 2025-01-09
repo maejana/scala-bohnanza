@@ -7,7 +7,7 @@ import Bohnanza.model.FactoryT
 
 import scala.collection.mutable.ArrayBuffer
 
-object FactoryP {
+class FactoryP(playerState: playerStateComponent) {
   
 
   class PlayerFactory extends FactoryT {

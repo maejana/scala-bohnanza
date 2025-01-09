@@ -4,7 +4,7 @@ import Bohnanza.model.modelBase.card
 
 import scala.collection.mutable.{ArrayBuffer, ArrayStack}
 
-object gamedata {
+class gamedata {
   val welcome = "Welcome to Bohnanza\n"
   val menu = "Druecke M um das Menue anzuzeigen"
   val playerCountQuestion = "Wie viele Spieler spielen?"

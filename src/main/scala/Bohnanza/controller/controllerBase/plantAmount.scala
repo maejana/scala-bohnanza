@@ -6,7 +6,7 @@ import Bohnanza.{controller, model, view}
 
 import scala.collection.mutable.ArrayBuffer
 
-object plantAmount {
+class plantAmount(utility: UtilityComponent, dynamicGamedata: dynamicGamedataComponent, gamedata: gamedataComponent) {
   trait Strategy {
     def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean
   }
@@ -20,15 +20,15 @@ object plantAmount {
   class Strategy2 extends Strategy {
     override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = {
       println(gamedata.drawnCardName)
-      Utility.plantDrawnCard(player, Utility.selectCardToPlant(cards))
+      utility.plantDrawnCard(player, utility.selectCardToPlant(cards))
       true
     }
   }
 
   class Strategy3 extends Strategy {
     override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = {
-      Utility.plantDrawnCard(player, cards(0))
-      Utility.plantDrawnCard(player, cards(1))
+      utility.plantDrawnCard(player, cards(0))
+      utility.plantDrawnCard(player, cards(1))
       true
     }
   }

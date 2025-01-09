@@ -7,7 +7,7 @@
 
  import scala.collection.mutable
  import scala.collection.mutable.Stack
-object UndoCommand {
+class UndoCommand(fieldBuilder: fieldBuilderComponent, gamedata: gamedataComponent, utility: UtilityComponent, dynamicGamedata: dynamicGamedataComponent, gameDataFunc: gameDataFuncComponent, plantAmount: plantAmountController, playerState: playerStateComponent) {
   trait Command {
     def doStep(player: Option[player]): Unit
 
@@ -36,16 +36,16 @@ object UndoCommand {
 
     def matchState(): Unit = {
       dynamicGamedata.playingPlayer.get.lastMethodUsed match {
-        case "plant1or2" => println(modelBase.gamedata.plantAmountQuestion)
-          println(gameDataFunc.playerHandToString(modelBase.dynamicGamedata.playingPlayer.get.playerHand))
-          modelBase.dynamicGamedata.plantCount = Utility.plant1or2(modelBase.dynamicGamedata.playingPlayer)
-          Utility.plantAllSelectedCards(modelBase.dynamicGamedata.plantCount)
-          UndoCommand.PlantBeanCommand.doStep(modelBase.dynamicGamedata.playingPlayer)
-        case "handle" => modelBase.dynamicGamedata.drawnCards.foreach(card => println(card.beanName))
-          println(modelBase.gamedata.drawCardText)
-          plantAmount.selectStrategy().execute(modelBase.dynamicGamedata.drawnCards, modelBase.dynamicGamedata.playingPlayer)
-          println(modelBase.fieldBuilder.buildGrowingFieldStr(modelBase.dynamicGamedata.playingPlayer))
-          playerState.handle(modelBase.dynamicGamedata.playingPlayer)
+        case "plant1or2" => println(gamedata.plantAmountQuestion)
+          println(gameDataFunc.playerHandToString(dynamicGamedata.playingPlayer.get.playerHand))
+          dynamicGamedata.plantCount = utility.plant1or2(dynamicGamedata.playingPlayer)
+          utility.plantAllSelectedCards(dynamicGamedata.plantCount)
+          PlantBeanCommand.doStep(dynamicGamedata.playingPlayer)
+        case "handle" => dynamicGamedata.drawnCards.foreach(card => println(card.beanName))
+          println(gamedata.drawCardText)
+          plantAmount.selectStrategy().execute(dynamicGamedata.drawnCards, dynamicGamedata.playingPlayer)
+          println(fieldBuilder.buildGrowingFieldStr(dynamicGamedata.playingPlayer))
+          playerState.handle(dynamicGamedata.playingPlayer)
       }
     }
 
@@ -55,8 +55,8 @@ object UndoCommand {
           stateStack.push(player.get.copyState())
           player.get.restore(redoStack.pop())
         }
-        println(modelBase.fieldBuilder.buildGrowingFieldStr(player))
-        println(modelBase.gamedata.redoSuccessful)
+        println(fieldBuilder.buildGrowingFieldStr(player))
+        println(gamedata.redoSuccessful)
         matchState()
       }
 
