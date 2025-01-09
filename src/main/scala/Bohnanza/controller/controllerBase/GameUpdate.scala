@@ -3,10 +3,11 @@ package Bohnanza.controller.controllerBase
 import Bohnanza.model
 import Bohnanza.model.modelTrait
 import Bohnanza.model.modelBase
+import Bohnanza.model.modelBase.gameDataFunc.{drawCards, initGame, playerHandToString}
 import Bohnanza.model.modelBase.{dynamicGamedata, fieldBuilder, gameDataFunc, gamedata}
 
 object GameUpdate {
-  def gameUpdate(interface: modelTrait): String = {
+  def gameUpdate(): String = {
     var z = false
     var i = 0
     var round = 1
@@ -18,7 +19,7 @@ object GameUpdate {
       println(modelBase.dynamicGamedata.playingPlayer.get.playerName)
       playerState.handle(modelBase.dynamicGamedata.playingPlayer)
       println(gamedata.plantAmountQuestion)
-      println(interface.playerHandToString(modelBase.dynamicGamedata.playingPlayer.get.playerHand))
+      println(playerHandToString(modelBase.dynamicGamedata.playingPlayer.get.playerHand))
       modelBase.dynamicGamedata.plantCount = Utility.plant1or2(modelBase.dynamicGamedata.playingPlayer)
       UndoCommand.PlantBeanCommand.doStep(modelBase.dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
       //planting
@@ -26,7 +27,7 @@ object GameUpdate {
       UndoCommand.PlantBeanCommand.doStep(modelBase.dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
       println(fieldBuilder.buildGrowingFieldStr(modelBase.dynamicGamedata.playingPlayer))
       //Trade or plant 2 Cards
-      modelBase.dynamicGamedata.drawnCards = interface.drawCards()
+      modelBase.dynamicGamedata.drawnCards = drawCards()
       modelBase.dynamicGamedata.drawnCards.foreach(card => println(card.beanName))
       println(modelBase.gamedata.drawCardText)
       plantAmount.selectStrategy().execute(modelBase.dynamicGamedata.drawnCards, modelBase.dynamicGamedata.playingPlayer)
@@ -48,10 +49,10 @@ object GameUpdate {
     s.append(modelBase.gamedata.playerCountQuestion)
     s.toString()
   }
-  def gameStart(interface: modelTrait): String = {
+  def gameStart(): String = {
     val s = new StringBuilder()
     model.modelBase.dynamicGamedata.plant1or2 = 0
-    s.append(interface.initGame)
+    s.append(initGame)
     s.append("\n\n")
     s.toString()
   }
