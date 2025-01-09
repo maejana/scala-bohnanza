@@ -4,9 +4,10 @@ import Bohnanza.model.modelBase.{card, dynamicGamedata, gamedata, player}
 import Bohnanza.view.viewBase.{handleInput, playerInput}
 import Bohnanza.{controller, model, view}
 
+import Bohnanza.controller.plantAmountComponent
 import scala.collection.mutable.ArrayBuffer
 
-object plantAmount {
+class plantAmount extends plantAmountComponent {
   trait Strategy {
     def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean
   }
@@ -38,7 +39,7 @@ object plantAmount {
       false
     }
   }
-  def selectStrategy(): Strategy = {
+  override def selectStrategy(): Strategy = {
     var validInput = false
     var strategy: Strategy = StrategyRETRY()
     while (!validInput) {

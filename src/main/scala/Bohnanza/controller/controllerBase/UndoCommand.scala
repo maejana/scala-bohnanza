@@ -7,6 +7,9 @@
 
  import scala.collection.mutable
  import scala.collection.mutable.Stack
+ 
+ import Bohnanza.controller.UndoCommandComponent
+ 
 object UndoCommand {
   trait Command {
     def doStep(player: Option[player]): Unit
@@ -16,7 +19,7 @@ object UndoCommand {
     def redoStep(player: Option[player]): Unit
   }
 
-  object PlantBeanCommand extends Command {
+  object PlantBeanCommand extends Command, UndoCommantComponent {
     private val stateStack: mutable.Stack[player] = mutable.Stack()
     private val redoStack: mutable.Stack[player] = mutable.Stack()
 
@@ -34,7 +37,7 @@ object UndoCommand {
       matchState()
     }
 
-    def matchState(): Unit = {
+    override def matchState(): Unit = {
       dynamicGamedata.playingPlayer.get.lastMethodUsed match {
         case "plant1or2" => println(modelBase.gamedata.plantAmountQuestion)
           println(gameDataFunc.playerHandToString(modelBase.dynamicGamedata.playingPlayer.get.playerHand))
