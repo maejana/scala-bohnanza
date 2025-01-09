@@ -52,7 +52,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
 
   override def plantDrawnCard(player: Option[player], card: card): Unit = {
     if (isPlantable(player, card)) {
-      gamelogic.plant(card, player)
+      plant(card, player)
     }
   }
 
