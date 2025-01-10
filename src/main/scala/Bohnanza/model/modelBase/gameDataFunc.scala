@@ -1,6 +1,6 @@
 package Bohnanza.model.modelBase
 
-import Bohnanza.controller.controllerBase
+import Bohnanza.controller.{UtilityComponent, controllerBase}
 import Bohnanza.controller.controllerBase.Utility
 import Bohnanza.model.modelBase.{FactoryP, card, dynamicGamedata, gamedata}
 import Bohnanza.model.modelBase
@@ -12,7 +12,7 @@ import Bohnanza.model.modelTrait
 import java.io.{ByteArrayInputStream, InputStream}
 import scala.collection.mutable.ArrayBuffer
 class gameDataFunc(utility: UtilityComponent, gamedata: gamedataComponent, FactoryP: FactoryPComponent, dynamicGamedata: dynamicGamedataComponent) extends modelTrait{
-  def drawCards(): ArrayBuffer[card] = {
+  override def drawCards(): ArrayBuffer[card] = {
     val cardArray = ArrayBuffer[card]()
     for (i <- 1 to 2) {
       cardArray.addOne(utility.weightedRandom())
@@ -20,7 +20,7 @@ class gameDataFunc(utility: UtilityComponent, gamedata: gamedataComponent, Facto
     cardArray
   }
   
-  def initPlayer(name: String): String = {
+  override def initPlayer(name: String): String = {
     val playerName = name
     var growingFieldText: String =
       s"""
@@ -52,7 +52,7 @@ class gameDataFunc(utility: UtilityComponent, gamedata: gamedataComponent, Facto
     else dynamicGamedata.players += newPlayer
     growingFieldText
   }
-  def initGame: String = {
+  override def initGame: String = {
     var str = ""
     playerInput.playercount()
 
@@ -67,15 +67,15 @@ class gameDataFunc(utility: UtilityComponent, gamedata: gamedataComponent, Facto
     }
     str
   }
-  def playerFieldToString(field: ArrayBuffer[card]): String = {
+  override def playerFieldToString(field: ArrayBuffer[card]): String = {
     var s = ""
     field.foreach(card => s += card.beanName + " ")
     s
   }
-  def takeNewCard(player: Option[player]): Unit = {
+  override def takeNewCard(player: Option[player]): Unit = {
     player.get.playerHand += utility.weightedRandom()
   }
-  def playerHandToString(hand: ArrayBuffer[card]): String = {
+  override def playerHandToString(hand: ArrayBuffer[card]): String = {
     var s = ""
     hand.foreach(card => s += card.beanName + " ")
     s

@@ -20,6 +20,7 @@ class plantAmount(utility: UtilityComponent, dynamicGamedata: dynamicGamedataCom
   }
 
   class Strategy2 extends Strategy {
+    
     override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = {
       println(gamedata.drawnCardName)
       utility.plantDrawnCard(player, utility.selectCardToPlant(cards))

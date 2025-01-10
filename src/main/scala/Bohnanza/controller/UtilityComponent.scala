@@ -26,6 +26,6 @@ trait UtilityComponent {
   def plant(cards: card, playerID: Option[player]): Unit = {}
 
   def harvest(field: Int): Unit = {}
-  
+
 }
 
