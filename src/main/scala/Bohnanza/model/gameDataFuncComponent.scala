@@ -3,7 +3,7 @@ package Bohnanza.model
 import scala.collection.mutable.ArrayBuffer
 import Bohnanza.model.modelBase.card
 import Bohnanza.model.modelBase.player
-trait gameDataFunc {
+trait gameDataFuncComponent {
   def drawCards(): Unit
   def initPlayer(name: String): String
   def initGame: String

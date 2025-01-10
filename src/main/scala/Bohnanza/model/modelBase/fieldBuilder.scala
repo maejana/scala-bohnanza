@@ -1,7 +1,7 @@
 package Bohnanza.model.modelBase
 
 import Bohnanza.model.Builder
-
+import Bohnanza.model.gameDataFuncComponent
 
 class fieldBuilder(gameDataFunc: gameDataFuncComponent) extends Builder {
   override def buildGrowingFieldStr(playingPlayer: Option[player]): String = {
