@@ -26,7 +26,7 @@ trait UtilityComponent {
   def plant(cards: card, playerID: Option[player]): Unit = {}
   def harvest(field: Int): Unit = {}
 
-  def drawCards(): Unit
+  def drawCards(): ArrayBufffer[card]
   def initPlayer(name: String): String
   def initGame: String
   def playerFieldToString(field: ArrayBuffer[card]): String

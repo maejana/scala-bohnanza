@@ -4,6 +4,7 @@ import Bohnanza.model
 import Bohnanza.model.modelBase.{dynamicGamedata, player}
 import Bohnanza.controller.State
 import Bohnanza.controller.playerStateComponent
+import Bohnanza.model.modelBase.dynamicGamedata
 
 class playerState() {
 

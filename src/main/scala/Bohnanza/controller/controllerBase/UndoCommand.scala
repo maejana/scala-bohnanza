@@ -7,8 +7,11 @@
 
  import scala.collection.mutable
  import scala.collection.mutable.Stack
+ import Bohnanza.controller.UtilityComponent
+ import Bohnanza.model.gameDataFuncComponent
+ import Bohnanza.controller.plantAmountComponent
 
-class UndoCommand(fieldBuilder: fieldBuilderComponent, gamedata: gamedataComponent, utility: UtilityComponent, dynamicGamedata: dynamicGamedataComponent, gameDataFunc: gameDataFuncComponent, plantAmount: plantAmountController, playerState: playerStateComponent) {
+class UndoCommand( utility: UtilityComponent, gameDataFunc: gameDataFuncComponent, plantAmount: plantAmountComponent) {
 
   trait Command {
     def doStep(player: Option[player]): Unit
@@ -31,7 +34,7 @@ class UndoCommand(fieldBuilder: fieldBuilderComponent, gamedata: gamedataCompone
         redoStack.push(stateStack.pop())
         player.get.restore(stateStack.pop()) // Restore the entire state
       }
-      println(fieldBuilder.buildGrowingFieldStr(player))
+      println(fieldBuilder(utility).buildGrowingFieldStr(player))
       println(gamedata.undoSuccessful)
       matchState()
     }
