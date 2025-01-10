@@ -7,12 +7,10 @@ import Bohnanza.{controller, model, view}
 import Bohnanza.controller.plantAmountComponent
 import Bohnanza.controller.UtilityComponent
 import scala.collection.mutable.ArrayBuffer
+import Bohnanza.controller.Strategy
 
-class plantAmount(utility: UtilityComponent) {
+class plantAmount(utility: UtilityComponent){
 
-  trait Strategy {
-    def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean
-  }
 
   class Strategy1 extends Strategy {
     override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = {

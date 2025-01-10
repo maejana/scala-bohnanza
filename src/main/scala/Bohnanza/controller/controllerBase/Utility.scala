@@ -1,6 +1,6 @@
 package Bohnanza.controller.controllerBase
 
-import Bohnanza.controller.ControllerComponent
+import Bohnanza.controller.{ControllerComponent, UtilityComponent}
 import Bohnanza.model.modelBase.{CardObserver, FactoryP, ObserverData, card, dynamicGamedata, fieldBuilder, gamedata, player}
 import Bohnanza.model.modelBase
 import Bohnanza.view.viewBase
@@ -11,8 +11,8 @@ import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 import Bohnanza.model.gameDataFuncComponent
 
-class Utility() {
-  ObserverData.addObserver(CardObserver)
+class Utility extends UtilityComponent {
+  ObserverData().addObserver(CardObserver())
   
   def plantInfo(): card = {
     val cardname = dynamicGamedata.cardsToPlant(0).beanName
@@ -163,7 +163,7 @@ class Utility() {
 
   def plant1or2ThreadInterrupt(): Unit = {
     dynamicGamedata.readerThreadPlant1or2.interrupt()
-    fieldBuilder().buildGrowingFieldStr(dynamicGamedata.playingPlayer)
+    fieldBuilder(this).buildGrowingFieldStr(dynamicGamedata.playingPlayer)
 
   }
 
@@ -199,7 +199,7 @@ class Utility() {
       case "Rote" => gamedata.cards(6).weightCount -= 1
       case "Garten" => gamedata.cards(7).weightCount -= 1
     }
-    ObserverData.updateCards()
+    ObserverData().updateCards()
     allcards(rand)
 
   }

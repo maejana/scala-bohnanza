@@ -1,13 +1,12 @@
 package Bohnanza.controller.controllerBase
 
 import Bohnanza.model
-import Bohnanza.controller.GameUpdateComponent
+import Bohnanza.controller.{plantAmountComponent, UtilityComponent, playerStateComponent}
 import Bohnanza.model.modelTrait
 import Bohnanza.model.modelBase
-import Bohnanza.model.modelBase.gameDataFunc.{drawCards, initGame, playerHandToString}
 import Bohnanza.model.modelBase.{dynamicGamedata, fieldBuilder, gamedata}
 
-class GameUpdate(dynamicGamedata: dynamicGamedataComponent, UndoCommand: UndoCommandComponent, utility: UtilityComponent, plantAmount: PlantAmountComponent, playerState: PlayerStateComponent, gamedata: gamedataComponent) {
+class GameUpdate(utility: UtilityComponent, plantAmount: plantAmountComponent, playerState: playerStateComponent) {
   def gameUpdate(): String = {
 
     var z = false
@@ -23,20 +22,20 @@ class GameUpdate(dynamicGamedata: dynamicGamedataComponent, UndoCommand: UndoCom
       println(gamedata.plantAmountQuestion)
       println(playerHandToString(dynamicGamedata.playingPlayer.get.playerHand))
       dynamicGamedata.plantCount = utility.plant1or2(dynamicGamedata.playingPlayer)
-      UndoCommand.PlantBeanCommand.doStep(dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
+      UndoCommand().PlantBeanCommand.doStep(dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
       //planting
       utility.plantAllSelectedCards(dynamicGamedata.plantCount)
-      UndoCommand.PlantBeanCommand.doStep(dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
-      println(fieldBuilder.buildGrowingFieldStr(dynamicGamedata.playingPlayer))
+      UndoCommand().PlantBeanCommand.doStep(dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
+      println(fieldBuilder(utility).buildGrowingFieldStr(dynamicGamedata.playingPlayer))
       //Trade or plant 2 Cards
       dynamicGamedata.drawnCards = drawCards()
       dynamicGamedata.drawnCards.foreach(card => println(card.beanName))
       println(gamedata.drawCardText)
       plantAmount.selectStrategy().execute(dynamicGamedata.drawnCards, dynamicGamedata.playingPlayer)
-      println(fieldBuilder.buildGrowingFieldStr(dynamicGamedata.playingPlayer))
+      println(fieldBuilder(utility).buildGrowingFieldStr(dynamicGamedata.playingPlayer))
       playerState.handle(dynamicGamedata.playingPlayer)
 
-      UndoCommand.PlantBeanCommand.doStep(dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
+      UndoCommand().PlantBeanCommand.doStep(dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
 
       round += 1
       i = 0
@@ -54,7 +53,7 @@ class GameUpdate(dynamicGamedata: dynamicGamedataComponent, UndoCommand: UndoCom
   override def gameStart(): String = {
     val s = new StringBuilder()
     dynamicGamedata.plant1or2 = 0
-    s.append(initGame)
+    s.append(utility.initGame)
     s.append("\n\n")
     s.toString()
   }
