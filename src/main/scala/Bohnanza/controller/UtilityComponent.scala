@@ -24,8 +24,13 @@ trait UtilityComponent {
   def deletePlayerBecauseBug(): Unit
 
   def plant(cards: card, playerID: Option[player]): Unit = {}
-
   def harvest(field: Int): Unit = {}
 
+  def drawCards(): Unit
+  def initPlayer(name: String): String
+  def initGame: String
+  def playerFieldToString(field: ArrayBuffer[card]): String
+  def takeNewCard(player: Option[player]): Unit
+  def playerHandToString(hand: ArrayBuffer[card]): String
 }
 
