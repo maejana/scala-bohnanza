@@ -98,8 +98,8 @@ object FXGUi extends JFXApp3 {
           font = Font.font("Arial", 18)
 
           onAction = _ => {
-            controller.controllerBase.Utility.deletePlayerBecauseBug()
-            Utility.selectPlayer()
+            Utility().deletePlayerBecauseBug()
+            Utility().selectPlayer()
             stage.scene = new Scene(spielerRunde())
             stage.fullScreen = true 
           }
@@ -200,7 +200,7 @@ object FXGUi extends JFXApp3 {
             stage.scene = new Scene(drawAndPlantCards())
             stage.maximized = true
             //controllerBase.Utility.selectPlayer()
-            playerState.handle(modelBase.dynamicGamedata.playingPlayer)
+            playerState().handle(modelBase.dynamicGamedata.playingPlayer)
             playerStep = 0
           }
         }
@@ -248,7 +248,7 @@ object FXGUi extends JFXApp3 {
           onAction = _ => {
             font = Font.font("Arial", 24)
             //controllerBase.Utility.selectPlayer()
-            controllerBase.playerState.handle(modelBase.dynamicGamedata.playingPlayer)
+            controllerBase.playerState().handle(modelBase.dynamicGamedata.playingPlayer)
             stage.scene = new Scene(spielerRunde())
             stage.fullScreen = true
           }
@@ -264,8 +264,8 @@ object FXGUi extends JFXApp3 {
 
 
   def drawAndPlantCards(): VBox = {
-    val card1 = controllerBase.Utility.weightedRandom()
-    val card2 = controllerBase.Utility.weightedRandom()
+    val card1 = controllerBase.Utility().weightedRandom()
+    val card2 = controllerBase.Utility().weightedRandom()
     modelBase.dynamicGamedata.cardsToPlant = scala.collection.mutable.ArrayBuffer(card1, card2)
     new VBox {
       spacing = 10
