@@ -1,5 +1,5 @@
 package Bohnanza.controller
-import Bohnanza.controller.controllerBase.plantAmount.Strategy
+import Bohnanza.controller.Strategy
 
 trait plantAmountComponent {
   def selectStrategy(): Strategy

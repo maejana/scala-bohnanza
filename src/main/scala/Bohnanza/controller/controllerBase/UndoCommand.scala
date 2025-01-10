@@ -1,5 +1,6 @@
  package Bohnanza.controller.controllerBase
 
+ import Bohnanza.controller.{UtilityComponent, plantAmountComponent, playerStateComponent}
  import Bohnanza.controller.controllerBase.{plantAmount, playerState}
  import Bohnanza.model.modelBase.{card, dynamicGamedata, fieldBuilder, gamedata, player}
  import Bohnanza.{controller, model}
@@ -11,7 +12,9 @@
  import Bohnanza.model.gameDataFuncComponent
  import Bohnanza.controller.plantAmountComponent
 
-class UndoCommand( utility: UtilityComponent, gameDataFunc: gameDataFuncComponent, plantAmount: plantAmountComponent) {
+
+class UndoCommand(utility: UtilityComponent, plantAmount: plantAmountController, playerState: playerStateComponent) {
+
 
   trait Command {
     def doStep(player: Option[player]): Unit
@@ -42,7 +45,7 @@ class UndoCommand( utility: UtilityComponent, gameDataFunc: gameDataFuncComponen
     override def matchState(): Unit = {
       dynamicGamedata.playingPlayer.get.lastMethodUsed match {
         case "plant1or2" => println(gamedata.plantAmountQuestion)
-          println(gameDataFunc.playerHandToString(dynamicGamedata.playingPlayer.get.playerHand))
+          println(utility.playerHandToString(dynamicGamedata.playingPlayer.get.playerHand))
           dynamicGamedata.plantCount = utility.plant1or2(dynamicGamedata.playingPlayer)
           utility.plantAllSelectedCards(dynamicGamedata.plantCount)
           PlantBeanCommand.doStep(dynamicGamedata.playingPlayer)

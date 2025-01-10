@@ -1,10 +1,10 @@
 package Bohnanza.controller.controllerBase
 
 import Bohnanza.model
-import Bohnanza.controller.GameUpdateComponent
+import Bohnanza.controller.{plantAmountComponent, UtilityComponent, playerStateComponent}
 import Bohnanza.model.modelTrait
 import Bohnanza.model.modelBase
-//import Bohnanza.model.modelBase.gameDataFunc.{drawCards, initGame, playerHandToString}
+
 import Bohnanza.model.modelBase.{dynamicGamedata, fieldBuilder, gamedata}
 import Bohnanza.controller.UtilityComponent
 import Bohnanza.controller.UndoCommandComponent
@@ -12,7 +12,8 @@ import Bohnanza.controller.plantAmountComponent
 import Bohnanza.model.gameDataFuncComponent
 
 
-class GameUpdate(UndoCommand: UndoCommandComponent, utility: UtilityComponent, plantAmount: plantAmountComponent, gameDataFunc: gameDataFuncComponent) {
+class GameUpdate(utility: UtilityComponent, plantAmount: plantAmountComponent, playerState: playerStateComponent) {
+
   def gameUpdate(): String = {
 
     var z = false
@@ -32,6 +33,7 @@ class GameUpdate(UndoCommand: UndoCommandComponent, utility: UtilityComponent, p
       //planting
       utility.plantAllSelectedCards(dynamicGamedata.plantCount)
       UndoCommand.doStep(dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
+
       println(fieldBuilder(utility).buildGrowingFieldStr(dynamicGamedata.playingPlayer))
       //Trade or plant 2 Cards
       dynamicGamedata.drawnCards = utility.drawCards()
@@ -39,6 +41,7 @@ class GameUpdate(UndoCommand: UndoCommandComponent, utility: UtilityComponent, p
       println(gamedata.drawCardText)
       plantAmount.selectStrategy().execute(dynamicGamedata.drawnCards, dynamicGamedata.playingPlayer)
       println(fieldBuilder(utility).buildGrowingFieldStr(dynamicGamedata.playingPlayer))
+
       playerState().handle(dynamicGamedata.playingPlayer)
 
       UndoCommand.doStep(dynamicGamedata.playingPlayer) // Für Undo immer Status speichern

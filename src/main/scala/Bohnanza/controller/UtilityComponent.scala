@@ -7,7 +7,7 @@ trait UtilityComponent {
   def plantInfo(): card
   def plantPreperation(player: Option[player]): String
   def findCardWithname(name: String): card
-  def plantDrawnCard(player: Option[player]): Unit
+  def plantDrawnCard(player: Option[player], card: card): Unit
   def emptyPlantfieldNr(player: Option[player]): Int
   def selectCardToPlant(cards: ArrayBuffer[card]): card
   def findCardId(player: player, card: card): Int
