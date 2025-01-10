@@ -8,7 +8,7 @@ import Bohnanza.controller.controllerBase.*
 
 object App {
   def initClasses(): Unit = {
-    gamelogic()
+    Utility()
   }
   
   @main def run: Unit = {

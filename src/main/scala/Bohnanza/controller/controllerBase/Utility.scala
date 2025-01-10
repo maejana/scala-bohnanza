@@ -8,12 +8,13 @@ import Bohnanza.view.viewBase.playerInput
 import Bohnanza.{model, view}
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
+import Bohnanza.model.modelBase.gamedata
+import Bohnanza.model.modelBase.dynamicGamedata
 
-class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamedataComponent, gamedata: gamedataComponent, gamelogic: gamelogicComponent, gameDataFunc: gameDataFuncComponent, fieldBuilder: fieldBuilderComponent) {
+class Utility(gameDataFunc: gameDataFuncComponent, fieldBuilder: fieldBuilderComponent) {
   ObserverData.addObserver(CardObserver)
   
   def plantInfo(): card = {
-
     val cardname = dynamicGamedata.cardsToPlant(0).beanName
     dynamicGamedata.cardsToPlant -= findCardWithName(cardname)
     val card: card = findCardWithName(cardname)
@@ -31,7 +32,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
       ""
     }
     else if (isPlantable(player, plantCard) && player.get.playerHand.contains(plantCard)) {
-      gamelogic.plant(plantCard, player)
+      plant(plantCard, player)
       gameDataFunc.takeNewCard(player)
       gameUpdateLog.append(s"${player.get.name} pflanzt $plantCard\n")
       gameUpdateLog.toString
@@ -52,7 +53,7 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
 
   override def plantDrawnCard(player: Option[player], card: card): Unit = {
     if (isPlantable(player, card)) {
-      gamelogic.plant(card, player)
+      plant(card, player)
     }
   }
 
@@ -133,15 +134,15 @@ class Utility(ObserverData: ObserverDataComponent, dynamicGamedata: dynamicGamed
     }
     if(Nr == 1) {
       dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(0)
-      gamelogic.plant(dynamicGamedata.cardsToPlant(0),dynamicGamedata.playingPlayer)
+      plant(dynamicGamedata.cardsToPlant(0),dynamicGamedata.playingPlayer)
       gameDataFunc.takeNewCard(playingPlayer)
       Nr = 1
     }
     if(Nr == 2){
       dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(0)
       dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(1)
-      gamelogic.plant(dynamicGamedata.cardsToPlant(0),dynamicGamedata.playingPlayer)
-      gamelogic.plant(dynamicGamedata.cardsToPlant(1),dynamicGamedata.playingPlayer)
+      plant(dynamicGamedata.cardsToPlant(0),dynamicGamedata.playingPlayer)
+      plant(dynamicGamedata.cardsToPlant(1),dynamicGamedata.playingPlayer)
       gameDataFunc.takeNewCard(playingPlayer)
       gameDataFunc.takeNewCard(playingPlayer)
 
