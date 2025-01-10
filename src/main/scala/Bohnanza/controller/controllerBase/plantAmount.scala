@@ -9,7 +9,7 @@ import Bohnanza.controller.UtilityComponent
 import scala.collection.mutable.ArrayBuffer
 import Bohnanza.controller.Strategy
 
-class plantAmount(utility: UtilityComponent){
+class plantAmount(utility: UtilityComponent) {
 
 
   class Strategy1 extends Strategy {
@@ -40,7 +40,7 @@ class plantAmount(utility: UtilityComponent){
       false
     }
   }
-  override def selectStrategy(): Strategy = {
+  def selectStrategy(): Strategy = {
     var validInput = false
     var strategy: Strategy = StrategyRETRY()
     while (!validInput) {

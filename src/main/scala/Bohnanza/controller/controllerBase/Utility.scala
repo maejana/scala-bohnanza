@@ -14,7 +14,7 @@ import Bohnanza.model.gameDataFuncComponent
 class Utility extends UtilityComponent {
   ObserverData().addObserver(CardObserver())
   
-  def plantInfo(): card = {
+  override def plantInfo(): card = {
     val cardname = dynamicGamedata.cardsToPlant(0).beanName
     dynamicGamedata.cardsToPlant -= findCardWithName(cardname)
     val card: card = findCardWithName(cardname)

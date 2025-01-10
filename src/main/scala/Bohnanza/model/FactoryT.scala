@@ -15,7 +15,7 @@ trait FactoryT {
                     plantfield2: ArrayBuffer[card] = ArrayBuffer(),
                     plantfield3: ArrayBuffer[card] = ArrayBuffer(),
                     gold: Int = 0,
-                    state: State = playerState.DontPlays()
+                    state: State = playerState().DontPlays()
                   ): player
 
 }

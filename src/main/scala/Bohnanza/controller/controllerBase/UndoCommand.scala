@@ -1,6 +1,6 @@
  package Bohnanza.controller.controllerBase
 
- import Bohnanza.controller.{UtilityComponent, plantAmountComponent, playerStateComponent}
+ import Bohnanza.controller.{UndoCommandComponent, UtilityComponent, plantAmountComponent, playerStateComponent}
  import Bohnanza.controller.controllerBase.{plantAmount, playerState}
  import Bohnanza.model.modelBase.{card, dynamicGamedata, fieldBuilder, gamedata, player}
  import Bohnanza.{controller, model}
@@ -8,12 +8,10 @@
 
  import scala.collection.mutable
  import scala.collection.mutable.Stack
- import Bohnanza.controller.UtilityComponent
  import Bohnanza.model.gameDataFuncComponent
- import Bohnanza.controller.plantAmountComponent
 
 
-class UndoCommand(utility: UtilityComponent, plantAmount: plantAmountController, playerState: playerStateComponent) {
+class UndoCommand(utility: UtilityComponent, plantAmount: plantAmountComponent, playerState: playerStateComponent) extends UndoCommandComponent {
 
 
   trait Command {
@@ -52,7 +50,7 @@ class UndoCommand(utility: UtilityComponent, plantAmount: plantAmountController,
         case "handle" => dynamicGamedata.drawnCards.foreach(card => println(card.beanName))
           println(gamedata.drawCardText)
           plantAmount.selectStrategy().execute(dynamicGamedata.drawnCards, dynamicGamedata.playingPlayer)
-          println(fieldBuilder.buildGrowingFieldStr(dynamicGamedata.playingPlayer))
+          println(fieldBuilder(utility).buildGrowingFieldStr(dynamicGamedata.playingPlayer))
           playerState.handle(dynamicGamedata.playingPlayer)
       }
     }
@@ -63,7 +61,7 @@ class UndoCommand(utility: UtilityComponent, plantAmount: plantAmountController,
           stateStack.push(player.get.copyState())
           player.get.restore(redoStack.pop())
         }
-        println(fieldBuilder.buildGrowingFieldStr(player))
+        println(fieldBuilder(utility).buildGrowingFieldStr(player))
         println(gamedata.redoSuccessful)
         matchState()
       }

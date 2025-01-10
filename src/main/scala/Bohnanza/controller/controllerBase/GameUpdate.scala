@@ -10,11 +10,12 @@ import Bohnanza.controller.UtilityComponent
 import Bohnanza.controller.UndoCommandComponent
 import Bohnanza.controller.plantAmountComponent
 import Bohnanza.model.gameDataFuncComponent
+import Bohnanza.controller.GameUpdateComponent
 
 
-class GameUpdate(utility: UtilityComponent, plantAmount: plantAmountComponent, playerState: playerStateComponent) {
+class GameUpdate(utility: UtilityComponent, plantAmount: plantAmountComponent, playerState: playerStateComponent, UndoCommand: UndoCommandComponent) extends GameUpdateComponent {
 
-  def gameUpdate(): String = {
+  override def gameUpdate(): String = {
 
     var z = false
     var i = 0
@@ -25,7 +26,7 @@ class GameUpdate(utility: UtilityComponent, plantAmount: plantAmountComponent, p
       //Start of Round
       utility.selectPlayer()
       println(dynamicGamedata.playingPlayer.get.playerName)
-      playerState().handle(dynamicGamedata.playingPlayer)
+      playerState.handle(dynamicGamedata.playingPlayer)
       println(gamedata.plantAmountQuestion)
       println(utility.playerHandToString(dynamicGamedata.playingPlayer.get.playerHand))
       dynamicGamedata.plantCount = utility.plant1or2(dynamicGamedata.playingPlayer)
@@ -42,7 +43,7 @@ class GameUpdate(utility: UtilityComponent, plantAmount: plantAmountComponent, p
       plantAmount.selectStrategy().execute(dynamicGamedata.drawnCards, dynamicGamedata.playingPlayer)
       println(fieldBuilder(utility).buildGrowingFieldStr(dynamicGamedata.playingPlayer))
 
-      playerState().handle(dynamicGamedata.playingPlayer)
+      playerState.handle(dynamicGamedata.playingPlayer)
 
       UndoCommand.doStep(dynamicGamedata.playingPlayer) // Für Undo immer Status speichern
 

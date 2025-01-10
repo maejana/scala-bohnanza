@@ -26,8 +26,10 @@ class playerState() {
 
   var state: State = Plays() // Initial state
 
-  override def handle(player: Option[player]): Unit = {
+  def handle(player: Option[player]): Unit = {
     state = state.handle(player)
     dynamicGamedata.playingPlayer.get.lastMethodUsed = "handle"
   }
+  
+  
 }

@@ -6,7 +6,9 @@ import Bohnanza.model.modelBase.card
 
 import scala.collection.mutable.ArrayBuffer
 
-case class player(name: String, hand: ArrayBuffer[card]) {
+import Bohnanza.controller.playerStateComponent
+
+case class player(name: String, hand: ArrayBuffer[card], playerState: playerStateComponent) {
   var playerName: String = name
   var playerHand = hand
   var plantfield1 = ArrayBuffer[card]()
