@@ -18,7 +18,7 @@ class UndoCommand(fieldBuilder: fieldBuilderComponent, gamedata: gamedataCompone
     def redoStep(player: Option[player]): Unit
   }
 
-  object PlantBeanCommand extends Command, UndoCommantComponent {
+  object PlantBeanCommand extends Command {
     private val stateStack: mutable.Stack[player] = mutable.Stack()
     private val redoStack: mutable.Stack[player] = mutable.Stack()
 
