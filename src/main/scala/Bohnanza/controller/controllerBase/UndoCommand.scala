@@ -1,7 +1,7 @@
  package Bohnanza.controller.controllerBase
 
  import Bohnanza.controller.controllerBase.{plantAmount, playerState}
- import Bohnanza.model.modelBase.{card, dynamicGamedata, fieldBuilder, gameDataFunc, gamedata, player}
+ import Bohnanza.model.modelBase.{card, dynamicGamedata, fieldBuilder, gamedata, player}
  import Bohnanza.{controller, model}
  import Bohnanza.model.modelBase
 

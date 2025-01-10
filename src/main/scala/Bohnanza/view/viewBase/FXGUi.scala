@@ -3,7 +3,7 @@ package Bohnanza.view.viewBase
 import Bohnanza.controller.controllerBase
 import Bohnanza.controller.controllerBase.{Utility, playerState}
 import Bohnanza.model.modelBase
-import Bohnanza.model.modelBase.{dynamicGamedata, gameDataFunc, gamedata}
+import Bohnanza.model.modelBase.{dynamicGamedata, gamedata}
 import Bohnanza.{controller, model, view}
 import scalafx.application.{JFXApp3, Platform}
 import scalafx.geometry.{Insets, Pos}
@@ -132,7 +132,7 @@ object FXGUi extends JFXApp3 {
     buttonSave.onAction = _ => {
       if (textField.text().nonEmpty) {
         modelBase.dynamicGamedata.NameReaderThread.interrupt()
-        gameDataFunc.initPlayer(textField.text())
+        controllerBase.Utility().initPlayer(textField.text())
         println(s"Spieler $nr: ${textField.text()}")
         disableSaveButton(buttonSave, textField)
       }
@@ -171,13 +171,13 @@ object FXGUi extends JFXApp3 {
             new Button("1") {
               font = Font.font("Arial", 18)
               onAction = _ => plantBean(1)
-                controllerBase.Utility.plant1or2ThreadInterrupt()
+                controllerBase.Utility().plant1or2ThreadInterrupt()
                // println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
             },
             new Button("2") {
               font = Font.font("Arial", 18)
               onAction = _ => plantBean(2)
-                controllerBase.Utility.plant1or2ThreadInterrupt()
+                controllerBase.Utility().plant1or2ThreadInterrupt()
                 //controllerBase.Utility.plant1or2ThreadInterrupt()
                 //println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
             },

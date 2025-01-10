@@ -5,7 +5,7 @@ import Bohnanza.controller.GameUpdateComponent
 import Bohnanza.model.modelTrait
 import Bohnanza.model.modelBase
 import Bohnanza.model.modelBase.gameDataFunc.{drawCards, initGame, playerHandToString}
-import Bohnanza.model.modelBase.{dynamicGamedata, fieldBuilder, gameDataFunc, gamedata}
+import Bohnanza.model.modelBase.{dynamicGamedata, fieldBuilder, gamedata}
 
 class GameUpdate(dynamicGamedata: dynamicGamedataComponent, UndoCommand: UndoCommandComponent, utility: UtilityComponent, plantAmount: PlantAmountComponent, playerState: PlayerStateComponent, gamedata: gamedataComponent) {
   def gameUpdate(): String = {

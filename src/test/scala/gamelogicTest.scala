@@ -10,7 +10,7 @@ import Bohnanza.model.*
 import Bohnanza.controller.controllerBase
 import Bohnanza.controller
 import Bohnanza.controller.controllerBase.Utility
-import Bohnanza.model.modelBase.{card, gameDataFunc, player}
+import Bohnanza.model.modelBase.{card, player}
 
 import scala.collection.mutable.ArrayBuffer
 

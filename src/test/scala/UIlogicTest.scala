@@ -5,7 +5,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.matchers.should.Matchers.regex
 import Bohnanza.model
-import Bohnanza.model.modelBase.{card, gameDataFunc, gamedata, player}
+import Bohnanza.model.modelBase.{card, gamedata, player}
 import Bohnanza.model.modelBase
 import Bohnanza.view
 import org.scalactic.Prettifier.default

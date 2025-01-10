@@ -5,9 +5,10 @@ import Bohnanza.view.viewBase.{handleInput, playerInput}
 import Bohnanza.{controller, model, view}
 
 import Bohnanza.controller.plantAmountComponent
+import Bohnanza.controller.UtilityComponent
 import scala.collection.mutable.ArrayBuffer
 
-class plantAmount(utility: UtilityComponent, dynamicGamedata: dynamicGamedataComponent, gamedata: gamedataComponent) {
+class plantAmount(utility: UtilityComponent) {
 
   trait Strategy {
     def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean

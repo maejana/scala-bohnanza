@@ -1,17 +1,17 @@
 package Bohnanza.controller.controllerBase
 
 import Bohnanza.controller.ControllerComponent
-import Bohnanza.model.modelBase.{CardObserver, ObserverData, card, dynamicGamedata, fieldBuilder, gameDataFunc, gamedata, player}
+import Bohnanza.model.modelBase.{CardObserver, FactoryP, ObserverData, card, dynamicGamedata, fieldBuilder, gamedata, player}
 import Bohnanza.model.modelBase
 import Bohnanza.view.viewBase
 import Bohnanza.view.viewBase.playerInput
 import Bohnanza.{model, view}
+
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
-import Bohnanza.model.modelBase.gamedata
-import Bohnanza.model.modelBase.dynamicGamedata
+import Bohnanza.model.gameDataFuncComponent
 
-class Utility(gameDataFunc: gameDataFuncComponent, fieldBuilder: fieldBuilderComponent) {
+class Utility() {
   ObserverData.addObserver(CardObserver)
   
   def plantInfo(): card = {
@@ -33,7 +33,7 @@ class Utility(gameDataFunc: gameDataFuncComponent, fieldBuilder: fieldBuilderCom
     }
     else if (isPlantable(player, plantCard) && player.get.playerHand.contains(plantCard)) {
       plant(plantCard, player)
-      gameDataFunc.takeNewCard(player)
+      takeNewCard(player)
       gameUpdateLog.append(s"${player.get.name} pflanzt $plantCard\n")
       gameUpdateLog.toString
     } else {
@@ -135,7 +135,7 @@ class Utility(gameDataFunc: gameDataFuncComponent, fieldBuilder: fieldBuilderCom
     if(Nr == 1) {
       dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(0)
       plant(dynamicGamedata.cardsToPlant(0),dynamicGamedata.playingPlayer)
-      gameDataFunc.takeNewCard(playingPlayer)
+      takeNewCard(playingPlayer)
       Nr = 1
     }
     if(Nr == 2){
@@ -143,8 +143,8 @@ class Utility(gameDataFunc: gameDataFuncComponent, fieldBuilder: fieldBuilderCom
       dynamicGamedata.cardsToPlant += playingPlayer.get.playerHand(1)
       plant(dynamicGamedata.cardsToPlant(0),dynamicGamedata.playingPlayer)
       plant(dynamicGamedata.cardsToPlant(1),dynamicGamedata.playingPlayer)
-      gameDataFunc.takeNewCard(playingPlayer)
-      gameDataFunc.takeNewCard(playingPlayer)
+      takeNewCard(playingPlayer)
+      takeNewCard(playingPlayer)
 
       Nr = 2}
     println(plantSelectString(playingPlayer))
@@ -163,7 +163,7 @@ class Utility(gameDataFunc: gameDataFuncComponent, fieldBuilder: fieldBuilderCom
 
   def plant1or2ThreadInterrupt(): Unit = {
     dynamicGamedata.readerThreadPlant1or2.interrupt()
-    fieldBuilder.buildGrowingFieldStr(dynamicGamedata.playingPlayer)
+    fieldBuilder().buildGrowingFieldStr(dynamicGamedata.playingPlayer)
 
   }
 
@@ -207,7 +207,7 @@ class Utility(gameDataFunc: gameDataFuncComponent, fieldBuilder: fieldBuilderCom
   override def plantSelectString(player: Option[player]): String = {
     var s: String = ""
     s += gamedata.selectPlantCard
-    s += gameDataFunc.playerHandToString(player.get.playerHand)
+    s += playerHandToString(player.get.playerHand)
     s
   }
 
@@ -249,5 +249,77 @@ class Utility(gameDataFunc: gameDataFuncComponent, fieldBuilder: fieldBuilderCom
     val traderCard = tradePartner.playerHand(findCardId(tradePartner, card2))
     playingPlayer.playerHand(findCardId(playingPlayer, card1)) = traderCard
     tradePartner.playerHand(findCardId(tradePartner, card2)) = playerCard
+  }
+
+  override def drawCards(): ArrayBuffer[card] = {
+    val cardArray = ArrayBuffer[card]()
+    for (i <- 1 to 2) {
+      cardArray.addOne(weightedRandom())
+    }
+    cardArray
+  }
+
+  override def initPlayer(name: String): String = {
+    val playerName = name
+    var growingFieldText: String =
+      s"""
+              ${playerName}:
+                 Field 1:
+
+                 Field 2:
+
+                 Field 3:
+
+
+              """
+    val weights = gamedata.weights
+    val hand: ArrayBuffer[card] = ArrayBuffer()
+    for (i <- 1 to 4) {
+      hand.addOne(weightedRandom())
+      growingFieldText += hand(i - 1).beanName + ", "
+    }
+    hand.addOne(weightedRandom())
+    val newPlayer = FactoryP.PlayerFactory().createPlayer(playerName, hand) // Factory Pattern um Player zu erstellen
+    //growingFieldText += hand(4).beanName
+    if (!dynamicGamedata.players.isEmpty) {
+      dynamicGamedata.players.toList.foreach((p: player) =>
+        if (!p.playerName.equals(newPlayer.playerName)) {
+          dynamicGamedata.players += newPlayer
+        })
+    }
+    else dynamicGamedata.players += newPlayer
+    growingFieldText
+  }
+
+  override def initGame: String = {
+    var str = ""
+    playerInput.playercount()
+
+    if (dynamicGamedata.players.length != dynamicGamedata.playerCount) {
+      val playernames: Array[String] = new Array[String](dynamicGamedata.playerCount)
+      println("Namen eingeben:")
+      for (i <- 1 to dynamicGamedata.playerCount - dynamicGamedata.players.length) {
+        playernames(i - 1) = viewBase.playerInput.playername()
+        //view.GUI.addPlayerViaTUI(playernames(i-1), i)
+        if (playernames(i - 1) != "") str += initPlayer(playernames(i - 1))
+      }
+    }
+    str
+  }
+
+  override def playerFieldToString(field: ArrayBuffer[card]): String = {
+    var s = ""
+    field.foreach(card => s += card.beanName + " ")
+    s
+  }
+
+  override def takeNewCard(player: Option[player]): Unit = {
+    player.get.playerHand += weightedRandom()
+  }
+
+  override def playerHandToString(hand: ArrayBuffer[card]): String = {
+    var s = ""
+    hand.foreach(card => s += card.beanName + " ")
+    s
   }
 }
