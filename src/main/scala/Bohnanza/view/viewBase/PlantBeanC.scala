@@ -10,8 +10,8 @@ import Bohnanza.view.PlantBeanInView
 object PlantBeanC {
   case class PlantNone() extends PlantBeanInView{
     override def plantBean(): Unit = {
-      Utility.selectPlayer()
-      playerState.handle(dynamicGamedata.playingPlayer)
+      Utility().selectPlayer()
+      playerState().handle(dynamicGamedata.playingPlayer)
       FXGUi.stage.scene = new scalafx.scene.Scene(FXGUi.spielerRunde())
     }
   }
@@ -19,8 +19,8 @@ object PlantBeanC {
     override def plantBean(): Unit = {
       model.modelBase.dynamicGamedata.cardsToPlant.clear()
       model.modelBase.dynamicGamedata.cardsToPlant += modelBase.dynamicGamedata.playingPlayer.get.playerHand(0)
-      if(controllerBase.Utility.isPlantable(modelBase.dynamicGamedata.playingPlayer, model.modelBase.dynamicGamedata.cardsToPlant(0))){
-        controllerBase.Utility.plantPreperation(model.modelBase.dynamicGamedata.playingPlayer)
+      if(controllerBase.Utility().isPlantable(modelBase.dynamicGamedata.playingPlayer, model.modelBase.dynamicGamedata.cardsToPlant(0))){
+        controllerBase.Utility().plantPreperation(model.modelBase.dynamicGamedata.playingPlayer)
       }
     
       FXGUi.stage.scene = new scalafx.scene.Scene(FXGUi.playerOut())
@@ -33,10 +33,10 @@ object PlantBeanC {
       model.modelBase.dynamicGamedata.cardsToPlant.clear()
       model.modelBase.dynamicGamedata.cardsToPlant += modelBase.dynamicGamedata.playingPlayer.get.playerHand(0)
       model.modelBase.dynamicGamedata.cardsToPlant += modelBase.dynamicGamedata.playingPlayer.get.playerHand(1)
-      if (controllerBase.Utility.isPlantable(modelBase.dynamicGamedata.playingPlayer, model.modelBase.dynamicGamedata.cardsToPlant(0)) &&
-        controllerBase.Utility.isPlantable(modelBase.dynamicGamedata.playingPlayer, model.modelBase.dynamicGamedata.cardsToPlant(1))) {
-        controllerBase.Utility.plant(model.modelBase.dynamicGamedata.cardsToPlant(0), modelBase.dynamicGamedata.playingPlayer)
-        controllerBase.Utility.plant(model.modelBase.dynamicGamedata.cardsToPlant(1), modelBase.dynamicGamedata.playingPlayer)
+      if (controllerBase.Utility().isPlantable(modelBase.dynamicGamedata.playingPlayer, model.modelBase.dynamicGamedata.cardsToPlant(0)) &&
+        controllerBase.Utility().isPlantable(modelBase.dynamicGamedata.playingPlayer, model.modelBase.dynamicGamedata.cardsToPlant(1))) {
+        controllerBase.Utility().plant(model.modelBase.dynamicGamedata.cardsToPlant(0), modelBase.dynamicGamedata.playingPlayer)
+        controllerBase.Utility().plant(model.modelBase.dynamicGamedata.cardsToPlant(1), modelBase.dynamicGamedata.playingPlayer)
         FXGUi.stage.scene = new scalafx.scene.Scene(FXGUi.playerOut())
         FXGUi.stage.maximized = true
       } else {

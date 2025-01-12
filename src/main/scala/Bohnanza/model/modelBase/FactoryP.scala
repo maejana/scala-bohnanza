@@ -23,7 +23,7 @@ object FactoryP {
                       gold: Int = 0,
                       state: State = playerState().DontPlays()
                     ): player = {
-      val newPlayer = player(name, hand. 
+      val newPlayer = player(name, hand)
       newPlayer.plantfield1 = plantfield1
       newPlayer.plantfield2 = plantfield2
       newPlayer.plantfield3 = plantfield3

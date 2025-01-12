@@ -8,14 +8,14 @@ import scala.collection.mutable.ArrayBuffer
 
 import Bohnanza.controller.playerStateComponent
 
-case class player(name: String, hand: ArrayBuffer[card], playerState: playerStateComponent) {
+case class player(name: String, hand: ArrayBuffer[card]) {
   var playerName: String = name
   var playerHand = hand
   var plantfield1 = ArrayBuffer[card]()
   var plantfield2 = ArrayBuffer[card]()
   var plantfield3 = ArrayBuffer[card]()
   var gold = 0
-  var state: State = playerState.DontPlays()
+  var state: State = playerState().DontPlays()
   var lastMethodUsed = ""
 
   // beide Methoden für Undo

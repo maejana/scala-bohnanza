@@ -22,6 +22,7 @@ object FXGUi extends JFXApp3 {
   val playerPanel: VBox = new VBox(10) {
     padding = Insets(10)
   }
+  val boogalooFont: Font = Font.loadFont("file:///C:/Users/euule/Documents/GitHub/scala-bohnanza/src/resources/Boogaloo-Regular.ttf", 24)
 
   override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
@@ -43,11 +44,11 @@ object FXGUi extends JFXApp3 {
 
     children = Seq(
       new Label("Willkommen zu Bohnanza!") {
-        font = Font.font("Arial", 48)
+        font = boogalooFont
         textFill = Color.Green
       },
       new Button("Play") {
-        font = Font.font("Arial", 18)
+        font = boogalooFont
         onAction = _ => {
           stage.scene = new Scene(namenEingebenSeite())
           stage.fullScreen = true
@@ -61,12 +62,14 @@ object FXGUi extends JFXApp3 {
     alignment = Pos.Center
     padding = Insets(2)
 
-    val label = new Label("Wie viele Spieler spielen?")
+    val label = new Label("Wie viele Spieler spielen?") {
+      font = boogalooFont
+    }
     val dropdown = new ComboBox(Seq("2", "3", "4", "5")) {
       prefWidth = 100
     }
     val button: Button = new Button("Hinzufügen") {
-      font = Font.font("Arial", 18)
+      font = boogalooFont
     }
 
     button.onAction = _ => {
@@ -83,7 +86,7 @@ object FXGUi extends JFXApp3 {
   def namenEingebenSeite(): BorderPane = new BorderPane {
     padding = Insets(5)
     top = new Label(gamedata.bohnanza) {
-      font = Font.font("Arial", 36)
+      font = boogalooFont
       alignmentInParent = Pos.Center
       textFill = Color.Green
     }
@@ -95,7 +98,7 @@ object FXGUi extends JFXApp3 {
         spieleranzahlEingeben(),
         playerPanel,
         new Button(modelBase.gamedata.continue) {
-          font = Font.font("Arial", 18)
+          font = boogalooFont
 
           onAction = _ => {
             Utility().deletePlayerBecauseBug()
@@ -120,13 +123,16 @@ object FXGUi extends JFXApp3 {
     spacing = 5
     alignment = Pos.Center
 
-    val label = new Label(s"$nr.")
+    val label = new Label(s"$nr.") {
+      font = boogalooFont
+    }
     val textField = new TextField {
       prefWidth = 200
       promptText = "Spielername eingeben"
+      font = boogalooFont
     }
     val buttonSave = new Button("Speichern") {
-      font = Font.font("Arial", 18)
+      font = boogalooFont
     }
 
     buttonSave.onAction = _ => {
@@ -161,7 +167,7 @@ object FXGUi extends JFXApp3 {
           )
         },
         new Label(modelBase.gamedata.plantAmountQuestion) {
-          font = Font.font("Arial", 24)
+          font = boogalooFont
           textFill = Color.DarkGreen
         },
         new HBox {
@@ -169,20 +175,20 @@ object FXGUi extends JFXApp3 {
           alignment = Pos.Center
           children = Seq(
             new Button("1") {
-              font = Font.font("Arial", 18)
+              font = boogalooFont
               onAction = _ => plantBean(1)
                 controllerBase.Utility().plant1or2ThreadInterrupt()
                // println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
             },
             new Button("2") {
-              font = Font.font("Arial", 18)
+              font = boogalooFont
               onAction = _ => plantBean(2)
                 controllerBase.Utility().plant1or2ThreadInterrupt()
                 //controllerBase.Utility.plant1or2ThreadInterrupt()
                 //println(model.fieldBuilder.buildGrowingFieldStr(model.dynamicGamedata.playingPlayer))
             },
             new Button("Zwei Karten ziehe und pflanzen"){
-              font = Font.font("Arial", 18)
+              font = boogalooFont
               onAction = _ => {
                 stage.scene = new Scene (drawAndPlantCards())
                 stage.fullScreen = true 
@@ -194,7 +200,7 @@ object FXGUi extends JFXApp3 {
 
       if (playerStep == 1) {
         childrenBuffer += new Button("Draw and Plant Cards") {
-          font = Font.font("Arial", 18)
+          font = boogalooFont
           onAction = _ => {
             playerStep += 1
             stage.scene = new Scene(drawAndPlantCards())
@@ -211,7 +217,7 @@ object FXGUi extends JFXApp3 {
   }
 
   def disableSaveButton(button: Button, textField: TextField): Unit = {
-    button.font = Font.font("Arial", 24)
+    button.font = boogalooFont
     button.disable = true
     textField.editable = false
   }
@@ -235,18 +241,16 @@ object FXGUi extends JFXApp3 {
           prefHeight = 100
           children = Seq(
             new Label(modelBase.gamedata.plantfield) {
-              font = Font.font("Arial", 24)
+              font = boogalooFont
               textFill = Color.DarkGreen
             },
-            new Label(bean) {
-              font = Font.font("Arial", 24)
-              textFill = Color.Green
-            }
+            GUICards().getCardPanel(convertStringToCard(bean))
+
           )
         },
         new Button(modelBase.gamedata.continue) {
           onAction = _ => {
-            font = Font.font("Arial", 24)
+            font = boogalooFont
             //controllerBase.Utility.selectPlayer()
             controllerBase.playerState().handle(modelBase.dynamicGamedata.playingPlayer)
             stage.scene = new Scene(spielerRunde())
@@ -274,19 +278,19 @@ object FXGUi extends JFXApp3 {
 
       children = Seq(
         new Label(modelBase.dynamicGamedata.playingPlayer.get.playerName) {
-          font = Font.font("Arial", 24)
+          font = boogalooFont
           textFill = Color.Green
         },
         new Label("Drawn Cards") {
-          font = Font.font("Arial", 24)
+          font = boogalooFont
           textFill = Color.Green
         },
-        new HBox {
+        new VBox {
           spacing = 10
           alignment = Pos.Center
           children = Seq(
-            new VBox(GUICards().getCardPanel(card1)),
-            new VBox(GUICards().getCardPanel(card2))
+            GUICards().getCardPanel(card1),
+            GUICards().getCardPanel(card2)
           )
         },
         new HBox {
@@ -294,22 +298,21 @@ object FXGUi extends JFXApp3 {
           alignment = Pos.Center
           children = Seq(
             new Button("Plant 0") {
-              font = Font.font("Arial", 24)
+              font = boogalooFont
               onAction = _ => {
                 plantBean(0)
                 stage.maximized = true
               }
-
             },
             new Button("Plant 1") {
-              font = Font.font("Arial", 24)
+              font = boogalooFont
               onAction = _ => {
                 plantBean(1)
                 stage.maximized = true
               }
             },
             new Button("Plant Both") {
-              font = Font.font("Arial", 24)
+              font = boogalooFont
               onAction = _ => {
                 plantBean(2)
                 stage.maximized = true
@@ -318,6 +321,21 @@ object FXGUi extends JFXApp3 {
           )
         }
       )
+    }
+  }
+
+  def convertStringToCard(bean: String): modelBase.card = {
+    bean match {
+      case "Blaue" => modelBase.gamedata.cards(0)
+      case "Feuer" => modelBase.gamedata.cards(1)
+      case "Sau" => modelBase.gamedata.cards(2)
+      case "Brech" => modelBase.gamedata.cards(3)
+      case "Soja" => modelBase.gamedata.cards(4)
+      case "Augen" => modelBase.gamedata.cards(5)
+      case "Rote" => modelBase.gamedata.cards(6)
+      case "Garten" => modelBase.gamedata.cards(7)
+      case _ => val noCard: modelBase.card = modelBase.card("NoCard", 20, Array(4, 6, 8, 10))
+        noCard
     }
   }
 }

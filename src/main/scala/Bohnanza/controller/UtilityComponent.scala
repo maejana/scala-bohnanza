@@ -6,7 +6,7 @@ import scala.collection.mutable.ArrayBuffer
 trait UtilityComponent {
   def plantInfo(): card
   def plantPreperation(player: Option[player]): String
-  def findCardWithname(name: String): card
+  def findCardWithName(name: String): card
   def plantDrawnCard(player: Option[player], card: card): Unit
   def emptyPlantfieldNr(player: Option[player]): Int
   def selectCardToPlant(cards: ArrayBuffer[card]): card

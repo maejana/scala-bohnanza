@@ -11,7 +11,7 @@ import scalafx.scene.control.Button
 
 trait PlayerOut {
   def playerScene: VBox
-  def handCards: VBox
+  def handCards: HBox
   def playerInfo: HBox
   def plantFields(int: Int): VBox
   def undoButton: Button

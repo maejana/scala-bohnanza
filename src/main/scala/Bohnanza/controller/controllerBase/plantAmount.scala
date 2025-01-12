@@ -9,7 +9,7 @@ import Bohnanza.controller.UtilityComponent
 import scala.collection.mutable.ArrayBuffer
 import Bohnanza.controller.Strategy
 
-class plantAmount(utility: UtilityComponent) {
+class plantAmount(utility: UtilityComponent) extends plantAmountComponent {
 
 
   class Strategy1 extends Strategy {

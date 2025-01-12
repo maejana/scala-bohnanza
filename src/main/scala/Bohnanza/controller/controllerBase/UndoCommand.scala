@@ -20,9 +20,10 @@ class UndoCommand(utility: UtilityComponent, plantAmount: plantAmountComponent, 
     def undoStep(player: Option[player]): Unit
 
     def redoStep(player: Option[player]): Unit
+
   }
 
-  object PlantBeanCommand extends Command {
+  object PlantBeanCommand extends Command, UndoCommandComponent {
     private val stateStack: mutable.Stack[player] = mutable.Stack()
     private val redoStack: mutable.Stack[player] = mutable.Stack()
 
@@ -56,15 +57,32 @@ class UndoCommand(utility: UtilityComponent, plantAmount: plantAmountComponent, 
     }
 
 
-      override def redoStep(player: Option[player]): Unit = {
-        if (redoStack.nonEmpty) {
-          stateStack.push(player.get.copyState())
-          player.get.restore(redoStack.pop())
-        }
-        println(fieldBuilder(utility).buildGrowingFieldStr(player))
-        println(gamedata.redoSuccessful)
-        matchState()
+    override def redoStep(player: Option[player]): Unit = {
+      if (redoStack.nonEmpty) {
+        stateStack.push(player.get.copyState())
+        player.get.restore(redoStack.pop())
       }
-
+      println(fieldBuilder(utility).buildGrowingFieldStr(player))
+      println(gamedata.redoSuccessful)
+      matchState()
     }
+
   }
+
+  override def doStep(player: Option[player]): Unit = {
+
+  }
+
+  override def matchState(): Unit = {
+
+
+  }
+
+  override def redoStep(player: Option[player]): Unit = {
+    
+  }
+
+  override def undoStep(player: Option[player]): Unit = {
+    
+  }
+}
