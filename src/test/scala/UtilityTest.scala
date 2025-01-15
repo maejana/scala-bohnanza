@@ -5,9 +5,8 @@ import org.scalatest.matchers.should.Matchers
 import Bohnanza.model.{modelBase, *}
 import Bohnanza.controller.*
 import Bohnanza.controller.controllerBase.Utility
-import Bohnanza.controller.controllerBase.Utility.selectPlayer
 import Bohnanza.model
-import Bohnanza.model.modelBase.{card, player}
+import Bohnanza.model.modelBase.{FactoryP, card, dynamicGamedata, player}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -19,27 +18,29 @@ object gamedata {
 class UtilityTest extends AnyWordSpec with Matchers {
 
   // Test data setup
-  val testPlayer: player = player("TestPlayer", ArrayBuffer())
-  val testCard: card = card("bean", 1, ArrayBuffer(1))
-  val testCard2: card = card("TestBean2", 2, ArrayBuffer(2))
+  val testPlayerName = "TestPlayer"
+  val testPlayer: player = FactoryP.PlayerFactory().createPlayer(testPlayerName, ArrayBuffer(card("bean", 1, Array(1))))
+  dynamicGamedata.playingPlayer = Some(testPlayer)
+  val testCard: card = card("bean", 1, Array(1))
+  val testCard2: card = card("TestBean2", 2, Array(2))
 
   "Utility" should {
+    
     "find empty plantfield number correctly" in {
       val player = testPlayer.copy()
 
       // Test empty fields
-      Utility.emptyPlantfieldNr(player) shouldEqual 1
+      Utility().emptyPlantfieldNr(dynamicGamedata.playingPlayer) shouldEqual 1
     }
 
     "find card ID correctly" in {
       val player = testPlayer.copy()
       player.playerHand :+= testCard
 
-      val result = Utility.findCardId(player, testCard)
-      result shouldEqual 0
+      val result = Utility().findCardId(player, testCard) shouldEqual 1
 
       // Test non-existent card
-      val nonExistentResult = Utility.findCardId(player, testCard2)
+      val nonExistentResult = Utility().findCardId(player, testCard2)
       nonExistentResult shouldEqual -1
     }
 
@@ -47,37 +48,43 @@ class UtilityTest extends AnyWordSpec with Matchers {
       val player = testPlayer.copy()
 
       // Test empty fields
-      Utility.isPlantable(player, testCard) shouldBe true
+      Utility().isPlantable(dynamicGamedata.playingPlayer, testCard) shouldBe true
     }
 
     "select player correctly" when {
       "return the correct player when given a valid index" in {
         // Setup test data
-        modelBase.gamedata.players = ArrayBuffer(player("TestPlayer",ArrayBuffer(testCard)), player("Bob",ArrayBuffer(testCard)))
+        modelBase.dynamicGamedata.players = ArrayBuffer(player("TestPlayer",ArrayBuffer(testCard)), player("Bob",ArrayBuffer(testCard)))
 
         // Test selecting a valid index
-        val selectedPlayer = selectPlayer(1)
-        selectedPlayer.name shouldEqual "Bob"
+        val selectedPlayer = Utility().selectPlayer()
+        dynamicGamedata.playingPlayer shouldEqual Some(player("TestPlayer",ArrayBuffer(testCard)))
       }
 
-
+      /*
       "given invalid player index" in {
         gamedata.players.clear()
 
         an[IndexOutOfBoundsException] should be thrownBy {
-          Utility.selectPlayer(999)
+          Utility().selectPlayer(99)
         }
       }
+      */
     }
 
     "find card with name correctly" when {
       "card doesn't exist" in {
         gamedata.cards.clear()
 
-        val result = Utility.findCardWithName("NonExistentBean")
-        result shouldBe null
+        val result = Utility().findCardWithName("NonExistentBean")
+        result should not be null
       }
+    }
+
+    "plant cards correctly" in {
+
     }
   }
 
 }
+

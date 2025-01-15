@@ -6,12 +6,12 @@ import scala.collection.mutable.ArrayBuffer
 trait UtilityComponent {
   def plantInfo(): card
   def plantPreperation(player: Option[player]): String
-  def findCardWithName(name: String): card
+  def findCardWithName(name: String): card              // Test
   def plantDrawnCard(player: Option[player], card: card): Unit
-  def emptyPlantfieldNr(player: Option[player]): Int
+  def emptyPlantfieldNr(player: Option[player]): Int            // Test
   def selectCardToPlant(cards: ArrayBuffer[card]): card
   def findCardId(player: player, card: card): Int
-  def selectPlayer(): Option[player]
+  def selectPlayer(): Option[player]                            // Test
   def isPlantable(player:Option[player], bean: card): Boolean
   def chooseOrEmpty(playerID: Option[player], card: card): Int
   def plant1or2(playingPlayer: Option[player]): Int
