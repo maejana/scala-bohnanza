@@ -63,7 +63,8 @@ class PlayerOutClass extends PlayerOut {
       spacing = 2
       alignment = Pos.TopLeft
       style = "-fx-border-color: black; -fx-border-width: 1;"
-      maxWidth = 800
+      maxWidth = 1000
+      maxHeight = 400
       children = modelBase.dynamicGamedata.playingPlayer.get.playerHand.map { card =>
         new VBox(GUICards().getCardPanel(card)) {
           spacing = 2

@@ -3,7 +3,7 @@ package Bohnanza.view.viewBase
 import Bohnanza.model
 import Bohnanza.model.modelBase
 import Bohnanza.model.modelBase.dynamicGamedata
-import FXGUi.plantInPlantfield
+import FXGUi.{boogalooFont, plantInPlantfield}
 import Bohnanza.view.Fields
 import scalafx.geometry.{Insets, Pos}
 import scalafx.scene.control.Label
@@ -17,11 +17,12 @@ object FieldsCase {
   case class OneField() extends Fields {
     override def plantField(): VBox = {
       new VBox {
+        style = "-fx-background-color: #F5F5DC;"
         spacing = 5
         alignment = Pos.Center
         children = Seq(
           new Label("Plant Field 1") {
-            font = Font.font("Arial", 18)
+            font = boogalooFont
           },
           plantInPlantfield(dynamicGamedata.playingPlayer.get.plantfield1.headOption.map(_.beanName).getOrElse(""))
         )
@@ -33,23 +34,26 @@ object FieldsCase {
 
     override def plantField(): VBox = {
       new VBox {
+
         children = Seq(
           new VBox {
+            style = "-fx-background-color: #F5F5DC;"
             spacing = 5
             alignment = Pos.Center
             children = Seq(
               new Label("Plant Field 1") {
-                font = Font.font("Arial", 18)
+                font = boogalooFont
               },
               plantInPlantfield(modelBase.dynamicGamedata.playingPlayer.get.plantfield1.headOption.map(_.beanName).getOrElse(""))
             )
           },
           new VBox {
+            style = "-fx-background-color: brown;"
             spacing = 5
             alignment = Pos.Center
             children = Seq(
               new Label("Plant Field 2") {
-                font = Font.font("Arial", 18)
+                font = boogalooFont
               },
               plantInPlantfield(modelBase.dynamicGamedata.playingPlayer.get.plantfield2.headOption.map(_.beanName).getOrElse(""))
             )
@@ -62,33 +66,36 @@ object FieldsCase {
   case class ThreeFields() extends Fields {
     override def plantField(): VBox = {
       new VBox {
+        style = "-fx-background-color: #F5F5DC;"
         children = Seq(
           new VBox {
             spacing = 5
             alignment = Pos.Center
             children = Seq(
               new Label("Plant Field 1") {
-                font = Font.font("Arial", 18)
+                font = boogalooFont
               },
               plantInPlantfield(modelBase.dynamicGamedata.playingPlayer.get.plantfield1.headOption.map(_.beanName).getOrElse(""))
             )
           },
           new VBox {
+            style = "-fx-background-color: #F5F5DC;"
             spacing = 5
             alignment = Pos.Center
             children = Seq(
               new Label("Plant Field 2") {
-                font = Font.font("Arial", 18)
+                font = boogalooFont
               },
               plantInPlantfield(modelBase.dynamicGamedata.playingPlayer.get.plantfield2.headOption.map(_.beanName).getOrElse(""))
             )
           },
           new VBox {
+            style = "-fx-background-color: #F5F5DC;"
             spacing = 5
             alignment = Pos.Center
             children = Seq(
               new Label("Plant Field 3") {
-                font = Font.font("Arial", 18)
+                font = boogalooFont
               },
               plantInPlantfield(modelBase.dynamicGamedata.playingPlayer.get.plantfield3.headOption.map(_.beanName).getOrElse(""))
             )
