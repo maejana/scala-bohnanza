@@ -41,4 +41,28 @@ case class player(name: String, hand: ArrayBuffer[card]) {
     newPlayer
 
   }
+
+  def ArrayBuffertoString(plantfield: ArrayBuffer[card]): String = {
+    val str = new StringBuilder()
+    for (card <- plantfield) {
+      str.append(card.beanName)
+      str.append(", ")
+    }
+    str.result()
+  }
+
+  def toStringArray(): Array[String] = {
+    val playerString = Array[String]()
+    playerString(0) = this.playerName
+    playerString(1) = ArrayBuffertoString(this.playerHand)
+    playerString(2) = ArrayBuffertoString(this.plantfield1)
+    playerString(3) = ArrayBuffertoString(this.plantfield2)
+    playerString(4) = ArrayBuffertoString(this.plantfield3)
+    playerString(5) = this.gold.toString
+    playerString(6) = this.state.stateToString()
+    playerString(7) = this.lastMethodUsed
+    playerString
+  }
+  //Todo: Methoden schreiben um jede einzelne Variable zu einem String zu konvertieren
+  //Todo: Methoden schreiben um jede einzelne Variable aus einem String zu rekonstruieren
 }

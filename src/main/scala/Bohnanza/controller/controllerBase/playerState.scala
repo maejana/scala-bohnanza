@@ -14,6 +14,11 @@ class playerState() extends playerStateComponent {
     override def handle(player: Option[player]): State = {
       println(s"${player.get.playerName} ist an der Reihe.")
       DontPlays() // Transition to DontPlays state
+      }
+
+    @Override
+    def stateToString(): String = {
+      return "DontPlays"
     }
   }
 
@@ -21,6 +26,11 @@ class playerState() extends playerStateComponent {
     override def handle(player: Option[player]): State = {
       println(s"${player.get.playerName} hat Runde beendet.")
       Plays()// Transition to Plays state
+    }
+
+    @Override
+    def stateToString(): String = {
+      return "Plays"
     }
   }
 
@@ -30,6 +40,6 @@ class playerState() extends playerStateComponent {
     state = state.handle(player)
     dynamicGamedata.playingPlayer.get.lastMethodUsed = "handle"
   }
-  
+
   
 }
