@@ -12,6 +12,7 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "3.2.16" % Test
 )
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14"
+libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "2.1.0"
 
 libraryDependencies += "org.jline" % "jline" % "3.21.0"
 

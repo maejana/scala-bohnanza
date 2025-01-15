@@ -19,4 +19,16 @@ object dynamicGamedata extends SubjectTrait {
   var cardsToPlant = ArrayBuffer[card]()
   var playingPlayerID : Int = 0
   var plant1or2 : Int = 1
+
+
+  def ArrayBufferToString(buffer: ArrayBuffer[card]): String = {
+    val str = new StringBuilder()
+    for(card <- buffer){
+      str.append(card.beanName)
+      str.append(", ")
+    }
+    str.result()
+  }
+  //Todo: Methoden schreiben um jede einzelne Variable zu einem String zu konvertieren
+  //Todo: Methoden schreiben um jede einzelne Variable aus einem String zu rekonstruieren
 }
