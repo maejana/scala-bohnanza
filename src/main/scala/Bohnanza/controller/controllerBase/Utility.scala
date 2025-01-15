@@ -5,14 +5,19 @@ import Bohnanza.model.modelBase.{CardObserver, FactoryP, ObserverData, card, dyn
 import Bohnanza.model.modelBase
 import Bohnanza.view.viewBase
 import Bohnanza.view.viewBase.playerInput
-import Bohnanza.{model, view}
+import Bohnanza.{BohnanzaModule, model, view}
+import com.google.inject.name.Names
+import com.google.inject.{Guice, Inject}
+import net.codingwell.scalaguice.InjectorExtensions.*
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 import Bohnanza.model.gameDataFuncComponent
 
-class Utility extends UtilityComponent {
+class Utility @Inject() extends UtilityComponent {
   ObserverData().addObserver(CardObserver())
+
+  val injector = Guice.createInjector(new BohnanzaModule(playerState()))
   
   override def plantInfo(): card = {
     val cardname = dynamicGamedata.cardsToPlant(0).beanName

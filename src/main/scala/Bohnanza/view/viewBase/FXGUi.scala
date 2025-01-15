@@ -38,6 +38,7 @@ object FXGUi extends JFXApp3 {
   }
 
   def startScene(): VBox = new VBox {
+    style = "-fx-background-color: #FF5B61;"
     spacing = 2
     alignment = Pos.Center
     padding = Insets(2)
@@ -58,6 +59,7 @@ object FXGUi extends JFXApp3 {
   }
 
   def spieleranzahlEingeben(): VBox = new VBox {
+    style = "-fx-background-color: yellow;"
     spacing = 2
     alignment = Pos.Center
     padding = Insets(2)
@@ -84,6 +86,7 @@ object FXGUi extends JFXApp3 {
   }
 
   def namenEingebenSeite(): BorderPane = new BorderPane {
+    style = "-fx-background-color: yellow;"
     padding = Insets(5)
     top = new Label(gamedata.bohnanza) {
       font = boogalooFont
@@ -120,6 +123,7 @@ object FXGUi extends JFXApp3 {
   }
 
   def addPlayer(nr: Int): HBox = new HBox {
+    style = "-fx-background-color: yellow;"
     spacing = 5
     alignment = Pos.Center
 
@@ -149,6 +153,7 @@ object FXGUi extends JFXApp3 {
 
   def spielerRunde(): VBox = {
     new VBox {
+      style = "-fx-background-color: yellow;"
       spacing = 10
       padding = Insets(10)
       alignment = Pos.Center
@@ -249,8 +254,9 @@ object FXGUi extends JFXApp3 {
           )
         },
         new Button(modelBase.gamedata.continue) {
+          font = boogalooFont
           onAction = _ => {
-            font = boogalooFont
+
             //controllerBase.Utility.selectPlayer()
             controllerBase.playerState().handle(modelBase.dynamicGamedata.playingPlayer)
             stage.scene = new Scene(spielerRunde())
