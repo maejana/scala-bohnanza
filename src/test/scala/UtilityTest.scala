@@ -6,7 +6,7 @@ import Bohnanza.model.{modelBase, *}
 import Bohnanza.controller.*
 import Bohnanza.controller.controllerBase.Utility
 import Bohnanza.model
-import Bohnanza.model.modelBase.{FactoryP, card, dynamicGamedata, player}
+import Bohnanza.model.modelBase.{FactoryP, card, dynamicGamedata, gamedata, player}
 import org.scalatest.matchers.should.Matchers.exist.or
 
 import scala.collection.mutable.ArrayBuffer
@@ -26,7 +26,7 @@ class UtilityTest extends AnyWordSpec with Matchers {
   val testCard2: card = card("TestBean2", 2, Array(2))
 
   "Utility" should {
-    
+
     "find empty plantfield number correctly" in {
       val player = testPlayer.copy()
 
@@ -55,11 +55,11 @@ class UtilityTest extends AnyWordSpec with Matchers {
     "select player correctly" when {
       "return the correct player when given a valid index" in {
         // Setup test data
-        modelBase.dynamicGamedata.players = ArrayBuffer(player("TestPlayer",ArrayBuffer(testCard)), player("Bob",ArrayBuffer(testCard)))
+        modelBase.dynamicGamedata.players = ArrayBuffer(player("TestPlayer", ArrayBuffer(testCard)), player("Bob", ArrayBuffer(testCard)))
 
         // Test selecting a valid index
         val selectedPlayer = Utility().selectPlayer()
-        dynamicGamedata.playingPlayer shouldEqual Some(player("TestPlayer",ArrayBuffer(testCard)))
+        dynamicGamedata.playingPlayer shouldEqual Some(player("TestPlayer", ArrayBuffer(testCard)))
       }
 
       /*
@@ -82,7 +82,7 @@ class UtilityTest extends AnyWordSpec with Matchers {
       }
     }
 
-  /* "plant cards correctly" in {
+    /* "plant cards correctly" in {
       val player = testPlayer.copy()
       val card = testCard.copy()
 
@@ -90,8 +90,66 @@ class UtilityTest extends AnyWordSpec with Matchers {
       Utility().plant(card, dynamicGamedata.playingPlayer)
       player.plantfield1 should contain(card)
     }
-  }
+
   */
 
+    "give the right infos for planting" in {
+      val player = testPlayer.copy()
+      testPlayer.playerHand += testCard
+      dynamicGamedata.cardsToPlant += dynamicGamedata.playingPlayer.get.playerHand(0)
+      val plantedCard = dynamicGamedata.playingPlayer.get.playerHand(0)
+
+      // Test empty fields
+      Utility().plantPreperation(dynamicGamedata.playingPlayer) shouldEqual ""
+
+    }
+    "plantPreperation first case" in {
+      val player = testPlayer.copy()
+      val newCard = card(modelBase.gamedata.beans(2),modelBase.gamedata.weights(0), modelBase.gamedata.priceBlaue)
+      testPlayer.playerHand += testCard
+      dynamicGamedata.cardsToPlant += dynamicGamedata.playingPlayer.get.playerHand(0)
+      val plantedCard = dynamicGamedata.playingPlayer.get.playerHand(0)
+
+      // Test empty fields
+      Utility().plantPreperation(dynamicGamedata.playingPlayer) shouldEqual ""
+
+    }
+    "test Function plantDrawnCard" in {
+      val player = dynamicGamedata.playingPlayer
+      val card = testCard.copy()
+
+      // Test empty fields
+      Utility().plantDrawnCard(player, card)
+      val cardInField1 = testPlayer.plantfield1.contains(card)
+      val cardInField2 = testPlayer.plantfield2.contains(card)
+      val cardInField3 = testPlayer.plantfield3.contains(card)
+      val cardInHand = testPlayer.playerHand.contains(card)
+
+      assert(cardInField1 || cardInField2 || cardInField3 || cardInHand, "The card should be in one of the plantfields")
+    }
+
+    "test Function selectCardToPlant" in {
+      val player = dynamicGamedata.playingPlayer
+      val newCard  =  modelBase.card(modelBase.gamedata.beans(0), modelBase.gamedata.weights(0), modelBase.gamedata.priceBlaue)
+      dynamicGamedata.cardsToPlant += newCard
+      Utility().selectCardToPlant(dynamicGamedata.cardsToPlant) shouldEqual newCard
+    }
+
+    "test Function chooseOrEmpty" in {
+      val player = dynamicGamedata.playingPlayer
+      val newCard  =  modelBase.card(modelBase.gamedata.beans(0), modelBase.gamedata.weights(0), modelBase.gamedata.priceBlaue)
+      dynamicGamedata.cardsToPlant += newCard
+      Utility().chooseOrEmpty(dynamicGamedata.playingPlayer, newCard) shouldEqual 2
+    }
+
+    "test Function plant1or2" in {
+      val player = dynamicGamedata.playingPlayer
+      val newCard  =  modelBase.card(modelBase.gamedata.beans(0), modelBase.gamedata.weights(0), modelBase.gamedata.priceBlaue)
+      dynamicGamedata.cardsToPlant += newCard
+      Utility().plant1or2(dynamicGamedata.playingPlayer) shouldEqual 2
+    }
+
+
+  }
 }
 

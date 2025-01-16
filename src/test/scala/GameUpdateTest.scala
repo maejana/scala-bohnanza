@@ -10,8 +10,8 @@ import Bohnanza.model.modelBase.{card, player}
 
 import scala.collection.mutable.ArrayBuffer
 
-class GameUpdateTest extends AnyWordSpec with Matchers {
-/*
+/*class GameUpdateTest extends AnyWordSpec with Matchers {
+
   // Initialize Mockito
   MockitoAnnotations.openMocks(this)
 
@@ -53,4 +53,3 @@ class GameUpdateTest extends AnyWordSpec with Matchers {
   }
 
  */
-}
