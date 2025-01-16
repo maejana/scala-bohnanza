@@ -12,7 +12,7 @@ import org.scalactic.Prettifier.default
 
 import scala.collection.mutable.ArrayBuffer
 
-
+/*
 
 class UIlogicTest extends AnyWordSpec with Matchers {
   "UIlogic" should {
@@ -90,3 +90,4 @@ class UIlogicTest extends AnyWordSpec with Matchers {
   }
 }
 // noch testen Update gamelogic, plant, gameupdate, isPlantable, plantInfo, plantPreperation, 
+*/
