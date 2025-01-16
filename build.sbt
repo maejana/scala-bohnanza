@@ -20,10 +20,10 @@ libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0"
 // ScalaFX Abhängigkeit
 libraryDependencies += "org.scalafx" %% "scalafx" % "20.0.0-R31"
 
-
 libraryDependencies += "com.google.inject" % "guice" % "4.1.0"
 
 libraryDependencies += "net.codingwell" %% "scala-guice" % "7.0.0"
+mainClass in Compile := Some("Bohnanza.run")
 
 // Optionally, specify ScalaTest or another test framework for better integration
 coverageEnabled := true
