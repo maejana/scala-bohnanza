@@ -63,6 +63,5 @@ case class player(name: String, hand: ArrayBuffer[card]) {
     playerString(7) = this.lastMethodUsed
     playerString
   }
-  //Todo: Methoden schreiben um jede einzelne Variable zu einem String zu konvertieren
   //Todo: Methoden schreiben um jede einzelne Variable aus einem String zu rekonstruieren
 }
