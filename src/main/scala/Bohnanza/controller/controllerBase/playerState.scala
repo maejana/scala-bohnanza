@@ -40,6 +40,12 @@ class playerState() extends playerStateComponent {
     state = state.handle(player)
     dynamicGamedata.playingPlayer.get.lastMethodUsed = "handle"
   }
-
+  def StringToState(str: String): State = {
+    if(str.equals("DontPlays")){
+      DontPlays()
+    }else {
+      Plays()
+    }
+  }
   
 }

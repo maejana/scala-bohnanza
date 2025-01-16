@@ -17,7 +17,7 @@ case class player(name: String, hand: ArrayBuffer[card]) {
   var gold = 0
   var state: State = playerState().DontPlays()
   var lastMethodUsed = ""
-
+  
   // beide Methoden für Undo
   def restore(newState: player): Unit = {
     this.playerName = newState.playerName
@@ -29,7 +29,7 @@ case class player(name: String, hand: ArrayBuffer[card]) {
     this.state = newState.state
   }
   def copyState(): player = {
-    val newPlayer = player(
+    val newPlayer = new player(
       this.playerName,
       this.playerHand.clone()
     )
@@ -41,28 +41,4 @@ case class player(name: String, hand: ArrayBuffer[card]) {
     newPlayer
 
   }
-
-  def ArrayBuffertoString(plantfield: ArrayBuffer[card]): String = {
-    val str = new StringBuilder()
-    for (card <- plantfield) {
-      str.append(card.beanName)
-      str.append(", ")
-    }
-    str.result()
-  }
-
-  def toStringArray(): Array[String] = {
-    val playerString = Array[String]()
-    playerString(0) = this.playerName
-    playerString(1) = ArrayBuffertoString(this.playerHand)
-    playerString(2) = ArrayBuffertoString(this.plantfield1)
-    playerString(3) = ArrayBuffertoString(this.plantfield2)
-    playerString(4) = ArrayBuffertoString(this.plantfield3)
-    playerString(5) = this.gold.toString
-    playerString(6) = this.state.stateToString()
-    playerString(7) = this.lastMethodUsed
-    playerString
-  }
-  //Todo: Methoden schreiben um jede einzelne Variable zu einem String zu konvertieren
-  //Todo: Methoden schreiben um jede einzelne Variable aus einem String zu rekonstruieren
 }
