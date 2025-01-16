@@ -100,11 +100,11 @@ class FileIO {
   }
   def dynamicGamedateToXML() = {
     <dynamicGamedata>
-      drawnCards={dynamicGamedata.ArrayBufferToString(dynamicGamedata.drawnCards)}
+      drawnCards={ArrayBufferToString(dynamicGamedata.drawnCards)}
       playingPlayer={dynamicGamedata.playingPlayer.get.playerName}
       plantCount={dynamicGamedata.plantCount.toString}
       playerCount={dynamicGamedata.playerCount.toString}
-      cardsToPlant={dynamicGamedata.ArrayBufferToString(dynamicGamedata.cardsToPlant)}
+      cardsToPlant={ArrayBufferToString(dynamicGamedata.cardsToPlant)}
       playingPlayerID={dynamicGamedata.playingPlayerID.toString}
       plant1or2={dynamicGamedata.plant1or2.toString}
     </dynamicGamedata>
@@ -112,7 +112,7 @@ class FileIO {
 
 
 
-  def ArrayBuffertoString(plantfield: ArrayBuffer[card]): String = {
+  def ArrayBufferToString(plantfield: ArrayBuffer[card]): String = {
     val str = new StringBuilder()
     for (card <- plantfield) {
       str.append(card.beanName)
@@ -124,10 +124,10 @@ class FileIO {
   def toStringArray(Player: player): Array[String] = {
     val playerString = Array[String]()
     playerString(0) = Player.playerName
-    playerString(1) = ArrayBuffertoString(Player.playerHand)
-    playerString(2) = ArrayBuffertoString(Player.plantfield1)
-    playerString(3) = ArrayBuffertoString(Player.plantfield2)
-    playerString(4) = ArrayBuffertoString(Player.plantfield3)
+    playerString(1) = ArrayBufferToString(Player.playerHand)
+    playerString(2) = ArrayBufferToString(Player.plantfield1)
+    playerString(3) = ArrayBufferToString(Player.plantfield2)
+    playerString(4) = ArrayBufferToString(Player.plantfield3)
     playerString(5) = Player.gold.toString
     playerString(6) = Player.state.stateToString()
     playerString(7) = Player.lastMethodUsed
