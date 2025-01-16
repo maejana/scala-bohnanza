@@ -7,6 +7,7 @@ import Bohnanza.controller.*
 import Bohnanza.controller.controllerBase.Utility
 import Bohnanza.model
 import Bohnanza.model.modelBase.{FactoryP, card, dynamicGamedata, player}
+import org.scalatest.matchers.should.Matchers.exist.or
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -82,7 +83,14 @@ class UtilityTest extends AnyWordSpec with Matchers {
     }
 
     "plant cards correctly" in {
+      val player = testPlayer.copy()
+      val card = testCard.copy()
 
+      // Test empty fields
+      Utility().plant(card, dynamicGamedata.playingPlayer)
+      player.plantfield1 should contain(card) or 
+        (player.plantfield2 should contain(card)) or
+        (player.plantfield3 should contain(card))
     }
   }
 
