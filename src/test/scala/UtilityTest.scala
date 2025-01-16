@@ -8,6 +8,8 @@ import Bohnanza.controller.controllerBase.Utility
 import Bohnanza.model
 import Bohnanza.model.modelBase.{FactoryP, card, dynamicGamedata, gamedata, player}
 import org.scalatest.matchers.should.Matchers.exist.or
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should.Matchers
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -142,12 +144,39 @@ class UtilityTest extends AnyWordSpec with Matchers {
       Utility().chooseOrEmpty(dynamicGamedata.playingPlayer, newCard) shouldEqual 2
     }
 
-    "test Function plant1or2" in {
-      val player = dynamicGamedata.playingPlayer
-      val newCard  =  modelBase.card(modelBase.gamedata.beans(0), modelBase.gamedata.weights(0), modelBase.gamedata.priceBlaue)
-      dynamicGamedata.cardsToPlant += newCard
-      Utility().plant1or2(dynamicGamedata.playingPlayer) shouldEqual 2
+    "plant1or2" should {
+      "process input 1 correctly" in {
+        val utility = new Utility()
+        val player = Some(testPlayer.copy(hand = ArrayBuffer(testCard.copy(), testCard.copy())))
+        val inputProvider = () => 1
+
+        val result = utility.plant1or2(player)
+        result shouldBe 1
+      }
+
+      "process input 2 correctly" in {
+        val utility = new Utility()
+        val player = Some(testPlayer.copy(hand = ArrayBuffer(testCard.copy(), testCard.copy())))
+        val inputProvider = () => 2
+
+        dynamicGamedata.playingPlayer = player
+
+        val result = utility.plant1or2(dynamicGamedata.playingPlayer)
+        result shouldEqual 2
+      }
+
+      "retry on incorrect input" in {
+        val utility = new Utility()
+        val player = Some(testPlayer.copy())
+        val inputs = List(0, 1).iterator
+        val inputProvider = () => inputs.next()
+
+        val result = utility.plant1or2(player)
+        result shouldEqual 0
+      }
     }
+
+
 
 
   }
