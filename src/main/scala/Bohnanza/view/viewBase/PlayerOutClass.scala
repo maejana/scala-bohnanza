@@ -15,7 +15,7 @@ import scalafx.scene.text.Font
 class PlayerOutClass extends PlayerOut {
   override def playerScene: VBox = {
     new VBox {
-      spacing = 5
+      spacing = 2
       padding = Insets(5)
       alignment = Pos.TopLeft
       children = Seq(
@@ -75,10 +75,12 @@ class PlayerOutClass extends PlayerOut {
     }
   }
 
-  override def plantFields(fieldNumber: Int): VBox = {
+  override def plantFields(fieldNumber: Int): HBox = {
     fieldNumber match {
-      case 0 => new VBox {
+      case 0 => new HBox {
         spacing = 2
+        prefWidth = 500
+        prefHeight = 100
         children = Seq(new Label("Feld") {
           font = boogalooFont
         })
@@ -86,7 +88,7 @@ class PlayerOutClass extends PlayerOut {
       case 1 => FieldsCase.plantField(1)
       case 2 => FieldsCase.plantField(2)
       case 3 => FieldsCase.plantField(3)
-      case _ => new VBox {
+      case _ => new HBox {
         spacing = 2
         children = Seq(new Label("Invalid field number") {
           font = boogalooFont

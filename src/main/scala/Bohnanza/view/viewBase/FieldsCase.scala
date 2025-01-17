@@ -15,8 +15,10 @@ object FieldsCase {
 
 
   case class OneField() extends Fields {
-    override def plantField(): VBox = {
-      new VBox {
+    override def plantField(): HBox = {
+      new HBox {
+        maxWidth = 498
+        maxHeight = 250
         style = "-fx-background-color: #F5F5DC;"
         spacing = 5
         alignment = Pos.Center
@@ -32,11 +34,14 @@ object FieldsCase {
 
   case class TwoFields() extends Fields {
 
-    override def plantField(): VBox = {
-      new VBox {
-
+    override def plantField(): HBox = {
+      new HBox {
+        spacing = 10
+        alignment = Pos.Center
         children = Seq(
           new VBox {
+            maxWidth = 498
+            maxHeight = 250
             style = "-fx-background-color: #F5F5DC;"
             spacing = 5
             alignment = Pos.Center
@@ -48,7 +53,9 @@ object FieldsCase {
             )
           },
           new VBox {
-            style = "-fx-background-color: brown;"
+            maxWidth = 498
+            maxHeight = 250
+            style = "-fx-background-color: #F5F5DC;"
             spacing = 5
             alignment = Pos.Center
             children = Seq(
@@ -64,11 +71,13 @@ object FieldsCase {
   }
 
   case class ThreeFields() extends Fields {
-    override def plantField(): VBox = {
-      new VBox {
+    override def plantField(): HBox = {
+      new HBox {
         style = "-fx-background-color: #F5F5DC;"
         children = Seq(
           new VBox {
+            maxWidth = 498
+            maxHeight = 250
             spacing = 5
             alignment = Pos.Center
             children = Seq(
@@ -79,6 +88,8 @@ object FieldsCase {
             )
           },
           new VBox {
+            maxWidth = 498
+            maxHeight = 250
             style = "-fx-background-color: #F5F5DC;"
             spacing = 5
             alignment = Pos.Center
@@ -90,6 +101,8 @@ object FieldsCase {
             )
           },
           new VBox {
+            maxWidth = 498
+            maxHeight = 250
             style = "-fx-background-color: #F5F5DC;"
             spacing = 5
             alignment = Pos.Center
@@ -105,7 +118,7 @@ object FieldsCase {
       
     }
   }
-  def plantField(i: Int): VBox = {
+  def plantField(i: Int): HBox = {
     i match {
       case 1 => OneField().plantField()
       case 2 => TwoFields().plantField()

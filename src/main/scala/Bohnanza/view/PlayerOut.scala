@@ -13,7 +13,7 @@ trait PlayerOut {
   def playerScene: VBox
   def handCards: HBox
   def playerInfo: HBox
-  def plantFields(int: Int): VBox
+  def plantFields(int: Int): HBox
   def undoButton: Button
 }
 

@@ -12,6 +12,7 @@ import scalafx.scene.control.{Button, ComboBox, Label, TextField}
 import scalafx.scene.layout.{BorderPane, HBox, VBox}
 import scalafx.scene.paint.Color
 import scalafx.scene.text.Font
+import scalafx.scene.image.{Image, ImageView}
 
 import scala.util.{Failure, Success, Try}
 object FXGUi extends JFXApp3 {
@@ -38,10 +39,13 @@ object FXGUi extends JFXApp3 {
   }
 
   def startScene(): VBox = new VBox {
-    style = "-fx-background-color: #FF5B61;"
+    val backgroundImage = new ImageView(new Image("C:\\Users\\euule\\Documents\\GitHub\\scala-bohnanza\\src\\resources\\Backround.jpg"))
+    backgroundImage.fitWidth <== this.width
+    backgroundImage.fitHeight <== this.height
+    backgroundImage.setPreserveRatio(false)
     spacing = 2
     alignment = Pos.Center
-    padding = Insets(2)
+    padding = Insets(20)
 
     children = Seq(
       new Label("Willkommen zu Bohnanza!") {
@@ -54,12 +58,21 @@ object FXGUi extends JFXApp3 {
           stage.scene = new Scene(namenEingebenSeite())
           stage.fullScreen = true
         }
+      },
+      new Button("Spiel laden") {
+        font = boogalooFont
+        onAction = _ => {
+          modelBase.FileIO().load()
+          stage.scene = new Scene(spielerRunde())
+          stage.fullScreen = true
+
+        }
       }
     )
   }
 
   def spieleranzahlEingeben(): VBox = new VBox {
-    style = "-fx-background-color: yellow;"
+    style = "-fx-background-color: white;"
     spacing = 2
     alignment = Pos.Center
     padding = Insets(2)
@@ -86,8 +99,8 @@ object FXGUi extends JFXApp3 {
   }
 
   def namenEingebenSeite(): BorderPane = new BorderPane {
-    style = "-fx-background-color: yellow;"
-    padding = Insets(5)
+    style = "-fx-background-color: white;"
+    padding = Insets(20)
     top = new Label(gamedata.bohnanza) {
       font = boogalooFont
       alignmentInParent = Pos.Center
@@ -123,7 +136,7 @@ object FXGUi extends JFXApp3 {
   }
 
   def addPlayer(nr: Int): HBox = new HBox {
-    style = "-fx-background-color: yellow;"
+    style = "-fx-background-color: white;"
     spacing = 5
     alignment = Pos.Center
 
@@ -153,19 +166,19 @@ object FXGUi extends JFXApp3 {
 
   def spielerRunde(): VBox = {
     new VBox {
-      style = "-fx-background-color: yellow;"
-      spacing = 10
+      style = "-fx-background-color: white;"
+      spacing = 2
       padding = Insets(10)
       alignment = Pos.Center
 
       children = Seq(
         new HBox {
-          spacing = 10
+          spacing = 2
           alignment = Pos.Center
           children = Seq(
             playerOut(),
             new VBox {
-              spacing = 10
+              spacing = 2
               alignment = Pos.Center
               // children = fields // Rechter Bereich
             }
@@ -176,7 +189,7 @@ object FXGUi extends JFXApp3 {
           textFill = Color.DarkGreen
         },
         new HBox {
-          spacing = 10
+          spacing = 5
           alignment = Pos.Center
           children = Seq(
             new Button("1") {
@@ -197,6 +210,13 @@ object FXGUi extends JFXApp3 {
               onAction = _ => {
                 stage.scene = new Scene (drawAndPlantCards())
                 stage.fullScreen = true 
+              }
+            },
+            new Button("Save") {
+              font = boogalooFont
+              onAction = _ => {
+                modelBase.FileIO().save(modelBase.dynamicGamedata.players)
+
               }
             }
           )
@@ -237,6 +257,7 @@ object FXGUi extends JFXApp3 {
     new VBox {
       spacing = 5
       padding = Insets(2)
+      style = "-fx-background-color: white;"
       children = Seq(
         new VBox {
           spacing = 5
@@ -262,6 +283,12 @@ object FXGUi extends JFXApp3 {
             stage.scene = new Scene(spielerRunde())
             stage.fullScreen = true
           }
+        },
+        new Button("Save") {
+          font = boogalooFont
+          onAction = _ => {
+            modelBase.FileIO().save(modelBase.dynamicGamedata.players)
+          }
         }
       )
     }
@@ -279,9 +306,9 @@ object FXGUi extends JFXApp3 {
     modelBase.dynamicGamedata.cardsToPlant = scala.collection.mutable.ArrayBuffer(card1, card2)
     new VBox {
       spacing = 10
-      padding = Insets(10)
+      padding = Insets(20)
       alignment = Pos.Center
-
+      style = "-fx-background-color: white;"
       children = Seq(
         new Label(modelBase.dynamicGamedata.playingPlayer.get.playerName) {
           font = boogalooFont

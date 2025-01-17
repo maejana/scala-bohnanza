@@ -166,4 +166,6 @@ class FileIO {
   }
   //Todo: alle Daten aus Player oder aus dynamicGamedata müssen aus einem String wieder zur den ursprünglichen Datentypen Konvertiert und eingelesen werden.(Bsp: playersArray -> player -> playername(ist ein String) && playerhand -> alle fünfKartenNamen als String abspeichern und später daraus die fünf karten in eine playerhand zurück konvertieren)
   //Done: alle Daten aus Player oder aus dynamicGamedata müssen als String in XML abgespeichert werden
+
+
 }
