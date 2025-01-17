@@ -17,16 +17,20 @@ object FieldsCase {
   case class OneField() extends Fields {
     override def plantField(): HBox = {
       new HBox {
-        maxWidth = 498
-        maxHeight = 250
-        style = "-fx-background-color: #F5F5DC;"
-        spacing = 5
-        alignment = Pos.Center
         children = Seq(
-          new Label("Plant Field 1") {
-            font = boogalooFont
-          },
-          plantInPlantfield(dynamicGamedata.playingPlayer.get.plantfield1.headOption.map(_.beanName).getOrElse(""))
+          new VBox {
+            maxWidth = 498
+            maxHeight = 250
+            style = "-fx-background-color: #F5F5DC;"
+            spacing = 5
+            alignment = Pos.Center
+            children = Seq(
+              new Label("Plant Field 1") {
+                font = boogalooFont
+              },
+              plantInPlantfield(dynamicGamedata.playingPlayer.get.plantfield1.headOption.map(_.beanName).getOrElse(""))
+            )
+          }
         )
       }
     }

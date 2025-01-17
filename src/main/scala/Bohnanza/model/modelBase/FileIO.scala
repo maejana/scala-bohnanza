@@ -7,10 +7,11 @@ import scala.collection.mutable.ArrayBuffer
 import scala.xml.{Elem, NodeSeq, PrettyPrinter}
 import Bohnanza.model.modelBase.player
 import Bohnanza.controller.controllerBase.playerState
+import Bohnanza.model.FileIOTrait
 
-class FileIO {
+class FileIO extends FileIOTrait {
 
-  def loadDynamicGamedataFromXML(file: String): Unit = {
+  override def loadDynamicGamedataFromXML(file: String): Unit = {
     val xmlData = scala.xml.XML.loadFile(file) // Lädt die XML-Datei
 
     // Zugriff auf den <dynamicGamedata>-Knoten
@@ -35,7 +36,7 @@ class FileIO {
     dynamicGamedata.plant1or2 = plant1or2
   }
 
-  def findPlayerWithName(str : String): player = {
+  override def findPlayerWithName(str : String): player = {
     for(player :player <- dynamicGamedata.players){
       if(player.playerName.equals(str)){
         return player
@@ -45,7 +46,7 @@ class FileIO {
   }
 
 
-  def loadPlayersFromXML(file: String): ArrayBuffer[player] = {
+  override def loadPlayersFromXML(file: String): ArrayBuffer[player] = {
     val xmlData = scala.xml.XML.loadFile(file) // Lädt die XML-Datei
     val players = ArrayBuffer[player]() // ArrayBuffer für Spieler
 
@@ -56,24 +57,24 @@ class FileIO {
       val plantField1 = (playerNode \ "@plantfield1").text
       val plantField2 = (playerNode \ "@plantfield2").text
       val plantField3 = (playerNode \ "@plantfield3").text
-      val gold = (playerNode \ "@gold").text.toInt
+      val gold = (playerNode \ "@gold").text
       val state = (playerNode \ "@state").text
       val lastMethodUsed = (playerNode \ "@lastMethodUsed").text
 
       // Spieler-Objekt erstellen und hinzufügen
-      val loadedPlayer = newPlayer(playerName, StringToArrayBuffer(playerHand), StringToArrayBuffer(plantField1),StringToArrayBuffer(plantField2), StringToArrayBuffer(plantField3),gold, playerState().StringToState(state), lastMethodUsed)
+      val loadedPlayer = newPlayer(playerName, StringToArrayBuffer(playerHand), StringToArrayBuffer(plantField1),StringToArrayBuffer(plantField2), StringToArrayBuffer(plantField3), gold.toInt, playerState().StringToState(state), lastMethodUsed)
       players += loadedPlayer
     }
 
     players // Rückgabe der Spieler
   }
 
-  def load(): Unit = {
+  override def load(): Unit = {
     dynamicGamedata.players = loadPlayersFromXML("Gamesave.xml")
     loadDynamicGamedataFromXML("Gamesave.xml")
   }
 
-  def save(Players : ArrayBuffer[player]): Unit = {
+  override def save(Players : ArrayBuffer[player]): Unit = {
     val pw = new PrintWriter(new File("GameSave.xml"))
     val prettyPrinter = new PrettyPrinter(120, 4)
     val xml = prettyPrinter.format(dynamicGamedateToXML())
@@ -85,34 +86,78 @@ class FileIO {
     pw.close
   }
 
-  def playerToXML(Player: player) = {
-    val playerarray = toStringArray(Player)
+  override def playerToXML(player: player): Elem = {
+    val playerArray = toStringArray(player)
+
+    // Sicherheit: Überprüfung auf ausreichende Länge und Verwendung von Fallback-Werten
+    def safeValue(index: Int, fallback: String = "Unknown"): String =
+      if (index < playerArray.length) scala.xml.Utility.escape(playerArray(index)) else fallback
+
     <player>
-      playerName={playerarray(0)}
-      playerhand={playerarray(1)}
-      plantfield1={playerarray(2)}
-      plantfield2={playerarray(3)}
-      plantfield3={playerarray(4)}
-      gold={playerarray(5)}
-      state={playerarray(6)}
-      lastMethodUsed={playerarray(7)}
+      <playerName>
+        {safeValue(0)}
+      </playerName>
+      <playerHand>
+        {safeValue(1)}
+      </playerHand>
+      <plantField1>
+        {safeValue(2)}
+      </plantField1>
+      <plantField2>
+        {safeValue(3)}
+      </plantField2>
+      <plantField3>
+        {safeValue(4)}
+      </plantField3>
+      <gold>
+        {safeValue(5)}
+      </gold>
+      <state>
+        {safeValue(6)}
+      </state>
+      <lastMethodUsed>
+        {safeValue(7)}
+      </lastMethodUsed>
     </player>
   }
-  def dynamicGamedateToXML() = {
-    <dynamicGamedata>
-      drawnCards={ArrayBufferToString(dynamicGamedata.drawnCards)}
-      playingPlayer={dynamicGamedata.playingPlayer.get.playerName}
-      plantCount={dynamicGamedata.plantCount.toString}
-      playerCount={dynamicGamedata.playerCount.toString}
-      cardsToPlant={ArrayBufferToString(dynamicGamedata.cardsToPlant)}
-      playingPlayerID={dynamicGamedata.playingPlayerID.toString}
-      plant1or2={dynamicGamedata.plant1or2.toString}
-    </dynamicGamedata>
+
+
+  override def dynamicGamedateToXML(): Elem = {
+    val dynamicGamedataXML: Elem =
+      <dynamicGamedata>
+        <drawnCards>
+          {scala.xml.Utility.escape(ArrayBufferToString(dynamicGamedata.drawnCards))}
+        </drawnCards>
+        <playingPlayer>
+          {scala.xml.Utility.escape(dynamicGamedata.playingPlayer.map(_.playerName).getOrElse("Unknown"))}
+        </playingPlayer>
+        <plantCount>
+          {dynamicGamedata.plantCount.toString}
+        </plantCount>
+        <playerCount>
+          {dynamicGamedata.playerCount.toString}
+        </playerCount>
+        <cardsToPlant>
+          {scala.xml.Utility.escape(ArrayBufferToString(dynamicGamedata.cardsToPlant))}
+        </cardsToPlant>
+        <playingPlayerID>
+          {dynamicGamedata.playingPlayerID.toString}
+        </playingPlayerID>
+        <plant1or2>
+          {dynamicGamedata.plant1or2.toString}
+        </plant1or2>
+      </dynamicGamedata>
+
+    // Pretty print the XML for logging/debugging
+    val prettyPrinter = new PrettyPrinter(120, 4)
+    val formattedXML = prettyPrinter.format(dynamicGamedataXML)
+    println(formattedXML)
+
+    dynamicGamedataXML
   }
 
 
-
-  def ArrayBufferToString(plantfield: ArrayBuffer[card]): String = {
+  override def ArrayBufferToString(plantfield: ArrayBuffer[card]): String = {
     val str = new StringBuilder()
     for (card <- plantfield) {
       str.append(card.beanName)
@@ -121,21 +166,21 @@ class FileIO {
     str.result()
   }
 
-  def toStringArray(Player: player): Array[String] = {
-    val playerString = Array[String]()
-    playerString(0) = Player.playerName
-    playerString(1) = ArrayBufferToString(Player.playerHand)
-    playerString(2) = ArrayBufferToString(Player.plantfield1)
-    playerString(3) = ArrayBufferToString(Player.plantfield2)
-    playerString(4) = ArrayBufferToString(Player.plantfield3)
-    playerString(5) = Player.gold.toString
-    playerString(6) = Player.state.stateToString()
-    playerString(7) = Player.lastMethodUsed
+  override def toStringArray(Player: player): ArrayBuffer[String] = {
+    val playerString = ArrayBuffer[String]()
+    playerString.addOne(Player.playerName)
+    playerString.addOne(ArrayBufferToString(Player.playerHand))
+    playerString.addOne(ArrayBufferToString(Player.plantfield1))
+    playerString.addOne(ArrayBufferToString(Player.plantfield2))
+    playerString.addOne(ArrayBufferToString(Player.plantfield3))
+    playerString.addOne(Player.gold.toString)
+    playerString.addOne(Player.state.stateToString())
+    playerString.addOne(Player.lastMethodUsed)
     playerString
   }
   //Todo: Methoden schreiben um jede einzelne Variable aus einem String zu rekonstruieren
 
-  def StringToArrayBuffer(str: String): ArrayBuffer[card] = {
+  override def StringToArrayBuffer(str: String): ArrayBuffer[card] = {
     val result = str.split(",")
     val array: Array[String] = str.split(",")
     val arrayBuffer = new ArrayBuffer[card]()
@@ -145,7 +190,7 @@ class FileIO {
     arrayBuffer
   }
 
-  def stringToCard(str: String): card = {
+  override def stringToCard(str: String): card = {
     for (card: card <- gamedata.cards) {
       if (card.beanName.equals(str)) {
         return card
@@ -154,7 +199,7 @@ class FileIO {
     gamedata.cards(0)
   }
 
-  def newPlayer(PlayerName: String, Playerhand: ArrayBuffer[card], Plantfield1: ArrayBuffer[card], Plantfield2: ArrayBuffer[card], Plantfield3: ArrayBuffer[card], Gold: Int, State: State, LastMethodUsed: String): player = {
+  override def newPlayer(PlayerName: String, Playerhand: ArrayBuffer[card], Plantfield1: ArrayBuffer[card], Plantfield2: ArrayBuffer[card], Plantfield3: ArrayBuffer[card], Gold: Int, State: State, LastMethodUsed: String): player = {
     val player = new player(PlayerName, Playerhand)
     player.plantfield1 = Plantfield1
     player.plantfield2 = Plantfield2
