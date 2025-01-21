@@ -1,27 +1,17 @@
 <open>
     <dynamicGamedata>
-        <drawnCards>Blaue, Feuer, </drawnCards>
-        <playingPlayer>w</playingPlayer>
+        <drawnCards></drawnCards>
+        <playingPlayer>TestPlayer</playingPlayer>
         <plantCount>0</plantCount>
-        <playerCount>2</playerCount>
+        <playerCount>0</playerCount>
         <cardsToPlant></cardsToPlant>
-        <playingPlayerID>2</playingPlayerID>
-        <plant1or2>0</plant1or2>
+        <playingPlayerID>0</playingPlayerID>
+        <plant1or2>1</plant1or2>
     </dynamicGamedata>
-    <players>0
+    <players>
         <player>
-            <playerName>J</playerName>
-            <playerHand>Soja, Augen, Sau, Soja, Rote, </playerHand>
-            <plantField1></plantField1>
-            <plantField2></plantField2>
-            <plantField3></plantField3>
-            <gold>0</gold>
-            <state>Plays</state>
-            <lastMethodUsed>plant1or2</lastMethodUsed>
-        </player>
-        <player>
-            <playerName>w</playerName>
-            <playerHand>Sau, Feuer, Brech, Soja, Brech, </playerHand>
+            <playerName>TestPlayer</playerName>
+            <playerHand></playerHand>
             <plantField1></plantField1>
             <plantField2></plantField2>
             <plantField3></plantField3>

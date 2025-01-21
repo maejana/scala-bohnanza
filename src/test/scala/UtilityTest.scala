@@ -256,9 +256,129 @@ class UtilityTest extends AnyWordSpec with Matchers {
         result shouldEqual "...oechtest Bsp: Sau: [] bean TestBean2 "
       }
     }
-      
+
  */
 
+    "deletePlayerBecauseBug" should {
+      "remove excess players if the player count is incorrect" in {
+        val utility = new Utility()
+        dynamicGamedata.players += testPlayer.copy()
+        dynamicGamedata.players += testPlayer.copy()
+        dynamicGamedata.playerCount = 1
+
+        utility.deletePlayerBecauseBug()
+
+        dynamicGamedata.players.size shouldEqual dynamicGamedata.playerCount
+      }
+    }
+    "plant" should {
+      "plant the card in the correct field" in {
+        val utility = new Utility()
+        val player = testPlayer.copy()
+        val card = testCard.copy()
+        dynamicGamedata.playingPlayer = Some(player)
+
+        utility.plant(card, dynamicGamedata.playingPlayer)
+
+        player.plantfield1 should contain(card)
+        player.playerHand should not contain card
+      }
+    }
+    "harvest" should {
+      "add the correct gold value and clear the field" in {
+        val utility = new Utility()
+        val player = testPlayer.copy()
+        val card = testCard.copy()
+        player.plantfield1 += card
+        dynamicGamedata.playingPlayer = Some(player)
+
+        utility.harvest(1)
+
+        player.gold should be > 0
+        player.plantfield1 shouldBe empty
+      }
+    }
+    "trade" should {
+      "swap the cards between players" in {
+        val utility = new Utility()
+        val player1 = testPlayer.copy()
+        val player2 = testPlayer.copy()
+        val card1 = testCard.copy()
+        val card2 = testCard2.copy()
+        player1.playerHand += card1
+        player2.playerHand += card2
+
+        utility.trade(player1, player2, card1, card2)
+
+        player1.playerHand should contain(card2)
+        player2.playerHand should contain(card1)
+      }
+    }
+    /*
+    "drawCards" should {
+      "draw two cards" in {
+        val utility = new Utility()
+        val cards = utility.drawCards()
+
+        cards.size shouldEqual 2
+      }
+    }
+
+    "initPlayer" should {
+      "initialize a player with a hand of cards" in {
+        val utility = new Utility()
+        val playerName = "TestPlayer"
+        val result = utility.initPlayer(playerName)
+
+        dynamicGamedata.players.exists(_.playerName == playerName) shouldBe true
+        result should include(playerName)
+      }
+    }
+
+    "initGame" should {
+      "initialize the game with the correct number of players" in {
+        val utility = new Utility()
+        dynamicGamedata.playerCount = 2
+        val result = utility.initGame
+
+        dynamicGamedata.players.size shouldEqual 2
+        result should not be empty
+      }
+    }
+    */
+    "playerFieldToString" should {
+      "return the correct string representation of the field" in {
+        val utility = new Utility()
+        val field = ArrayBuffer(testCard.copy(), testCard.copy())
+
+        val result = utility.playerFieldToString(field)
+
+        result shouldEqual "bean TestBean2"
+      }
+    }
+    /*
+    "takeNewCard" should {
+      "add a new card to the player's hand" in {
+        val utility = new Utility()
+        val player = testPlayer.copy()
+        dynamicGamedata.playingPlayer = Some(player)
+
+        utility.takeNewCard(dynamicGamedata.playingPlayer)
+
+        player.playerHand.size shouldEqual 1
+      }
+    }
+    */
+    "playerHandToString" should {
+      "return the correct string representation of the hand" in {
+        val utility = new Utility()
+        val hand = ArrayBuffer(testCard.copy(), testCard.copy())
+
+        val result = utility.playerHandToString(hand)
+
+        result shouldEqual "bean TestBean2"
+      }
+    }
 
 
 
