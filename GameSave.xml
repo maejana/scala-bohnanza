@@ -1,27 +1,33 @@
-<dynamicGamedata>
-    <drawnCards> Blaue, Feuer, </drawnCards>
-    <playingPlayer> s </playingPlayer>
-    <plantCount> 0 </plantCount>
-    <playerCount> 2 </playerCount>
-    <cardsToPlant> </cardsToPlant>
-    <playingPlayerID> 2 </playingPlayerID>
-    <plant1or2> 0 </plant1or2>
-</dynamicGamedata><player>
-    <playerName> j </playerName>
-    <playerHand> Blaue, Sau, Brech, Feuer, Soja, </playerHand>
-    <plantField1> </plantField1>
-    <plantField2> </plantField2>
-    <plantField3> </plantField3>
-    <gold> 0 </gold>
-    <state> Plays </state>
-    <lastMethodUsed> plant1or2 </lastMethodUsed>
-</player><player>
-    <playerName> s </playerName>
-    <playerHand> Sau, Brech, Blaue, Blaue, Sau, </playerHand>
-    <plantField1> </plantField1>
-    <plantField2> </plantField2>
-    <plantField3> </plantField3>
-    <gold> 0 </gold>
-    <state> Plays </state>
-    <lastMethodUsed> </lastMethodUsed>
-</player>
+<open>
+    <dynamicGamedata>
+        <drawnCards>Blaue, Feuer, </drawnCards>
+        <playingPlayer>w</playingPlayer>
+        <plantCount>0</plantCount>
+        <playerCount>2</playerCount>
+        <cardsToPlant></cardsToPlant>
+        <playingPlayerID>2</playingPlayerID>
+        <plant1or2>0</plant1or2>
+    </dynamicGamedata>
+    <players>0
+        <player>
+            <playerName>J</playerName>
+            <playerHand>Soja, Augen, Sau, Soja, Rote, </playerHand>
+            <plantField1></plantField1>
+            <plantField2></plantField2>
+            <plantField3></plantField3>
+            <gold>0</gold>
+            <state>Plays</state>
+            <lastMethodUsed>plant1or2</lastMethodUsed>
+        </player>
+        <player>
+            <playerName>w</playerName>
+            <playerHand>Sau, Feuer, Brech, Soja, Brech, </playerHand>
+            <plantField1></plantField1>
+            <plantField2></plantField2>
+            <plantField3></plantField3>
+            <gold>0</gold>
+            <state>Plays</state>
+            <lastMethodUsed> </lastMethodUsed>
+        </player>
+    </players>
+</open>

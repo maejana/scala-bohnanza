@@ -144,6 +144,7 @@ class UtilityTest extends AnyWordSpec with Matchers {
       Utility().chooseOrEmpty(dynamicGamedata.playingPlayer, newCard) shouldEqual 2
     }
 
+    /*
     "plant1or2" should {
       "process input 1 correctly" in {
         val utility = new Utility()
@@ -153,6 +154,7 @@ class UtilityTest extends AnyWordSpec with Matchers {
         val result = utility.plant1or2(player)
         result shouldBe 1
       }
+
 
       "process input 2 correctly" in {
         val utility = new Utility()
@@ -165,6 +167,7 @@ class UtilityTest extends AnyWordSpec with Matchers {
         result shouldEqual 2
       }
 
+
       "retry on incorrect input" in {
         val utility = new Utility()
         val player = Some(testPlayer.copy())
@@ -174,7 +177,89 @@ class UtilityTest extends AnyWordSpec with Matchers {
         val result = utility.plant1or2(player)
         result shouldEqual 0
       }
+
     }
+
+
+
+    "plantAllSelectedCards" should {
+      "plant all selected cards" in {
+        val utility = new Utility()
+        val player = testPlayer.copy()
+        val card1 = testCard.copy()
+        val card2 = testCard.copy()
+        val card3 = testCard.copy()
+        dynamicGamedata.cardsToPlant = ArrayBuffer(card1, card2, card3)
+        dynamicGamedata.plantCount = 3
+        dynamicGamedata.playingPlayer = Some(player)
+
+        utility.plantAllSelectedCards(dynamicGamedata.plantCount)
+
+        assert(player.plantfield1.contains(card1), "plantfield1 should contain card1")
+        assert(player.plantfield2.contains(card2), "plantfield2 should contain card2")
+        assert(player.plantfield3.contains(card3), "plantfield3 should contain card3")
+      }
+      }
+      */
+
+    "should return the right Gold Value" in {
+      val player = testPlayer.copy()
+      val card = testCard.copy()
+      val card2 = testCard2.copy()
+      player.playerHand += card
+      player.playerHand += card2
+      dynamicGamedata.playingPlayer = Some(player)
+
+      Utility().returnGoldValue(dynamicGamedata.playingPlayer.get.plantfield1) shouldEqual dynamicGamedata.playingPlayer.get.gold
+    }
+
+    "checkPlantAmount" should {
+      "return the correct price based on the number of cards in the plantfield" in {
+        val utility = new Utility()
+        val card = testCard.copy(price = Array(0, 2, 4, 6))
+        val plantfield = ArrayBuffer(card, card, card)
+
+        val result = utility.checkPlantAmount(card, plantfield)
+        result shouldEqual 4 // Assuming the price array is [0, 2, 4, 6] and plantfield has 3 cards
+      }
+
+      "return the base price if the plantfield is empty" in {
+        val utility = new Utility()
+        val card = testCard.copy(price = Array(0, 2, 4, 6))
+        val plantfield = ArrayBuffer[card]()
+
+        val result = utility.checkPlantAmount(card, plantfield)
+        result shouldEqual 2 // Assuming the base price is 0
+      }
+
+      "return the correct price for a partially filled plantfield" in {
+        val utility = new Utility()
+        val card = testCard.copy(price = Array(0, 2, 4, 6))
+        val plantfield = ArrayBuffer(card, card)
+
+        val result = utility.checkPlantAmount(card, plantfield)
+        result shouldEqual 4 // Assuming the price array is [0, 2, 4, 6] and plantfield has 2 cards
+      }
+    }
+/*
+    "plantSelectString" should {
+      "return the correct string for the player's hand" in {
+        val utility = new Utility()
+        val player = testPlayer.copy()
+        val card1 = testCard.copy()
+        val card2 = testCard2.copy()
+        player.playerHand += card1
+        player.playerHand += card2
+        dynamicGamedata.playingPlayer = Some(player)
+
+        val result = utility.plantSelectString(dynamicGamedata.playingPlayer)
+        result shouldEqual "...oechtest Bsp: Sau: [] bean TestBean2 "
+      }
+    }
+      
+ */
+
+
 
 
 

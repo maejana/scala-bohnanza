@@ -16,7 +16,7 @@ case class player(name: String, hand: ArrayBuffer[card]) {
   var plantfield3 = ArrayBuffer[card]()
   var gold = 0
   var state: State = playerState().DontPlays()
-  var lastMethodUsed = ""
+  var lastMethodUsed = " "
   
   // beide Methoden für Undo
   def restore(newState: player): Unit = {
