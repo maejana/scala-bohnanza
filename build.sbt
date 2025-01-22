@@ -25,6 +25,9 @@ libraryDependencies += "com.google.inject" % "guice" % "4.1.0"
 
 libraryDependencies += "org.playframework" %% "play-json" % "3.0.4"
 
+libraryDependencies += "org.scalatestplus" %% "mockito-4-6" % "3.2.15.0" % Test
+
+
 
 
 libraryDependencies += "net.codingwell" %% "scala-guice" % "7.0.0"

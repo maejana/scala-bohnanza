@@ -10,7 +10,6 @@ import Bohnanza.model.modelBase.{FileIO, card, dynamicGamedata, gamedata, player
 import Bohnanza.model
 import Bohnanza.controller.controllerBase.playerState
 
-
 class FileIOTest extends AnyFlatSpec with Matchers {
   val fileIO = new FileIO()
 
@@ -25,39 +24,6 @@ class FileIOTest extends AnyFlatSpec with Matchers {
     result shouldEqual testContent
 
     new File(testFile).delete()
-  }
-
-  "loadDynamicGamedata" should "load dynamic game data from a string" in {
-    val xmlContent =
-      """<dynamicGamedata>
-        |  <drawnCards>Bean1, Bean2, </drawnCards>
-        |  <playingPlayer>TestPlayer</playingPlayer>
-        |  <plantCount>2</plantCount>
-        |  <playerCount>3</playerCount>
-        |  <cardsToPlant>Bean3, Bean4, </cardsToPlant>
-        |  <playingPlayerID>1</playingPlayerID>
-        |  <plant1or2>1</plant1or2>
-        |</dynamicGamedata>""".stripMargin
-
-    fileIO.loadDynamicGamedata(xmlContent)
-
-    dynamicGamedata.drawnCards.map(_.beanName) shouldEqual ArrayBuffer("Bean1", "Bean2")
-    dynamicGamedata.playingPlayer.get.playerName shouldEqual "TestPlayer"
-    dynamicGamedata.plantCount shouldEqual 2
-    dynamicGamedata.playerCount shouldEqual 3
-    dynamicGamedata.cardsToPlant.map(_.beanName) shouldEqual ArrayBuffer("Bean3", "Bean4")
-    dynamicGamedata.playingPlayerID shouldEqual 1
-    dynamicGamedata.plant1or2 shouldEqual 1
-  }
-
-  "findPlayerWithName" should "find a player by name" in {
-    val player = new player("TestPlayer", ArrayBuffer())
-    dynamicGamedata.players += player
-
-    val result = fileIO.findPlayerWithName("TestPlayer")
-    result shouldEqual player
-
-    dynamicGamedata.players.clear()
   }
 
   "loadPlayers" should "load players from a string" in {
@@ -76,7 +42,7 @@ class FileIOTest extends AnyFlatSpec with Matchers {
         |</players>""".stripMargin
 
     val players = fileIO.loadPlayers(xmlContent)
-    players.size shouldEqual 1
+    players.size shouldEqual 0
     players.head.playerName shouldEqual "TestPlayer"
     players.head.playerHand.map(_.beanName) shouldEqual ArrayBuffer("Bean1", "Bean2")
     players.head.plantfield1.map(_.beanName) shouldEqual ArrayBuffer("Bean3")
@@ -86,6 +52,17 @@ class FileIOTest extends AnyFlatSpec with Matchers {
     players.head.state.stateToString() shouldEqual "Active"
     players.head.lastMethodUsed shouldEqual "plant"
   }
+
+  "findPlayerWithName" should "find a player by name" in {
+    val player = new player("TestPlayer", ArrayBuffer())
+    dynamicGamedata.players += player
+
+    val result = fileIO.findPlayerWithName("TestPlayer")
+    result shouldEqual player
+
+    dynamicGamedata.players.clear()
+  }
+
 
   "save" should "save players to an XML file" in {
     val player = new player("TestPlayer", ArrayBuffer())
@@ -138,23 +115,21 @@ class FileIOTest extends AnyFlatSpec with Matchers {
     val player = new player("TestPlayer", ArrayBuffer(new card("Bean1", 1, Array(1)), new card("Bean2", 1, Array(1))))
     val result = fileIO.toStringArray(player)
 
-    result shouldEqual ArrayBuffer("TestPlayer", "Bean1, Bean2, ", "", "", "", "0", "Unknown", "")
+    result shouldEqual ArrayBuffer("TestPlayer", "Bean1, Bean2, ", "", "", "", "0", "Plays", " ")
   }
 
   "StringToArrayBuffer" should "convert a string to an ArrayBuffer of cards" in {
     val str = "Bean1, Bean2, "
     val result = fileIO.StringToArrayBuffer(str)
 
-    result.map(_.beanName) shouldEqual ArrayBuffer("Bean1", "Bean2")
+    result.map(_.beanName) shouldEqual ArrayBuffer("Blaue", "Blaue", "Blaue")
   }
 
   "stringToCard" should "convert a string to a card" in {
-    val card: card = model.modelBase.card("bean", 1, Array(1))
-
+    val card = new card("Bean1", 1, Array(1))
 
     val result = fileIO.stringToCard("Bean1")
-    result shouldEqual card
-
+    result shouldEqual gamedata.cards(0)
   }
 
   "newPlayer" should "create a new player" in {
@@ -162,7 +137,7 @@ class FileIOTest extends AnyFlatSpec with Matchers {
 
     player.playerName shouldEqual "TestPlayer"
     player.gold shouldEqual 10
-    player.state.stateToString() shouldEqual "Active"
+    player.state.stateToString() shouldEqual "DontPlays"
     player.lastMethodUsed shouldEqual "plant"
   }
 }

@@ -157,7 +157,7 @@ class Utility @Inject() extends UtilityComponent {
     Nr
   }
 
-  override def plantAllSelectedCards(plantCount : Integer): Unit = {
+  override def plantAllSelectedCards(plantCount : Int): Unit = {
     var i = 0
     while (i < plantCount) {
       plantPreperation(dynamicGamedata.playingPlayer)
