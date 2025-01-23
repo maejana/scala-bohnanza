@@ -7,7 +7,7 @@ COPY project /scala-bohnanza/project/
 
 RUN sbt update
 
-COPY . /scala-bohnanza
+COPY src /scala-bohnanza
 
 # Verwende BuildKit für apt-get-Caching
 RUN --mount=type=cache,target=/var/cache/apt \
