@@ -1,21 +1,23 @@
-FROM openjdk:8
+FROM sbtscala/scala-sbt:eclipse-temurin-17.0.4_1.7.1_3.2.0
 
-ENV SCALA_VERSION 2.12.1
-ENV SBT_VERSION 0.13.15
+WORKDIR /scala-bohnanza
 
-RUN touch /usr/lib/jvm/java-8-openjdk-amd64/release
+COPY build.sbt /scala-bohnanza/
+COPY project /scala-bohnanza/project/
 
-RUN \
-    curl -fsl http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar -czvf /path/to/archive.tar.gz /path/to/directory \
-    echo >> /root/.bashhrc && \
-    echo 'export PATH=~/scala-$SCALA_VERSION/bin:$PATH' >> /root/.bashhrc
+RUN sbt update
 
-RUN \
-   curl -L -o sbt-$SBT_VERSION.deb hhtp://d1.bintray.com/sbt/debian/sbt-$SBT_VERSION/scala-$SCALA_VERSION.tgz | tar -czvf /path/to/archive.tar.gz /path/to/directory \
-   dpkg -i sbt-$SBT_VERSION.deb && \
-   rm sbt-$SBT_VERSION.deb && \
-   apt-get update && \
-   apt get install sbt && \
-   sbt sbtVersion
+COPY . /scala-bohnanza
 
-Workdir /root \
+# Verwende BuildKit für apt-get-Caching
+RUN --mount=type=cache,target=/var/cache/apt \
+    --mount=type=cache,target=/var/lib/apt \
+    apt-get update && apt-get install -y --no-install-recommends \
+        libgtk-3-0 libglib2.0-0 libxext6 libxrender1 libxtst6 libx11-6 xvfb && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+ENV DISPLAY=host.docker.internal:0.0
+
+RUN sbt compile
+
+CMD ["sbt", "run"]
