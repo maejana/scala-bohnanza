@@ -18,7 +18,8 @@ class Utility @Inject() extends UtilityComponent {
   ObserverData().addObserver(CardObserver())
 
   val injector = Guice.createInjector(new BohnanzaModule(playerState()))
-  
+  val playerstate = injector.getInstance(classOf[playerState])
+
   override def plantInfo(): card = {
     val cardname = dynamicGamedata.cardsToPlant(0).beanName
     dynamicGamedata.cardsToPlant -= findCardWithName(cardname)
