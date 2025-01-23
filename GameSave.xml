@@ -1,7 +1,7 @@
 <open>
     <dynamicGamedata>
         <drawnCards></drawnCards>
-        <playingPlayer>TestPlayer</playingPlayer>
+        <playingPlayer>Unknown</playingPlayer>
         <plantCount>0</plantCount>
         <playerCount>0</playerCount>
         <cardsToPlant></cardsToPlant>

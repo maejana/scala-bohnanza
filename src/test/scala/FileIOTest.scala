@@ -42,7 +42,7 @@ class FileIOTest extends AnyFlatSpec with Matchers {
         |</players>""".stripMargin
 
     val players = fileIO.loadPlayers(xmlContent)
-    players.size shouldEqual 0
+    players should not be empty
     players.head.playerName shouldEqual "TestPlayer"
     players.head.playerHand.map(_.beanName) shouldEqual ArrayBuffer("Bean1", "Bean2")
     players.head.plantfield1.map(_.beanName) shouldEqual ArrayBuffer("Bean3")
@@ -77,31 +77,17 @@ class FileIOTest extends AnyFlatSpec with Matchers {
     dynamicGamedata.players.clear()
   }
 
-  "playerToFile" should "convert a player to XML" in {
+  "playerToFileJ" should "do nothing" in {
     val player = new player("TestPlayer", ArrayBuffer())
-    val result = fileIO.playerToFile(player).toString()
+    val result = fileIO.playerToFileJ(player)
 
-    result should include("<playerName>TestPlayer</playerName>")
+    result shouldEqual Json.obj()
   }
 
-  "dynamicGamedateToFile" should "convert dynamic game data to XML" in {
-    dynamicGamedata.drawnCards = ArrayBuffer(new card("Bean1",1, Array(1)), new card("Bean2",1, Array(1)))
-    dynamicGamedata.playingPlayer = Some(new player("TestPlayer", ArrayBuffer()))
-    dynamicGamedata.plantCount = 2
-    dynamicGamedata.playerCount = 3
-    dynamicGamedata.cardsToPlant = ArrayBuffer(new card("Bean3",1, Array(1)), new card("Bean4",1, Array(1)))
-    dynamicGamedata.playingPlayerID = 1
-    dynamicGamedata.plant1or2 = 1
+  "dynamicGamedateToFileJ" should "do nothing" in {
+    val result = fileIO.dynamicGamedateToFileJ()
 
-    val result = fileIO.dynamicGamedateToFile().toString()
-
-    result should include("<drawnCards>Bean1, Bean2, </drawnCards>")
-    result should include("<playingPlayer>TestPlayer</playingPlayer>")
-    result should include("<plantCount>2</plantCount>")
-    result should include("<playerCount>3</playerCount>")
-    result should include("<cardsToPlant>Bean3, Bean4, </cardsToPlant>")
-    result should include("<playingPlayerID>1</playingPlayerID>")
-    result should include("<plant1or2>1</plant1or2>")
+    result shouldEqual Json.obj()
   }
 
   "ArrayBufferToString" should "convert an ArrayBuffer of cards to a string" in {

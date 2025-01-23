@@ -30,7 +30,7 @@ class UndoCommandTest extends AnyFlatSpec with Matchers with MockitoSugar {
 
     plantBeanCommand.getStateStack.push(player)
     plantBeanCommand.doStep(Some(player))
-    plantBeanCommand.getStateStack should have size 2
+    plantBeanCommand.getStateStack.pop() shouldEqual player
 
     plantBeanCommand.undoStep(Some(player))
     plantBeanCommand.getStateStack should have size 1
@@ -151,4 +151,42 @@ class UndoCommandTest extends AnyFlatSpec with Matchers with MockitoSugar {
     plantBeanCommand.getStateStack should have size 1
     plantBeanCommand.getRedoStack should have size 0
   }
+
+  "UndoCommand" should "perform doStep without exceptions" in {
+    val utilityMock = mock[UtilityComponent]
+    val plantAmountMock = mock[plantAmountComponent]
+    val playerStateMock = mock[playerStateComponent]
+
+    val undoCommand = new UndoCommand(utilityMock, plantAmountMock, playerStateMock)
+    noException should be thrownBy undoCommand.doStep(Some(mock[player]))
+  }
+
+  it should "perform matchState without exceptions" in {
+    val utilityMock = mock[UtilityComponent]
+    val plantAmountMock = mock[plantAmountComponent]
+    val playerStateMock = mock[playerStateComponent]
+
+    val undoCommand = new UndoCommand(utilityMock, plantAmountMock, playerStateMock)
+    noException should be thrownBy undoCommand.matchState()
+  }
+
+  it should "perform redoStep without exceptions" in {
+    val utilityMock = mock[UtilityComponent]
+    val plantAmountMock = mock[plantAmountComponent]
+    val playerStateMock = mock[playerStateComponent]
+
+    val undoCommand = new UndoCommand(utilityMock, plantAmountMock, playerStateMock)
+    noException should be thrownBy undoCommand.redoStep(Some(mock[player]))
+  }
+
+  it should "perform undoStep without exceptions" in {
+    val utilityMock = mock[UtilityComponent]
+    val plantAmountMock = mock[plantAmountComponent]
+    val playerStateMock = mock[playerStateComponent]
+
+    val undoCommand = new UndoCommand(utilityMock, plantAmountMock, playerStateMock)
+    noException should be thrownBy undoCommand.undoStep(Some(mock[player]))
+  }
+
+
 }

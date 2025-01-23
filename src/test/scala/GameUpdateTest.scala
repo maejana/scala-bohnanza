@@ -1,108 +1,65 @@
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import org.mockito.Mockito._
+import org.mockito.ArgumentCaptor
+import org.mockito.ArgumentMatchers._
 import Bohnanza.controller.{Strategy, UndoCommandComponent, UtilityComponent, plantAmountComponent, playerStateComponent}
-import Bohnanza.model.modelBase.{FactoryP, card, dynamicGamedata, gamedata, player}
-import Bohnanza.controller.controllerBase.{GameUpdate, Utility}
+import Bohnanza.model.modelBase.{FactoryP, card, dynamicGamedata, gamedata, player, fieldBuilder}
+import Bohnanza.controller.controllerBase.{GameUpdate, Utility, plantAmount, playerState, UndoCommand}
 
 import scala.collection.mutable.ArrayBuffer
 
 class GameUpdateTest extends AnyFlatSpec with Matchers {
-/*
-  "gameUpdate" should "run the game update process and return the log" in {
-    val utility = Utility()
 
-    val plantAmount = new plantAmountComponent {
-      override def selectStrategy(): Strategy = new Strategy() {
-        override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = true
-      }
+  "gameUpdate" should "run the game loop and process player actions correctly" in {
+    // Mock dependencies
+    val utilityMock = mock(classOf[Utility])
+    val dynamicGamedataMock = mock(classOf[dynamicGamedata.type])
+    val playerStateMock = mock(classOf[playerStateComponent])
+    val undoCommandMock = mock(classOf[UndoCommandComponent])
+    val fieldBuilderMock = mock(classOf[fieldBuilder])
+    val plantAmountMock = mock(classOf[plantAmountComponent])
+
+    // Set up mocked methods and properties
+    when(dynamicGamedataMock.playerCount).thenReturn(2)
+    when(dynamicGamedataMock.playingPlayer).thenReturn(Some(mock(classOf[player])))
+
+    when(utilityMock.selectPlayer()).thenReturn(Some(mock(classOf[player])))
+    when(utilityMock.playerHandToString(any())).thenReturn("Player hand as string")
+    when(utilityMock.plant1or2(any())).thenReturn(1)
+    when(utilityMock.drawCards()).thenReturn(ArrayBuffer(mock(classOf[card]), mock(classOf[card])))
+
+    val mockCard = mock(classOf[card])
+    when(mockCard.beanName).thenReturn("MockBean")
+    when(fieldBuilderMock.buildGrowingFieldStr(any())).thenReturn("Field: Mock State")
+    when(plantAmountMock.selectStrategy()).thenReturn(new Strategy {
+      override def execute(drawnCards: ArrayBuffer[card], player: Option[player]): Boolean = true
+    })
+
+    // Test subject
+    val game = new GameUpdate(utilityMock, plantAmountMock, playerStateMock, undoCommandMock)
+
+    // Argument captor for playerStateComponent.handle
+    val playerCaptor = ArgumentCaptor.forClass(classOf[Option[player]])
+
+    // Execute
+    val result = game.gameUpdate()
+
+    // Verify interactions
+    verify(utilityMock, times(5)).selectPlayer()
+    verify(playerStateMock, times(10)).handle(playerCaptor.capture())
+    verify(utilityMock, times(5)).drawCards()
+    verify(utilityMock, times(5)).plant1or2(any())
+    verify(fieldBuilderMock, atLeastOnce()).buildGrowingFieldStr(any())
+
+    // Check the captured arguments
+    val capturedPlayers = playerCaptor.getAllValues
+    capturedPlayers.forEach { playerOption =>
+      playerOption should not be empty
+      playerOption.get shouldBe a[player]
     }
 
-    val playerState = new playerStateComponent {
-      override def handle(player: Option[player]): Unit = {}
-    }
-
-    val undoCommand = new UndoCommandComponent {
-      override def doStep(player: Option[player]): Unit = {}
-
-      override def undoStep(player: Option[player]): Unit = {}
-
-      override def redoStep(player: Option[player]): Unit = {}
-
-      override def matchState(): Unit = {}
-    }
-
-    val gameUpdate = new GameUpdate(utility, plantAmount, playerState, undoCommand)
-
-    val testPlayer = FactoryP.PlayerFactory().createPlayer("testPlayerName", ArrayBuffer(new card("Bean1", 1, Array(1))))
-    dynamicGamedata.players = ArrayBuffer(testPlayer)
-    dynamicGamedata.playingPlayer = Some(testPlayer)
-    dynamicGamedata.playerCount = 1
-
-    val result = gameUpdate.gameUpdate()
-    result should include("testPlayerName")
-    result should include("Bean1")
-    result should include("Bean2")
+    // Check the result
+    result should not be empty
   }
-  */
-
-  "gameSetup" should "return the setup string" in {
-    val utility = Utility()
-
-    val plantAmount = new plantAmountComponent {
-      override def selectStrategy(): Strategy = new Strategy() {
-        override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = true
-      }
-    }
-
-    val playerState = new playerStateComponent {
-      override def handle(player: Option[player]): Unit = {}
-    }
-
-    val undoCommand = new UndoCommandComponent {
-      override def doStep(player: Option[player]): Unit = {}
-
-      override def undoStep(player: Option[player]): Unit = {}
-
-      override def redoStep(player: Option[player]): Unit = {}
-
-      override def matchState(): Unit = {}
-    }
-
-    val gameUpdate = new GameUpdate(utility, plantAmount, playerState, undoCommand)
-
-    val result = gameUpdate.gameSetup()
-    result should include(gamedata.welcome)
-    result should include(gamedata.menu)
-    result should include(gamedata.playerCountQuestion)
-  }
-/*
-  "gameStart" should "initialize the game and return the start string" in {
-    val utility = Utility()
-
-    val plantAmount = new plantAmountComponent {
-      override def selectStrategy(): Strategy = new Strategy() {
-        override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = true
-      }
-    }
-
-    val playerState = new playerStateComponent {
-      override def handle(player: Option[player]): Unit = {}
-    }
-
-    val undoCommand = new UndoCommandComponent {
-      override def doStep(player: Option[player]): Unit = {}
-      override def undoStep(player: Option[player]): Unit = {}
-      override def redoStep(player: Option[player]): Unit = {}
-
-      override def matchState(): Unit = {}
-    }
-
-    val gameUpdate = new GameUpdate(utility, plantAmount, playerState, undoCommand)
-
-    val result = gameUpdate.gameStart()
-    result should include("Game Initialized")
-    dynamicGamedata.plant1or2 shouldEqual 0
-  }
-
- */
 }

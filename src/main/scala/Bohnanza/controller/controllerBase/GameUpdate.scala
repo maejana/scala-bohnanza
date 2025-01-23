@@ -2,14 +2,14 @@ package Bohnanza.controller.controllerBase
 
 import Bohnanza.model
 import Bohnanza.controller.{plantAmountComponent, UtilityComponent, playerStateComponent}
-import Bohnanza.model.modelTrait
+
 import Bohnanza.model.modelBase
 
 import Bohnanza.model.modelBase.{dynamicGamedata, fieldBuilder, gamedata}
 import Bohnanza.controller.UtilityComponent
 import Bohnanza.controller.UndoCommandComponent
 import Bohnanza.controller.plantAmountComponent
-import Bohnanza.model.gameDataFuncComponent
+
 import Bohnanza.controller.GameUpdateComponent
 
 

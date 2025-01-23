@@ -12,7 +12,7 @@ import net.codingwell.scalaguice.InjectorExtensions.*
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
-import Bohnanza.model.gameDataFuncComponent
+
 
 class Utility @Inject() extends UtilityComponent {
   ObserverData().addObserver(CardObserver())

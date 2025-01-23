@@ -8,7 +8,7 @@
 
  import scala.collection.mutable
  import scala.collection.mutable.Stack
- import Bohnanza.model.gameDataFuncComponent
+
 
 
 class UndoCommand(utility: UtilityComponent, plantAmount: plantAmountComponent, playerState: playerStateComponent) extends UndoCommandComponent {
