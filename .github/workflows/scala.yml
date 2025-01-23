@@ -5,6 +5,7 @@
 
 name: Scala CI with sbt and Coveralls
 # Trigger auf Push und Pull Requests für alle Branches
+# Trigger auf Push und Pull Requests für alle Branches
 on:
   push:
     branches:
@@ -12,6 +13,7 @@ on:
   pull_request:
     branches:
       - "main"
+
 jobs:
   build:
     runs-on: ubuntu-latest # Wählen Sie das Betriebssystem aus, das Sie verwenden möchten
@@ -34,16 +36,18 @@ jobs:
     # Schritt 4: Abhängigkeiten auflösen und Projekt bauen
     - name: sbt compile
       run: sbt compile
-
     # Schritt 5: Tests ausführen
     - name: sbt clean coverage test
       run: sbt clean coverage test
-
-    # Schritt 6: Coverage generiere
+    # Schritt 6: Coverage generieren
     - name: sbt coverageReport
-
-     # Schritt 7: Ergebnisse an Coveralls senden (erfordert ein Coveralls Token)
+      run: sbt coverageReport
+    # Schritt 7: Ergebnisse an Coveralls senden (erfordert ein Coveralls Token)
     - name: Send coverage results to Coveralls
       run: sbt coveralls
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }} # Token muss als GitHub Secret hinterlegt sein
+    # Optional: Build-Status anzeigt
+    - name: Show Build Status
+      run: |
+        echo "Build Completed"
