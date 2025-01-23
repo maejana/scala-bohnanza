@@ -15,7 +15,7 @@ trait UtilityComponent {
   def isPlantable(player:Option[player], bean: card): Boolean
   def chooseOrEmpty(playerID: Option[player], card: card): Int
   def plant1or2(playingPlayer: Option[player]): Int
-  def plantAllSelectedCards(plantCount: Integer): Unit
+  def plantAllSelectedCards(plantCount: Int): Unit
   def plant1or2ThreadInterrupt(): Unit
   def returnGoldValue(plantfield: ArrayBuffer[card]): Int
   def checkPlantAmount(card: card, plantfield: ArrayBuffer[card]): Int

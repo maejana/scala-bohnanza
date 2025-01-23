@@ -27,6 +27,9 @@ class UndoCommand(utility: UtilityComponent, plantAmount: plantAmountComponent, 
     private val stateStack: mutable.Stack[player] = mutable.Stack()
     private val redoStack: mutable.Stack[player] = mutable.Stack()
 
+    def getStateStack: mutable.Stack[player] = stateStack
+    def getRedoStack: mutable.Stack[player] = redoStack
+
     override def doStep(player: Option[player]): Unit = {
       stateStack.push(player.get.copyState()) // Capture the entire state
     }

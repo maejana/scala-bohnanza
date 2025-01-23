@@ -1,55 +1,108 @@
-package Bohnanza.controller
-
-import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import org.mockito.Mockito.*
-import org.mockito.ArgumentMatchers.*
-import org.mockito.MockitoAnnotations
-import Bohnanza.model
-import Bohnanza.model.modelBase.{card, player}
+import Bohnanza.controller.{Strategy, UndoCommandComponent, UtilityComponent, plantAmountComponent, playerStateComponent}
+import Bohnanza.model.modelBase.{FactoryP, card, dynamicGamedata, gamedata, player}
+import Bohnanza.controller.controllerBase.{GameUpdate, Utility}
 
 import scala.collection.mutable.ArrayBuffer
 
-/*class GameUpdateTest extends AnyWordSpec with Matchers {
+class GameUpdateTest extends AnyFlatSpec with Matchers {
+/*
+  "gameUpdate" should "run the game update process and return the log" in {
+    val utility = Utility()
 
-  // Initialize Mockito
-  MockitoAnnotations.openMocks(this)
-
-  "GameUpdate" should {
-    "correctly execute a full game round" in {
-      // Create mocks
-      val testPlayer = player("TestPlayer", ArrayBuffer())
-      testPlayer.playerHand.addOne(card("Bean1",1,ArrayBuffer(1)))
-      val gameData = model.gamedata
-      gameData.drawnCards = ArrayBuffer(card("bean", 2, ArrayBuffer(1)))
-      val input = new java.io.ByteArrayInputStream(s"1\nBean1\n1\nbean${model.gamedata.drawnCards(0)}\n".getBytes)
-      Console.withIn(input) {
-      val mockUtility = mock(classOf[Utility.type])
-      val mockUILogic = mock(classOf[UIlogic.type])
-      val mockGameLogic = mock(classOf[gamelogic.type])
-
-      // Test player
-
-      // Mock card for testing
-      val testCard = card("bean", 1, scala.collection.mutable.ArrayBuffer(1))
-      val testCards = ArrayBuffer(testCard, testCard)
-
-
-      // Setup expectations
-      when(mockUtility.selectPlayer(any())).thenReturn(testPlayer)
-      when(mockUtility.plant1or2(testPlayer)).thenReturn(1)
-      when(mockUtility.plantPreperation(testPlayer)).thenReturn("TestPlayer pflanzt bean\n")
-      when(mockUILogic.buildGrowingFieldStr(testPlayer)).thenReturn("Test Field String")
-      when(mockGameLogic.drawCards()).thenReturn(testCards)
-
-      // Execute
-      val result = GameUpdate.gameUpdate()
-
-      // The result should be a non-empty string (game log)
-      result should not be empty
-        }
+    val plantAmount = new plantAmountComponent {
+      override def selectStrategy(): Strategy = new Strategy() {
+        override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = true
+      }
     }
 
+    val playerState = new playerStateComponent {
+      override def handle(player: Option[player]): Unit = {}
+    }
+
+    val undoCommand = new UndoCommandComponent {
+      override def doStep(player: Option[player]): Unit = {}
+
+      override def undoStep(player: Option[player]): Unit = {}
+
+      override def redoStep(player: Option[player]): Unit = {}
+
+      override def matchState(): Unit = {}
+    }
+
+    val gameUpdate = new GameUpdate(utility, plantAmount, playerState, undoCommand)
+
+    val testPlayer = FactoryP.PlayerFactory().createPlayer("testPlayerName", ArrayBuffer(new card("Bean1", 1, Array(1))))
+    dynamicGamedata.players = ArrayBuffer(testPlayer)
+    dynamicGamedata.playingPlayer = Some(testPlayer)
+    dynamicGamedata.playerCount = 1
+
+    val result = gameUpdate.gameUpdate()
+    result should include("testPlayerName")
+    result should include("Bean1")
+    result should include("Bean2")
+  }
+  */
+
+  "gameSetup" should "return the setup string" in {
+    val utility = Utility()
+
+    val plantAmount = new plantAmountComponent {
+      override def selectStrategy(): Strategy = new Strategy() {
+        override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = true
+      }
+    }
+
+    val playerState = new playerStateComponent {
+      override def handle(player: Option[player]): Unit = {}
+    }
+
+    val undoCommand = new UndoCommandComponent {
+      override def doStep(player: Option[player]): Unit = {}
+
+      override def undoStep(player: Option[player]): Unit = {}
+
+      override def redoStep(player: Option[player]): Unit = {}
+
+      override def matchState(): Unit = {}
+    }
+
+    val gameUpdate = new GameUpdate(utility, plantAmount, playerState, undoCommand)
+
+    val result = gameUpdate.gameSetup()
+    result should include(gamedata.welcome)
+    result should include(gamedata.menu)
+    result should include(gamedata.playerCountQuestion)
+  }
+/*
+  "gameStart" should "initialize the game and return the start string" in {
+    val utility = Utility()
+
+    val plantAmount = new plantAmountComponent {
+      override def selectStrategy(): Strategy = new Strategy() {
+        override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = true
+      }
+    }
+
+    val playerState = new playerStateComponent {
+      override def handle(player: Option[player]): Unit = {}
+    }
+
+    val undoCommand = new UndoCommandComponent {
+      override def doStep(player: Option[player]): Unit = {}
+      override def undoStep(player: Option[player]): Unit = {}
+      override def redoStep(player: Option[player]): Unit = {}
+
+      override def matchState(): Unit = {}
+    }
+
+    val gameUpdate = new GameUpdate(utility, plantAmount, playerState, undoCommand)
+
+    val result = gameUpdate.gameStart()
+    result should include("Game Initialized")
+    dynamicGamedata.plant1or2 shouldEqual 0
   }
 
  */
+}
