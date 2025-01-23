@@ -11,6 +11,11 @@ libraryDependencies ++= Seq(
   "org.mockito" % "mockito-core" % "5.4.0" % Test,
   "org.scalatest" %% "scalatest" % "3.2.16" % Test
 )
+libraryDependencies ++= Seq(
+  "org.junit.jupiter" % "junit-jupiter" % "5.10.1" % Test,
+  "org.testfx" % "testfx-core" % "4.0.16-alpha" % Test,
+  "org.testfx" % "testfx-junit5" % "4.0.16-alpha" % Test
+)
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14"
 libraryDependencies += "org.scala-lang.modules" %% "scala-xml" % "2.1.0"
 

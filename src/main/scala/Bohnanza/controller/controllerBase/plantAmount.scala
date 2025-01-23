@@ -34,7 +34,7 @@ class plantAmount(utility: UtilityComponent) extends plantAmountComponent {
       true
     }
   }
-  private class StrategyRETRY extends Strategy{
+  class StrategyRETRY extends Strategy{
     override def execute(cards: ArrayBuffer[card], player: Option[player]): Boolean = {
       handleInput.handleInputF(player)
       false
